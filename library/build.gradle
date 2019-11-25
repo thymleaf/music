@@ -1,0 +1,149 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+
+        javaCompileOptions {
+            annotationProcessorOptions { includeCompileClasspath = true }
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            useProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+    }
+}
+
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    //support
+    api rootProject.ext.dependencies["support-v4"]
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["design"]
+    api rootProject.ext.dependencies["annotations"]
+    api(rootProject.ext.dependencies["recyclerview-v7"])
+
+    api(rootProject.ext.dependencies["cardview-v7"])
+    {
+        exclude module: 'support-annotations'
+    }
+    api rootProject.ext.dependencies["constraint-layout"]
+
+    //view
+    api(rootProject.ext.dependencies["butterknife"])
+    {
+        exclude module: 'support-annotations'
+    }
+    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"])
+    {
+        exclude module: 'support-annotations'
+        exclude module: 'butterknife-annotations'
+    }
+    api rootProject.ext.dependencies["brvah"]
+    api rootProject.ext.dependencies["statusbar"]
+    api rootProject.ext.dependencies["bottom-bar"]
+
+    //rx
+    api rootProject.ext.dependencies["rxjava2"]
+    api(rootProject.ext.dependencies["rxandroid2"])
+    {
+        exclude module: 'rxjava'
+    }
+    api(rootProject.ext.dependencies["rxcache2"])
+    {
+        exclude module: 'rxjava'
+        exclude module: 'dagger'
+    }
+
+    api(rootProject.ext.dependencies["rxcache-jolyglot-gson"])
+    {
+        exclude module: 'gson'
+    }
+
+    //network
+    api(rootProject.ext.dependencies["retrofit"])
+    {
+        exclude module: 'okhttp'
+        exclude module: 'okio'
+    }
+
+    api(rootProject.ext.dependencies["retrofit-converter-gson"])
+    {
+        exclude module: 'gson'
+        exclude module: 'okhttp'
+        exclude module: 'okio'
+        exclude module: 'retrofit'
+    }
+    api(rootProject.ext.dependencies["retrofit-adapter-rxjava2"])
+    {
+        exclude module: 'rxjava'
+        exclude module: 'okhttp'
+        exclude module: 'retrofit'
+        exclude module: 'okio'
+    }
+    api rootProject.ext.dependencies["okhttp3"]
+    api rootProject.ext.dependencies["okhttp-logging-interceptor"]
+
+    //glide
+    api rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide-compile"]
+
+    //tools
+    api rootProject.ext.dependencies["multidex"]
+    compileOnly rootProject.ext.dependencies["javax.annotation"]
+    api rootProject.ext.dependencies["dagger2"]
+    api rootProject.ext.dependencies["dagger-android"]
+    api(rootProject.ext.dependencies["dagger-android-support"])
+    {
+        exclude module: "appcompat-v7"
+        exclude module: "support-annotations"
+        exclude module: "support-v4"
+    }
+    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
+    annotationProcessor rootProject.ext.dependencies["dagger-android-processor"]
+
+    api rootProject.ext.dependencies["gson"]
+
+    //permissions-dispatcher
+    api(rootProject.ext.dependencies["permissionsdispatcher"])
+    {
+        exclude module: "support-v13"
+    }
+    annotationProcessor rootProject.ext.dependencies["permissionsdispatcher-processor"]
+
+    //test
+    api rootProject.ext.dependencies["timber"]
+    testImplementation rootProject.ext.dependencies["junit"]
+}

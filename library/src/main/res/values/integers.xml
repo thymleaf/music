@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="anim_swipe_back_duration">200</integer>
+</resources>

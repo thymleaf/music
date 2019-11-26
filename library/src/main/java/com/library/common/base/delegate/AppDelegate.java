@@ -196,15 +196,8 @@ public class AppDelegate implements IApp
         @Override
         public void onLowMemory()
         {
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    Glide.get(mApplication)
-                            .clearDiskCache();
-                }
-            }).start();
+            new Thread(() -> Glide.get(mApplication)
+                    .clearDiskCache()).start();
         }
     }
 

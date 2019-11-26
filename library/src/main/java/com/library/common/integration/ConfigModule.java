@@ -2,12 +2,13 @@ package com.library.common.integration;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
 
 import com.library.common.base.delegate.AppDelegate;
 import com.library.common.di.module.GlobalConfigModule;
 
 import java.util.List;
+
+import androidx.fragment.app.FragmentManager;
 
 
 /**

@@ -14,7 +14,7 @@ import java.io.File;
 /**
  * Description: Base Application <br>
  * <p>
- *     使用{@link AppDelegate }代理Application 和各Activity的生命周期 <br>
+ * 使用{@link AppDelegate }代理Application 和各Activity的生命周期 <br>
  * Creator: thymejoe@gmail.com <br>
  * Date: 2017/7/24 18:14 <br>
  */
@@ -57,9 +57,8 @@ public class BaseApplication extends Application implements IApp
     }
 
     /**
-     * 将AppComponent返回出去, AppComponent接口中声明的方法返回的实例,在getAppComponent()拿到对象后都可以直接使用
-     *
-     * @return
+     * 将AppComponent返回出去, AppComponent接口中声明的方法返回的实例,
+     * 在getAppComponent()拿到对象后都可以直接使用
      */
     @Override
     public AppComponent getAppComponent()

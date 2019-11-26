@@ -2,9 +2,10 @@ package com.library.common;
 
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager.FragmentLifecycleCallbacks;
 
 import com.library.common.di.component.AppComponent;
+
+import androidx.fragment.app.FragmentManager;
 
 /**
  * Description: {BaseActivity}实现该接口 <br>
@@ -35,11 +36,9 @@ public interface IActivity
     void initActivity(Bundle savedInstanceState);
 
     /**
-     * 这个Activity是否会使用Fragment,框架会根据这个属性判断是否注册{@link FragmentLifecycleCallbacks}
+     * 这个Activity是否会使用Fragment,框架会根据这个属性判断是否注册{@link FragmentManager.FragmentLifecycleCallbacks}
      * 如果返回false,那意味着这个Activity不需要绑定Fragment,那你再在这个Activity中绑定继承于 {BaseFragment}
      * 的Fragment将不起任何作用
-     *
-     * @return
      */
     boolean useFragment();
 }

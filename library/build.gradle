@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.jakewharton.butterknife'
+
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -42,6 +43,10 @@ buildscript {
         google()
         jcenter()
     }
+
+    dependencies {
+        classpath "com.jakewharton:butterknife-gradle-plugin:${rootProject.ext.version["butterknife"]}"
+    }
 }
 
 
@@ -71,6 +76,8 @@ dependencies {
         exclude module: 'support-annotations'
         exclude module: 'butterknife-annotations'
     }
+
+
     api rootProject.ext.dependencies["brvah"]
     api rootProject.ext.dependencies["statusbar"]
     api rootProject.ext.dependencies["bottom-bar"]

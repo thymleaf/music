@@ -15,18 +15,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.FloatRange;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.os.ParcelableCompat;
-import android.support.v4.os.ParcelableCompatCreatorCallbacks;
-import android.support.v4.view.AbsSavedState;
-import android.support.v4.view.AccessibilityDelegateCompat;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
-import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -41,6 +29,19 @@ import com.library.common.R;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.FloatRange;
+import androidx.core.content.ContextCompat;
+import androidx.core.os.ParcelableCompat;
+import androidx.core.os.ParcelableCompatCreatorCallbacks;
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.customview.view.AbsSavedState;
+import androidx.customview.widget.ViewDragHelper;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
@@ -712,7 +713,7 @@ public class SwipeBackLayout extends ViewGroup
         }
 
         int layoutHeight = 0;
-        int maxLayoutHeight = -1;
+        int maxLayoutHeight = 0;
         switch (heightMode)
         {
             case MeasureSpec.EXACTLY:
@@ -1390,20 +1391,20 @@ public class SwipeBackLayout extends ViewGroup
         if (mag > 0 && fadeColor != 0)
         {
             final int baseAlpha = (fadeColor & 0xff000000) >>> 24;
-            int imag = (int) (baseAlpha * mag);
-            int color = imag << 24 | (fadeColor & 0xffffff);
+            int img = (int) (baseAlpha * mag);
+            int color = img << 24 | (fadeColor & 0xffffff);
             if (lp.dimPaint == null)
             {
                 lp.dimPaint = new Paint();
             }
             lp.dimPaint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_OVER));
-            if (ViewCompat.getLayerType(v) != ViewCompat.LAYER_TYPE_HARDWARE)
+            if (v.getLayerType() != View.LAYER_TYPE_HARDWARE)
             {
-                ViewCompat.setLayerType(v, ViewCompat.LAYER_TYPE_HARDWARE, lp.dimPaint);
+                v.setLayerType(View.LAYER_TYPE_HARDWARE, lp.dimPaint);
             }
             invalidateChildRegion(v);
         }
-        else if (ViewCompat.getLayerType(v) != ViewCompat.LAYER_TYPE_NONE)
+        else if (v.getLayerType() != View.LAYER_TYPE_NONE)
         {
             if (lp.dimPaint != null)
             {
@@ -2013,7 +2014,7 @@ public class SwipeBackLayout extends ViewGroup
             out.writeInt(isOpen ? 1 : 0);
         }
 
-        public static final Creator<SavedState> CREATOR = ParcelableCompat.newCreator(
+        public static final Parcelable.Creator<SavedState> CREATOR = ParcelableCompat.newCreator(
                 new ParcelableCompatCreatorCallbacks<SavedState>()
                 {
                     @Override
@@ -2223,7 +2224,7 @@ public class SwipeBackLayout extends ViewGroup
         {
             if (mChildView.getParent() == this)
             {
-                ViewCompat.setLayerType(mChildView, ViewCompat.LAYER_TYPE_NONE, null);
+                mChildView.setLayerType(View.LAYER_TYPE_NONE, null);
                 invalidateChildRegion(mChildView);
             }
             mPostedRunnables.remove(this);

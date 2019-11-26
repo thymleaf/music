@@ -3,12 +3,13 @@ package com.library.common.widget.swipebacklayout;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 
 import java.util.Collection;
 import java.util.Stack;
+
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 
 public class SwipeBackManager implements Application.ActivityLifecycleCallbacks
 {
@@ -131,7 +132,7 @@ public class SwipeBackManager implements Application.ActivityLifecycleCallbacks
             {
                 View decorView = activity.getWindow()
                                          .getDecorView();
-                ViewCompat.setTranslationX(decorView, 0);
+                decorView.setTranslationX(0);
             }
         }
         catch (Exception e)

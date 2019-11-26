@@ -1,7 +1,6 @@
 package com.library.common.di.module;
 
 import android.app.Application;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.library.common.network.BaseUrl;
@@ -14,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Singleton;
 
+import androidx.annotation.Nullable;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.HttpUrl;

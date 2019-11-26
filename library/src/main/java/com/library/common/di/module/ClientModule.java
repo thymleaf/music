@@ -3,7 +3,6 @@ package com.library.common.di.module;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.library.common.LibraryConfig;
@@ -37,6 +36,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import androidx.annotation.Nullable;
 import dagger.Module;
 import dagger.Provides;
 import io.rx_cache2.internal.RxCache;

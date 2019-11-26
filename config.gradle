@@ -15,7 +15,7 @@ ext {
             okhttp3              : "3.8.0",
             retrofit             : "2.3.0",
             dagger2              : "2.12",
-            butterknife          : "8.6.0",
+            butterknife          : "10.2.0",
             canary               : "1.5.1",
             glide                : "4.0.0",
             gson                 : "2.8.0",

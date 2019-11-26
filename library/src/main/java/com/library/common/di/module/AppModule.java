@@ -2,8 +2,7 @@ package com.library.common.di.module;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v4.util.ArrayMap;
+import android.util.ArrayMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,6 +13,7 @@ import java.util.Map;
 
 import javax.inject.Singleton;
 
+import androidx.annotation.Nullable;
 import dagger.Module;
 import dagger.Provides;
 

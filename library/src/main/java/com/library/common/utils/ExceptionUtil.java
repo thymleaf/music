@@ -1,6 +1,7 @@
 package com.library.common.utils;
 
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by jess on 26/09/2016 13:59

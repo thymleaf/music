@@ -2,12 +2,13 @@ package com.library.common.widget.swipebacklayout;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.FloatRange;
 import android.view.View;
 
 import com.library.common.R;
 import com.library.common.utils.KeyboardUtil;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.FloatRange;
 
 public class SwipeBackHelper
 {

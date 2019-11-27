@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <color name="colorPrimary">#ff383f</color>-->
+<!--    <color name="colorPrimaryDark">#ff383f</color>-->
+<!--    <color name="colorAccent">#508cee</color>-->
+    <color name="navigationBarColor">@android:color/black</color>
+
+    <color name="windowBackground">@android:color/white</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_light">#99FFFFFF</color>
+    <color name="gray_deep">#c9000000</color>
+    <color name="gray">#dcdcdc</color>
+
+    <!-- 品牌色 -->
+    <color name="brand_main">@color/colorPrimary</color>
+
+    <!-- 功能色 -->
+    <color name="fn_primary">#508cee</color>
+    <!-- 功能色 红-->
+    <color name="fn_danger">#ff383f</color>
+    <!-- 功能色 绿-->
+    <color name="fn_success">#38cda7</color>
+    <!-- 功能色 橙-->
+    <color name="fn_warming">#ff9000</color>
+
+    //背景
+    <!-- 全局背景（灰） -->
+    <color name="bg_gray">#f2f2f2</color>
+    <!-- 白色背景（纯白） -->
+    <color name="bg_white">#ffffff</color>
+    <!-- 品牌色背景（红） -->
+    <color name="bg_brand">@color/colorPrimary</color>
+    <!-- 遮罩（黑） -->
+    <color name="mask_black">#70000000</color>
+    <!-- 遮罩（白）-->
+    <color name="mask_white">#b2ffffff</color>
+    <!-- item背景（白） -->
+    <color name="bg_white_a">#ebebeb</color>
+
+    //线条
+    <!-- 主要线条（灰） -->
+    <color name="line_main">#dddddd</color>
+    <!-- 辅助线条（灰）-->
+    <color name="line_sub">#f2f2f2</color>
+    <!-- 浅色线条（浅灰）-->
+    <color name="line_light">#eeeeee</color>
+    <!-- 深色线条（深灰）-->
+    <color name="line_dark">#cccccc</color>
+
+    //文案
+    <!-- 主要文案（黑色） -->
+    <color name="font_main_black">#333333</color>
+    <!-- 主要文案（白色） -->
+    <color name="font_main_white">#ffffff</color>
+    <!-- 辅助文案（灰，常用）-->
+    <color name="font_sub1">#999999</color>
+    <color name="font_sub2">#888888</color>
+    <color name="font_sub3">#666666</color>
+
+    //专有色
+    <!-- 红 -->
+    <color name="pr_red">#ff383f</color>
+    <!-- 橙 -->
+    <color name="pr_orange">#ff9000</color>
+    <!-- 绿 -->
+    <color name="pr_green">#38cda7</color>
+
+
+    <!-- 主按钮 -->
+    <color name="btn_main_n">#ff383f</color>
+    <!-- 激活/按下状态-->
+    <color name="btn_main_a">#d90000</color>
+    <!-- 禁用状态 -->
+    <color name="btn_main_d">#ffd0d0</color>
+
+    // 次要按钮
+
+
+    //文字按钮
+    <!-- 文字按钮（正常） -->
+    <color name="btn_font_n">#508cee</color>
+    <!-- 激活/按下状态 -->
+    <color name="btn_font_a">#1b3b98</color>
+    <!-- 禁用状态 -->
+    <color name="btn_font_d">#9fc0f5</color>
+
+    <!-- white font -->
+    <color name="btn_font_white_n">@android:color/white</color>
+    <color name="btn_font_white_a">#b4ffffff</color>
+
+    <!--透明-->
+    <color name="transparent">#00ffffff</color>
+
+    //其他
+    <color name="loading_default_color">#b1000000</color>
+    <color name="loading_grey_color">#449E9E9E</color>
+
+    //渐变类
+    <!--渐变（红）-->
+    <color name="gradient_red">#ff1e3b</color>
+    <color name="gradient_red_a">#d90000</color>
+    <!--渐变（橙）-->
+    <color name="gradient_orange">#ff9e49</color>
+    <color name="gradient_orange_a">#ff6719</color>
+
+
+
+</resources>

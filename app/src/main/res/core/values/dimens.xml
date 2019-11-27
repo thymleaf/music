@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_edge_margins">12dp</dimen>
+    <dimen name="screen_edge_margin">10dp</dimen>
+    <dimen name="btn_edge_margins">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="btn_text_size">16sp</dimen>
+    <dimen name="view_text_size">16sp</dimen>
+    <dimen name="bg_edt_corner">6dp</dimen>
+    <dimen name="btn_layout_height">48dp</dimen>
+    <dimen name="btn_layout_margin_top">15dp</dimen>
+    <dimen name="layout_edge_padding">30dp</dimen>
+    <dimen name="line_height_default">0.5dp</dimen>
+    <dimen name="line_height_20dp">20dp</dimen>
+    <dimen name="edit_text_height_default">48dp</dimen>
+    <dimen name="main_brand_height_default">48dp</dimen>
+    <dimen name="main_button_height_default">45dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+</resources>

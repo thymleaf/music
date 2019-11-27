@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
+        <item name="android:background">?android:attr/colorPrimary</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <style name="BasePopup_Animation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_out</item>
+    </style>
+
+    <!-- 蓝色按钮 -->
+    <style name="main_font_btn">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/selector_main_font</item>
+    </style>
+
+    <!-- 蓝色文案 -->
+    <style name="main_font_blue">
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/btn_font_n</item>
+    </style>
+
+    <!-- 灰色文案 -->
+    <style name="main_font_gray">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/font_sub1</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- 灰色文案(小) -->
+    <style name="main_font_gray.small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- 品牌颜色 -->
+    <style name="font_brand">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/selector_large_brand</item>
+    </style>
+
+    <!-- 黑色文案 -->
+    <style name="main_font_black">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/font_main_black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="main_font_black.small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- 黑色文案加粗 -->
+    <style name="main_font_black.bold">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/font_main_black</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- 白色文案 -->
+    <style name="main_font_white">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/font_main_white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- 白色文案（大）-->
+    <style name="main_font_white_large">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/font_main_white</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <!-- 白色文案（小）-->
+    <style name="main_font_white_small" parent="main_font_white">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="BaseDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.8</item>
+    </style>
+
+    <!-- 浅白色文案 -->
+    <style name="main_font_white_light">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white_light</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- 黑色文案（大）-->
+    <style name="main_font_black_large">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/font_main_black</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+
+    <!-- 浅白色文案（小） -->
+    <style name="main_font_white_light.small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white_light</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- 橙色文案（小） -->
+    <style name="main_font_warning">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/fn_warming</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- 绿色文案（小） -->
+    <style name="main_font_success">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/fn_success</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- 红色文案（小） -->
+    <style name="main_font_danger">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/fn_danger</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+</resources>

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="NumberProgressBar">
+        <attr name="progress_current" format="integer"/>
+        <attr name="progress_max" format="integer"/>
+        <attr name="progress_unreached_color" format="color"/>
+        <attr name="progress_reached_color" format="color"/>
+        <attr name="progress_reached_bar_height" format="dimension"/>
+        <attr name="progress_unreached_bar_height" format="dimension"/>
+        <attr name="progress_text_size" format="dimension"/>
+        <attr name="progress_text_color" format="color"/>
+        <attr name="progress_text_offset" format="dimension"/>
+        <attr name="progress_text_visibility" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="IdentifyingCodeView">
+        <!--输入框的数量-->
+        <attr name="icv_et_number" format="integer"/>
+        <!--输入框的宽度-->
+        <attr name="icv_et_width" format="dimension|reference"/>
+        <!--输入框之间的分割线-->
+        <attr name="icv_et_divider_drawable" format="reference"/>
+        <!--输入框文字颜色-->
+        <attr name="icv_et_text_color" format="color|reference"/>
+        <!--输入框文字大小-->
+        <attr name="icv_et_text_size" format="dimension|reference"/>
+        <!--输入框获取焦点时边框-->
+        <attr name="icv_et_bg_focus" format="reference"/>
+        <!--输入框没有焦点时边框-->
+        <attr name="icv_et_bg_normal" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension"/>
+        <attr name="civ_border_color" format="color"/>
+        <attr name="civ_border_overlay" format="boolean"/>
+        <attr name="civ_fill_color" format="color"/>
+        <attr name="civ_circle_background_color" format="color"/>
+    </declare-styleable>
+
+    <!--圆角图片-->
+    <declare-styleable name="RoundAngleImageView">
+        <attr name="bottomRightRadius" format="dimension"/>
+        <attr name="bottomLeftRadius" format="dimension"/>
+        <attr name="topRightRadius" format="dimension"/>
+        <attr name="topLeftRadius" format="dimension"/>
+        <attr name="roundRadius" format="dimension"/>
+    </declare-styleable>
+
+    <!--倒计时-->
+    <declare-styleable name="CountDownView">
+        <attr name="text_color" format="color"/>
+        <attr name="text_backgroud" format="reference"/>
+        <attr name="text_tips" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="MultipleStatusView">
+        <attr name="loadingView" format="reference"/>
+        <attr name="errorView" format="reference"/>
+        <attr name="emptyView" format="reference"/>
+        <attr name="noNetworkView" format="reference"/>
+        <attr name="contentView" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="MoneyWidgets">
+        <attr name="currency_symbol" format="string"/>
+        <attr name="show_currency" format="boolean"/>
+        <attr name="show_commas" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="ExpandableLayout">
+        <attr name="parentLayout" format="reference"/>
+        <attr name="childLayout" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="SwitchButton">
+        <attr name="sb_shadow_radius" format="reference|dimension"/>
+        <attr name="sb_shadow_offset" format="reference|dimension"/>
+        <attr name="sb_shadow_color" format="reference|color"/>
+        <attr name="sb_uncheck_color" format="reference|color"/>
+        <attr name="sb_checked_color" format="reference|color"/>
+
+        <attr name="sb_border_width" format="reference|dimension"/>
+        <attr name="sb_checkline_color" format="reference|color"/>
+        <attr name="sb_checkline_width" format="reference|dimension"/>
+        <attr name="sb_uncheckcircle_color" format="reference|color"/>
+        <attr name="sb_uncheckcircle_width" format="reference|dimension"/>
+        <attr name="sb_uncheckcircle_radius" format="reference|dimension"/>
+
+        <attr name="sb_checked" format="reference|boolean"/>
+        <attr name="sb_shadow_effect" format="reference|boolean"/>
+        <attr name="sb_effect_duration" format="reference|integer"/>
+        <attr name="sb_button_color" format="reference|color"/>
+        <attr name="sb_show_indicator" format="reference|boolean"/>
+        <attr name="sb_background" format="reference|color"/>
+        <attr name="sb_enable_effect" format="reference|boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="WheelView">
+        <attr name="view_gravity">
+            <enum name="center" value="17"/>
+            <enum name="left" value="3"/>
+            <enum name="right" value="5"/>
+        </attr>
+        <attr name="lineColor" format="color"/>
+        <attr name="topBottomTextColor" format="color"/>
+        <attr name="centerTextColor" format="color"/>
+        <attr name="text_Size" format="dimension"/>
+        <attr name="canLoop" format="boolean"/>
+        <attr name="initPosition" format="integer"/>
+        <attr name="drawItemCount" format="integer"/>
+        <attr name="lineSpacingMultiplier" format="float"/>
+
+        <!--set number of item displayed, default is 3-->
+        <attr name="npv_ShowCount" format="reference|integer" />
+        <!--set if show divider, default is true-->
+        <attr name="npv_ShowDivider" format="reference|boolean" />
+        <attr name="npv_DividerColor" format="reference|color" />
+        <attr name="npv_DividerMarginLeft" format="reference|dimension" />
+        <attr name="npv_DividerMarginRight" format="reference|dimension" />
+        <attr name="npv_DividerHeight" format="reference|dimension" />
+        <attr name="npv_TextColorNormal" format="reference|color" />
+        <attr name="npv_TextColorSelected" format="reference|color" />
+        <attr name="npv_TextColorHint" format="reference|color" />
+        <attr name="npv_TextSizeNormal" format="reference|dimension" />
+        <attr name="npv_TextSizeSelected" format="reference|dimension" />
+        <attr name="npv_TextSizeHint" format="reference|dimension" />
+        <attr name="npv_TextArray" format="reference" />
+        <attr name="npv_MinValue" format="reference|integer" />
+        <attr name="npv_MaxValue" format="reference|integer" />
+        <attr name="npv_WrapSelectorWheel" format="reference|boolean" />
+        <attr name="npv_RespondChangeOnDetached" format="reference|boolean" />
+        <attr name="npv_HintText" format="reference|string" />
+        <attr name="npv_EmptyItemHint" format="reference|string" />
+        <attr name="npv_MarginStartOfHint" format="reference|dimension" />
+        <attr name="npv_MarginEndOfHint" format="reference|dimension" />
+        <attr name="npv_ItemPaddingHorizontal" format="reference|dimension" />
+        <attr name="npv_ItemPaddingVertical" format="reference|dimension" />
+        <attr name="npv_RespondChangeInMainThread" format="reference|boolean" />
+        <attr name="npv_TextEllipsize" format="reference|string" />
+
+        <!--just used to measure maxWidth for wrap_content without hint,
+            the string array will never be displayed.
+            you can set this attr if you want to keep the wraped numberpickerview
+            width unchanged when alter the content list-->
+        <attr name="npv_AlternativeTextArrayWithMeasureHint" format="reference" />
+        <attr name="npv_AlternativeTextArrayWithoutMeasureHint" format="reference" />
+        <!--the max length of hint content-->
+        <attr name="npv_AlternativeHint" format="reference|string" />
+    </declare-styleable>
+
+
+    <declare-styleable name="GestureLockViewGroup">
+
+        <attr name="color_no_finger" format="color"/>
+        <attr name="color_finger_on" format="color"/>
+        <attr name="color_finger_up_correct" format="color"/>
+        <attr name="color_finger_up_error" format="color"/>
+        <!--<attr name="count" format="integer"/>-->
+        <attr name="preference_id" format="integer"/>
+
+        <!-- &&&&&&&&&&&&&&&&&&&&&&&& -->
+
+
+        <!--手指没有触摸的内圆样式-->
+        <attr name="style_no_finger_inner_circle" format="enum">
+            <enum name="style_fill" value="0" />
+            <enum name="style_stroke" value="1" />
+        </attr>
+        <!--手指没有触摸的外圆样式-->
+        <attr name="style_no_finger_outer_circle" format="enum">
+            <enum name="style_fill" value="0" />
+            <enum name="style_stroke" value="1" />
+            <enum name="style_stroke_and_fill" value="2" />
+        </attr>
+        <!--手指没有触摸的内圆颜色-->
+        <attr name="color_no_finger_inner_circle" format="color" />
+        <!--手指没有触摸的外圆颜色-->
+        <attr name="color_no_finger_outer_circle" format="color" />
+        <!--STYLE_STROKE_AND_FILL手指没有触摸的外圆中内圆颜色-->
+        <attr name="color_no_finger_outer_inner_circle" format="color" />
+        <!--手指没有触摸，style为stroke的strokeWidth-->
+        <attr name="no_finger_stroke_width" format="integer" />
+        <!--手指触摸时内圆的样式-->
+        <attr name="style_finger_on_inner_circle" format="enum">
+            <enum name="style_fill" value="0" />
+            <enum name="style_stroke" value="1" />
+        </attr>
+        <!--手指触摸时外圆的样式-->
+        <attr name="style_finger_on_outer_circle" format="enum">
+            <enum name="style_fill" value="0" />
+            <enum name="style_stroke" value="1" />
+            <enum name="style_stroke_and_fill" value="2" />
+        </attr>
+        <!--手指触摸时内圆的颜色-->
+        <attr name="color_finger_on_inner_circle" format="color" />
+        <!--手指触摸时外圆的颜色-->
+        <attr name="color_finger_on_outer_circle" format="color" />
+        <!--STYLE_STROKE_AND_FILL手指触摸时的外圆中内圆颜色-->
+        <attr name="color_finger_on_outer_inner_circle" format="color" />
+
+        <!--手指离开时，匹配的外圆样式-->
+        <attr name="style_finger_up_match_outer_circle" format="enum">
+            <enum name="style_fill" value="0" />
+            <enum name="style_stroke" value="1" />
+            <enum name="style_stroke_and_fill" value="2" />
+        </attr>
+        <!--手指离开时，匹配的内圆样式-->
+        <attr name="style_finger_up_match_inner_circle" format="enum">
+            <enum name="style_fill" value="0" />
+            <enum name="style_stroke" value="1" />
+        </attr>
+        <!--手指离开时匹配的内圆颜色-->
+        <attr name="color_finger_up_match_inner_circle" format="color" />
+        <!--手指离开时匹配的外圆颜色-->
+        <attr name="color_finger_up_match_outer_circle" format="color" />
+        <!--STYLE_STROKE_AND_FILL手指离开时匹配的外圆中内圆的颜色-->
+        <attr name="color_finger_up_match_outer_inner_circle" format="color" />
+        <!--手指离开时，不匹配的外圆样式-->
+        <attr name="style_finger_up_un_match_outer_circle" format="enum">
+            <enum name="style_fill" value="0" />
+            <enum name="style_stroke" value="1" />
+            <enum name="style_stroke_and_fill" value="2" />
+        </attr>
+        <!--手指离开时，不匹配的内圆样式-->
+        <attr name="style_finger_up_un_match_inner_circle" format="enum">
+            <enum name="style_fill" value="0" />
+            <enum name="style_stroke" value="1" />
+        </attr>
+        <!--手指离开时不匹配的内圆颜色-->
+        <attr name="color_finger_up_un_match_inner_circle" format="color" />
+        <!--手指离开时不匹配的外圆颜色-->
+        <attr name="color_finger_up_un_match_outer_circle" format="color" />
+        <!--STYLE_STROKE_AND_FILL手指离开时不匹配的外圆中内圆的颜色-->
+        <attr name="color_finger_up_un_match_outer_inner_circle" format="color" />
+
+        <!--手指没有触摸时，STYLE_STROKE样式下，内外圆的边框宽度-->
+        <attr name="stroke_width_no_finger_inner_circle" format="integer" />
+        <attr name="stroke_width_no_finger_outer_circle" format="integer" />
+        <!--手指触摸时，STYLE_STROKE样式下，内外圆的边框宽度-->
+        <attr name="stroke_width_finger_on_inner_circle" format="integer" />
+        <attr name="stroke_width_finger_on_outer_circle" format="integer" />
+        <!--手指离开时，匹配不匹配STYLE_STROKE样式下，内外圆的边框宽度-->
+        <attr name="stroke_width_finger_up_match_inner_circle" format="integer" />
+        <attr name="stroke_width_finger_up_match_outer_circle" format="integer" />
+        <attr name="stroke_width_finger_up_un_match_outer_circle" format="integer" />
+        <attr name="stroke_width_finger_up_un_match_inner_circle" format="integer" />
+
+        <!--各个状态下内圆大小的百分比-->
+        <attr name="rate_no_finger_inner_circle" format="float" />
+        <attr name="rate_finger_on_inner_circle" format="float" />
+        <attr name="rate_finger_up_match_inner_circle" format="float" />
+        <attr name="rate_finger_up_un_match_inner_circle" format="float" />
+
+        <!--是否显示箭头-->
+        <attr name="isShowArrow" format="boolean" />
+        <!--箭头大小的百分比-->
+        <attr name="rate_arrow" format="float" />
+
+        <!--画笔的宽度-->
+        <attr name="path_width" format="dimension" />
+        <!--各种状态下路径的颜色-->
+        <attr name="finger_on_path_color" format="color" />
+        <attr name="finger_up_match_path_color" format="color" />
+        <attr name="finger_up_un_match_path_color" format="color" />
+        <!--路径的透明度0-255-->
+        <attr name="path_alpha" format="integer" />
+        <!--圆点的个数-->
+        <attr name="count" format="integer" />
+        <!--尝试的次数-->
+        <attr name="tryTimes" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="GestureLockDisplayViews">
+        <attr name="color_no_select" format="color" />
+        <attr name="color_selected" format="color" />
+        <attr name="style_no_select" format="enum">
+            <enum name="style_fill" value="0" />
+            <enum name="style_stroke" value="1" />
+        </attr>
+        <attr name="style_selected" format="enum">
+            <enum name="style_fill" value="0" />
+            <enum name="style_stroke" value="1" />
+        </attr>
+        <attr name="stroke_width_no_select" format="dimension" />
+        <attr name="stroke_width_selected" format="dimension" />
+        <attr name="display_view_count" format="integer" />
+    </declare-styleable>
+
+
+
+
+</resources>

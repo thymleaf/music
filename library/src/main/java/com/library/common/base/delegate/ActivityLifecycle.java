@@ -221,7 +221,12 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
         public void onFragmentAttached(FragmentManager fm, Fragment f, Context context)
         {
             super.onFragmentAttached(fm, f, context);
-            if (f instanceof IFragment && f.getArguments() != null)
+
+            if (f.getArguments() == null)
+            {
+                f.setArguments(new Bundle());
+            }
+            if (f instanceof IFragment )
             {
                 FragmentDelegate fragmentDelegate = fetchFragmentDelegate(f);
                 if (fragmentDelegate == null || !fragmentDelegate.isAdded())

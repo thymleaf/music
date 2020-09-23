@@ -4,9 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.library.common.IView;
+import com.library.common.base.BaseResponse;
 import com.library.common.integration.IRepositoryManager;
+import com.library.common.utils.HttpResponseUtil;
+import com.library.common.utils.RxUtil;
 import com.thymleaf.example.App;
+import com.thymleaf.example.util.CommonSubscriber;
 
+import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -30,6 +35,21 @@ public abstract class BaseSimpleActivity extends BaseActivity implements IView
         {
             mCompositeDisposable.add(disposable);
         }
+    }
+
+    public <T> void loadRepository(Flowable<BaseResponse<T>> flowable,
+                                   OnSubscriberListener<T> subscriberListener)
+    {
+        addSubscribe(flowable.compose(RxUtil.flowableTransformer())
+                             .compose(HttpResponseUtil.transformer())
+                             .subscribeWith(new CommonSubscriber<T>(this)
+                             {
+                                 @Override
+                                 public void onNext(T t)
+                                 {
+                                     subscriberListener.onSubscribe(t);
+                                 }
+                             }));
     }
 
     public IRepositoryManager getRepository()
@@ -97,4 +117,9 @@ public abstract class BaseSimpleActivity extends BaseActivity implements IView
         return getIntent().getExtras();
     }
 
+
+    public interface OnSubscriberListener<T>
+    {
+        void onSubscribe(T t);
+    }
 }

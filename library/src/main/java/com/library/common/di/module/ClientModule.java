@@ -124,17 +124,17 @@ public class ClientModule
                .cache(new Cache(cache, LibraryConfig.MAX_CACHE_SIZE)) //Retrofit cache
                .addNetworkInterceptor(intercept);
 
-        if (LibraryConfig.DEBUG)
-        {
-            builder.sslSocketFactory(getSslSocketFactory(application));
-        }
-        else
-        {
-            if (Build.VERSION.SDK_INT > 19)
-            {
-                builder.sslSocketFactory(getSslContext(application).getSocketFactory(), getTrustAllCerts(application)[0]);
-            }
-        }
+//        if (LibraryConfig.DEBUG)
+//        {
+//            builder.sslSocketFactory(getSslSocketFactory(application));
+//        }
+//        else
+//        {
+//            if (Build.VERSION.SDK_INT > 19)
+//            {
+//                builder.sslSocketFactory(getSslContext(application).getSocketFactory(), getTrustAllCerts(application)[0]);
+//            }
+//        }
 
 
         if (interceptors != null)

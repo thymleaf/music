@@ -1,20 +1,19 @@
 package com.thymleaf.music
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.thymleaf.music.base.BaseSimpleActivity
+import com.thymleaf.music.databinding.ActivitySplashBinding
 
 class SplashActivity : BaseSimpleActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
-    }
+    private lateinit var binding: ActivitySplashBinding
 
-    override fun setContentLayout(savedInstanceState: Bundle?): Int {
-        TODO("Not yet implemented")
+    override fun setBindingView(): View {
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun initActivity(savedInstanceState: Bundle?) {
-        TODO("Not yet implemented")
+        binding.tvSplash.text = "闪屏页"
     }
 }

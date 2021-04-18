@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jakewharton.butterknife'
 
 
 android {
@@ -35,6 +34,10 @@ android {
         }
 
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 
@@ -45,7 +48,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.jakewharton:butterknife-gradle-plugin:${rootProject.ext.version["butterknife"]}"
+
     }
 }
 
@@ -65,17 +68,6 @@ dependencies {
         exclude module: 'support-annotations'
     }
     api rootProject.ext.dependencies["constraint-layout"]
-
-    //view
-    api(rootProject.ext.dependencies["butterknife"])
-    {
-        exclude module: 'support-annotations'
-    }
-    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"])
-    {
-        exclude module: 'support-annotations'
-        exclude module: 'butterknife-annotations'
-    }
 
 
     api rootProject.ext.dependencies["brvah"]

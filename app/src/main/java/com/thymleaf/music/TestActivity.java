@@ -22,12 +22,9 @@ import timber.log.Timber;
 public class TestActivity extends BaseSimpleActivity
 {
 
-
     @Override
-    public int setContentLayout(Bundle savedInstanceState)
-    {
-//        return R.layout.activity_main;
-        return 0;
+    public View setBindingView() {
+        return null;
     }
 
     @Override

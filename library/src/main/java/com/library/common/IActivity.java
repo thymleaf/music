@@ -2,6 +2,7 @@ package com.library.common;
 
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.library.common.di.component.AppComponent;
 
@@ -20,19 +21,30 @@ public interface IActivity
     /**
      * 提供AppComponent(提供所有的单例对象)给实现类，进行Component依赖
      *
-     * @param appComponent
+     * @param appComponent appComponent
      */
     void setupActivityComponent(AppComponent appComponent);
 
 
-    /**
+    /*
      * 如果initView返回0,框架则不会调用{@link android.app.Activity#setContentView(int)}
      *
-     * @param savedInstanceState
-     * @return layout
+     * @deprecated 使用ViewBind代替
+     * @see #setBindingView()
      */
-    int setContentLayout(Bundle savedInstanceState);
+    // int setContentLayout(Bundle savedInstanceState);
 
+
+    /**
+     * 使用ViewBinding绑定视图
+     * @return 布局View
+     */
+    View setBindingView();
+
+    /**
+     * 初始化Activity相关操作
+     * @param savedInstanceState savedInstanceState
+     */
     void initActivity(Bundle savedInstanceState);
 
     /**

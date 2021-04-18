@@ -15,6 +15,9 @@ import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewbinding.ViewBinding;
+
+import org.jetbrains.annotations.NotNull;
 
 
 public abstract class BaseFragment<P extends IPresenter> extends Fragment implements IFragment
@@ -24,6 +27,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     @Inject
     protected P mPresenter;
 
+    private ViewBinding binding;
+
 
     public BaseFragment()
     {
@@ -32,7 +37,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     }
 
     @Override
-    public void onAttach(Context context)
+    public void onAttach(@NotNull Context context)
     {
         super.onAttach(context);
         this.activity = (Activity) context;
@@ -40,10 +45,11 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        return setContentLayout(inflater, container, savedInstanceState);
+        binding = setViewBinding();
+        return binding.getRoot();
     }
 
 
@@ -56,6 +62,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
             mPresenter.detachView();//释放资源
         }
         this.mPresenter = null;
+        this.binding = null;
     }
 
     @Override

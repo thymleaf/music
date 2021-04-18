@@ -1421,7 +1421,7 @@ public class SwipeBackLayout extends ViewGroup
     {
         final LayoutParams lp = (LayoutParams) child.getLayoutParams();
         boolean result;
-        final int save = canvas.save(Canvas.CLIP_SAVE_FLAG);
+        final int save = canvas.save();
 
         if (mCanSlide && !lp.slideable && mSlideableView != null)
         {
@@ -1438,39 +1438,8 @@ public class SwipeBackLayout extends ViewGroup
             canvas.clipRect(mTmpRect);
         }
 
-        if (Build.VERSION.SDK_INT >= 11)
-        { // HC
-            result = super.drawChild(canvas, child, drawingTime);
-        }
-        else
-        {
-            if (lp.dimWhenOffset && mSlideOffset > 0)
-            {
-                if (!child.isDrawingCacheEnabled())
-                {
-                    child.setDrawingCacheEnabled(true);
-                }
-                final Bitmap cache = child.getDrawingCache();
-                if (cache != null)
-                {
-                    canvas.drawBitmap(cache, child.getLeft(), child.getTop(), lp.dimPaint);
-                    result = false;
-                }
-                else
-                {
-                    Log.e(TAG, "drawChild: child view " + child + " returned null drawing cache");
-                    result = super.drawChild(canvas, child, drawingTime);
-                }
-            }
-            else
-            {
-                if (child.isDrawingCacheEnabled())
-                {
-                    child.setDrawingCacheEnabled(false);
-                }
-                result = super.drawChild(canvas, child, drawingTime);
-            }
-        }
+        // HC
+        result = super.drawChild(canvas, child, drawingTime);
 
         canvas.restoreToCount(save);
 

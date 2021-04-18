@@ -24,8 +24,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Description: BaseActivity <br>
@@ -38,7 +36,6 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
 {
     protected SwipeBackHelper mSwipeBackHelper;
 
-    private Unbinder unbinder;
     @Inject
     protected P mPresenter;
 
@@ -51,7 +48,7 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
 //        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         initSwipeBackFinish();
         super.onCreate(savedInstanceState);
-        try
+        /*try
         {
             int layoutResID = setContentLayout(savedInstanceState);
             if (layoutResID != 0)
@@ -65,7 +62,9 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         catch (Exception e)
         {
             e.printStackTrace();
-        }
+        }*/
+
+        setContentView(setBindingView());
 
         context = this;
 
@@ -78,6 +77,15 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         initActivity(savedInstanceState);
     }
 
+    /**
+     * 重写该方法，如果子类需要初始化Activity，直接重写改方法，增加灵活性
+     * @param savedInstanceState savedInstanceState
+     */
+    @Override
+    public void initActivity(Bundle savedInstanceState)
+    {
+
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected void setupWindowAnimations()
@@ -95,11 +103,6 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     @Override
     protected void onDestroy()
     {
-        if (unbinder != null && unbinder != Unbinder.EMPTY)
-        {
-            unbinder.unbind();
-        }
-        this.unbinder = null;
         if (mPresenter != null)
         {
             mPresenter.detachView();//释放资源

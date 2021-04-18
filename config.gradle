@@ -1,10 +1,9 @@
 ext {
 
     android = [
-            compileSdkVersion: 27,
-            buildToolsVersion: "27.0.2",
-            minSdkVersion    : 19,
-            targetSdkVersion : 27,
+            compileSdkVersion: 30,
+            minSdkVersion    : 21,
+            targetSdkVersion : 30,
             versionCode      : 169,
             versionName      : "3.2.1"
     ]
@@ -15,7 +14,6 @@ ext {
             okhttp3              : "3.8.0",
             retrofit             : "2.3.0",
             dagger2              : "2.12",
-            butterknife          : "10.2.0",
             canary               : "1.5.1",
             glide                : "4.0.0",
             gson                 : "2.8.0",
@@ -78,8 +76,6 @@ ext {
             "dagger-android"                 : "com.google.dagger:dagger-android:${version["dagger2"]}",
             "dagger-android-support"         : "com.google.dagger:dagger-android-support:${version["dagger2"]}",
             "dagger-android-processor"       : "com.google.dagger:dagger-android-processor:${version["dagger2"]}",
-            "butterknife"                    : "com.jakewharton:butterknife:${version["butterknife"]}",
-            "butterknife-compiler"           : "com.jakewharton:butterknife-compiler:${version["butterknife"]}",
             "javax.annotation"               : "javax.annotation:jsr250-api:1.0",
             "multidex"                       : 'androidx.multidex:multidex:2.0.0',
 

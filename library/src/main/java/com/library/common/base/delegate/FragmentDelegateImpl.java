@@ -9,8 +9,6 @@ import com.library.common.IApp;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 /**
@@ -22,7 +20,6 @@ public class FragmentDelegateImpl implements FragmentDelegate
     private FragmentManager mFragmentManager;
     private Fragment mFragment;
     private IFragment iFragment;
-    private Unbinder mUnbinder;
 
 
     public FragmentDelegateImpl(FragmentManager fragmentManager,
@@ -49,11 +46,7 @@ public class FragmentDelegateImpl implements FragmentDelegate
     @Override
     public void onCreateView(View view, Bundle savedInstanceState)
     {
-        //绑定到butterknife
-        if (view != null)
-        {
-            mUnbinder = ButterKnife.bind(mFragment, view);
-        }
+
     }
 
     @Override
@@ -95,24 +88,11 @@ public class FragmentDelegateImpl implements FragmentDelegate
     @Override
     public void onDestroyView()
     {
-        if (mUnbinder != null && mUnbinder != mUnbinder.EMPTY)
-        {
-            try
-            {
-                mUnbinder.unbind();
-            }
-            catch (IllegalStateException e)
-            {
-                e.printStackTrace();
-                //fix Bindings already cleared
-            }
-        }
     }
 
     @Override
     public void onDestroy()
     {
-        this.mUnbinder = null;
         this.mFragmentManager = null;
         this.mFragment = null;
         this.iFragment = null;
@@ -150,7 +130,6 @@ public class FragmentDelegateImpl implements FragmentDelegate
         this.mFragmentManager = in.readParcelable(FragmentManager.class.getClassLoader());
         this.mFragment = in.readParcelable(Fragment.class.getClassLoader());
         this.iFragment = in.readParcelable(IFragment.class.getClassLoader());
-        this.mUnbinder = in.readParcelable(Unbinder.class.getClassLoader());
     }
 
     public static final Creator<FragmentDelegateImpl> CREATOR = new Creator<FragmentDelegateImpl>()

@@ -1,4 +1,4 @@
-package com.thymleaf.example.base;
+package com.thymleaf.music.base;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.library.common.IView;
 import com.library.common.integration.IRepositoryManager;
-import com.thymleaf.example.App;
+import com.thymleaf.music.App;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

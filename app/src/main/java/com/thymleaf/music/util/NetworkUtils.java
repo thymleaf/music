@@ -1,4 +1,4 @@
-package com.thymleaf.example.util;
+package com.thymleaf.music.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,8 +8,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
-import com.library.common.base.BaseApplication;
-import com.thymleaf.example.App;
+import com.thymleaf.music.App;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;

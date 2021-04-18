@@ -1,4 +1,4 @@
-package com.thymleaf.example.base;
+package com.thymleaf.music.base;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import com.library.common.base.BaseResponse;
 import com.library.common.integration.IRepositoryManager;
 import com.library.common.utils.HttpResponseUtil;
 import com.library.common.utils.RxUtil;
-import com.thymleaf.example.App;
-import com.thymleaf.example.util.CommonSubscriber;
+import com.thymleaf.music.App;
+import com.thymleaf.music.util.CommonSubscriber;
 
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;

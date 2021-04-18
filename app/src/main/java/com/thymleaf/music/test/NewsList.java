@@ -1,4 +1,4 @@
-package com.thymleaf.example.test;
+package com.thymleaf.music.test;
 
 import java.util.List;
 

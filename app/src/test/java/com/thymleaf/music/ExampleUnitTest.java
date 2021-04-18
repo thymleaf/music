@@ -1,4 +1,4 @@
-package com.thymleaf.example;
+package com.thymleaf.music;
 
 import org.junit.Test;
 

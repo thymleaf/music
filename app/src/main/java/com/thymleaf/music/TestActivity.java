@@ -1,16 +1,14 @@
-package com.thymleaf.example;
+package com.thymleaf.music;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.thymleaf.example.base.BaseSimpleActivity;
-import com.thymleaf.example.test.HomeService;
-import com.thymleaf.example.test.NewsList;
+import com.thymleaf.music.base.BaseSimpleActivity;
+import com.thymleaf.music.test.HomeService;
+import com.thymleaf.music.test.NewsList;
 
 import androidx.annotation.NonNull;
 import butterknife.BindView;
@@ -21,18 +19,15 @@ import timber.log.Timber;
 
 
 @RuntimePermissions
-public class MainActivity extends BaseSimpleActivity
+public class TestActivity extends BaseSimpleActivity
 {
-
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
-
 
 
     @Override
     public int setContentLayout(Bundle savedInstanceState)
     {
-        return R.layout.activity_main;
+//        return R.layout.activity_main;
+        return 0;
     }
 
     @Override
@@ -40,18 +35,7 @@ public class MainActivity extends BaseSimpleActivity
     {
 
 
-
-        fab.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        MainActivityPermissionsDispatcher.loadDataWithPermissionCheck(this);
+//        MainActivityPermissionsDispatcher.loadDataWithPermissionCheck(this);
     }
 
 
@@ -68,15 +52,17 @@ public class MainActivity extends BaseSimpleActivity
                            public void onSubscribe(NewsList newsList)
                            {
                                Timber.e(newsList.toString());
+                               
+
                            }
                        });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults)
-    {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+//                                           @NonNull int[] grantResults)
+//    {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+//    }
 }

@@ -1,4 +1,4 @@
-package com.thymleaf.example.base;
+package com.thymleaf.music.base;
 
 
 import android.annotation.SuppressLint;

@@ -1,4 +1,4 @@
-package com.thymleaf.example;
+package com.thymleaf.music;
 
 import com.library.common.LibraryConfig;
 

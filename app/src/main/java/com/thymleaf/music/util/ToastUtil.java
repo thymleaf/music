@@ -1,4 +1,4 @@
-package com.thymleaf.example.util;
+package com.thymleaf.music.util;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.thymleaf.example.App;
+import com.thymleaf.music.App;
 
 import java.lang.ref.WeakReference;
 

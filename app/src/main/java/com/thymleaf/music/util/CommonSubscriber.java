@@ -1,4 +1,4 @@
-package com.thymleaf.example.util;
+package com.thymleaf.music.util;
 
 import android.content.Context;
 import android.text.TextUtils;

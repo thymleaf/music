@@ -29,9 +29,13 @@
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_add_24px"
+        app:srcCompat="@drawable/ic_play_circle_filled_24"
+        app:backgroundTint="@color/colorPrimary"
+        app:showMotionSpec="@anim/animation_loading"
+        app:fabSize="normal"
         app:layout_anchor="@id/bottomAppBar"
         android:contentDescription="@null" />
 

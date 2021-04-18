@@ -4,8 +4,16 @@
 
     <item
         android:id="@+id/next"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="搜索"
+        android:icon="@drawable/ic_skip_next_24"
+        android:title="下一曲"
+        android:contentDescription=""
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/favorites"
+        android:icon="@drawable/ic_favorite_24"
+        android:title="喜欢"
         android:contentDescription=""
         app:showAsAction="ifRoom"
         />

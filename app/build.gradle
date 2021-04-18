@@ -28,13 +28,16 @@ android {
             resources.srcDirs = ['src']
             res.srcDirs = [
                     'src/main/res',
-                    'src/main/res/core',
+                    'src/main/res/core'
             ]
         }
     }
 
     buildFeatures {
         viewBinding true
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 
@@ -51,7 +54,15 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+    implementation 'androidx.navigation:navigation-ui:2.2.2'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+
+    implementation 'com.google.android.material:material:1.3.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

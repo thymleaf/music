@@ -1,0 +1,59 @@
+package com.thymleaf.music.ui
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import com.thymleaf.music.TabFragmentAdapter
+import com.thymleaf.music.base.BaseSimpleFragment
+import com.thymleaf.music.databinding.FragmentMainBinding
+
+/**
+ * main fragment
+ */
+class MainFragment : BaseSimpleFragment() {
+
+    private lateinit var binding: FragmentMainBinding
+    private lateinit var tabLayout: TabLayout
+    private lateinit var viewPager: ViewPager2
+    private lateinit var adapter: TabFragmentAdapter
+//    private lateinit var fragments: List<Fragment>
+    private val pageTitle = mutableListOf<String>("我的", "发现", "歌单")
+
+
+    companion object {
+
+        @JvmStatic
+        fun newInstance(bundle: Bundle) =
+                MainFragment().apply {
+                    arguments = bundle
+                }
+    }
+
+    override fun setViewBinding(): ViewBinding {
+
+        binding = FragmentMainBinding.inflate(layoutInflater)
+        return binding
+    }
+
+    override fun initFragment(savedInstanceState: Bundle?) {
+
+        tabLayout = binding.tabLayout
+        viewPager = binding.viewPager
+
+//        val fragments = mutableListOf<Fragment>()
+//        fragments.add(MineFragment.newInstance(Bundle()))
+//        fragments.add(SightseeingFragment.newInstance(Bundle()))
+//        fragments.add(PlayListFragment.newInstance(Bundle()))
+//
+//        adapter = TabFragmentAdapter(this, fragments)
+//        viewPager.adapter = adapter
+//
+//        TabLayoutMediator(tabLayout, viewPager){tab, position ->
+//            tab.text = pageTitle[position]
+//        }.attach()
+
+    }
+}

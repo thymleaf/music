@@ -7,5 +7,5 @@ package com.thymleaf.music;
 
 public final class Constants
 {
-
+    public static final int APP_VERSION_MODE = 1;
 }

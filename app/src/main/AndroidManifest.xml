@@ -27,18 +27,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".ui.BottomAppActivity">
+        <activity android:name=".ui.MainActivity">
+
+        </activity>
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/AppTheme.Splash">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".ui.SplashActivity"
-            android:theme="@style/AppTheme.Splash">
 
         </activity>
 

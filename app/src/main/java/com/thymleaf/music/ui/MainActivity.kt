@@ -65,7 +65,7 @@ class MainActivity : BaseSimpleActivity() {
         viewPager = binding.viewPager
 
         val fragments = mutableListOf<Fragment>()
-        fragments.add(MineFragment.newInstance(Bundle()))
+        fragments.add(HomeFragment.newInstance(Bundle()))
         fragments.add(SightseeingFragment.newInstance(Bundle()))
         fragments.add(PlayListFragment.newInstance(Bundle()))
 
@@ -75,16 +75,6 @@ class MainActivity : BaseSimpleActivity() {
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
             tab.text = pageTitle[position]
         }.attach()
-
-//        mainFragment = MainFragment.newInstance(Bundle())
-
-//        val transformation = supportFragmentManager.beginTransaction()
-//        if (!mainFragment.isAdded) {
-//            transformation.add(R.id.container, mainFragment)
-//        }
-//        transformation.commit()
-
-
 
         bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {

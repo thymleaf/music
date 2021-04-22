@@ -16,19 +16,21 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
             app:layout_scrollFlags="scroll|enterAlways"
             app:title="@string/app_name"
-            app:titleTextColor="@color/colorAccent" >
+            app:titleTextColor="@color/colorAccent">
 
             <TextView
                 android:id="@+id/toolbar_title"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="@color/colorAccent"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:layout_gravity="center|start"
-                />
+                android:text="@string/app_name"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:textColor="@color/colorAccent" />
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout

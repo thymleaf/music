@@ -11,9 +11,7 @@
     <string name="menu_search">搜索</string>
     <string name="menu_next">下一曲</string>
     <string name="menu_favorite">收藏</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_tab_demo">TabDemoActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="disk_song">本地歌曲</string>
+    <string name="play_record">播放记录</string>
+    <string name="favorite_song">我的收藏</string>
 </resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tv_dist_song"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:rippleColor="@color/bg_gray">
+
+        <TextView
+            style="@style/SongMenu"
+            android:text="@string/disk_song"
+            app:drawableStartCompat="@drawable/outline_view_stream_24" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tv_play_record"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="1px"
+        app:rippleColor="@color/bg_gray">
+
+        <TextView
+            style="@style/SongMenu"
+            android:text="@string/play_record"
+            app:drawableStartCompat="@drawable/outline_graphic_eq_24" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tv_favorite_song"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="1px"
+        app:rippleColor="@color/bg_gray">
+
+        <TextView
+            style="@style/SongMenu"
+            android:text="@string/favorite_song"
+            app:drawableStartCompat="@drawable/ic_favorite_border_24" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

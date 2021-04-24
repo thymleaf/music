@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.transition.TransitionManager
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -13,7 +12,6 @@ import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentMusicAlbumBinding
 import kotlin.math.abs
 
-const val TAG = "MusicAlbumFragment"
 private const val ALBUM_ID_KEY = "album_id_key"
 
 class MusicAlbumFragment : BaseSimpleFragment() {
@@ -64,7 +62,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
             musicPlayerContainer.visibility = View.VISIBLE
         }
 
-        musicPlayerContainer.setOnClickListener { v: View? ->
+        musicPlayerContainer.setOnClickListener {
 //            TransitionManager.beginDelayedTransition(container, musicPlayerExitTransform)
             musicPlayerContainer.visibility = View.GONE
             fab.visibility = View.VISIBLE

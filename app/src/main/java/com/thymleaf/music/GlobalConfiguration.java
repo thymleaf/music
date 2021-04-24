@@ -26,7 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.multidex.MultiDex;
-import butterknife.ButterKnife;
 import io.rx_cache2.internal.RxCache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -196,7 +195,6 @@ public class GlobalConfiguration implements ConfigModule
                     // });
 
                 }
-                ButterKnife.setDebug(LibraryConfig.DEBUG);
 
                 //在Application#onCreate中初始化
                 SwipeBackManager.getInstance().init(application);

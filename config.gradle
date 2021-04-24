@@ -26,7 +26,7 @@ ext {
             brvah                : "2.9.27",
             statusbar            : "1.4.0",
             bottombar            : "2.3.1",
-            permissionsdispatcher: "3.2.0",
+            permissionsdispatcher: "4.8.0",
             banner               : "1.4.10",
             walle                : "1.1.6",
             smartrefresh         : "1.0.3",
@@ -82,8 +82,8 @@ ext {
             // other
             "progressmanager"                : "me.jessyan:progressmanager:${version["progressmanager"]}",
             "gson"                           : "com.google.code.gson:gson:${version["gson"]}",
-            "permissionsdispatcher"          : "com.github.hotchemi:permissionsdispatcher:${version["permissionsdispatcher"]}",
-            "permissionsdispatcher-processor": "com.github.hotchemi:permissionsdispatcher-processor:${version["permissionsdispatcher"]}",
+            "permissionsdispatcher"          : "com.github.permissions-dispatcher:permissionsdispatcher:${version["permissionsdispatcher"]}",
+            "permissionsdispatcher-processor": "com.github.permissions-dispatcher:permissionsdispatcher-processor:${version["permissionsdispatcher"]}",
             "walle"                          : "com.meituan.android.walle:library:${version["walle"]}",
 
             // test
@@ -93,7 +93,6 @@ ext {
             "logger"                         : "com.orhanobut:logger:2.1.1",
             "canary-debug"                   : "com.squareup.leakcanary:leakcanary-android:${version["canary"]}",
             "canary-release"                 : "com.squareup.leakcanary:leakcanary-android-no-op:${version["canary"]}",
-            "umeng-analytics"                : "com.umeng.analytics:analytics:6.0.1"
     ]
 
 

@@ -19,7 +19,10 @@ class SplashActivity : BaseSimpleActivity() {
     override fun initActivity(savedInstanceState: Bundle?) {
         binding.tvSplash.text = "闪屏页"
         handle = Handler(Looper.myLooper()!!)
-        handle.postDelayed({ startTarget(MainActivity::class.java) }, 2000)
+        handle.postDelayed({
+            startTarget(MainActivity::class.java)
+            finish()
+        }, 500)
     }
 
 }

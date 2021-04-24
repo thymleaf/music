@@ -33,7 +33,12 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     public BaseFragment()
     {
         //必须确保在Fragment实例化时setArguments()
-        setArguments(new Bundle());
+        Bundle bundle = getArguments();
+        if (bundle == null)
+        {
+            bundle = new Bundle();
+        }
+        setArguments(bundle);
     }
 
     @Override

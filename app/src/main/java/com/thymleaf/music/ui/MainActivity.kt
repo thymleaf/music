@@ -39,7 +39,12 @@ class MainActivity : BaseSimpleActivity() {
         return binding.root
     }
 
+    override fun setIsLightStatusBar(): Boolean {
+        return true
+    }
+
     override fun initActivity(savedInstanceState: Bundle?) {
+        super.initActivity(savedInstanceState)
         bottomAppBar = binding.bottomAppBar
         fab = binding.fab
 
@@ -52,10 +57,6 @@ class MainActivity : BaseSimpleActivity() {
         operatingAnim.interpolator = lin
         fab.startAnimation(operatingAnim)
 
-
-        val decor: View = window.decorView
-        decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        //decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 
         bottomAppBar.setNavigationOnClickListener {
 

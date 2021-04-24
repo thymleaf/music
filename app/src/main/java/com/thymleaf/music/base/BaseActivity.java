@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.jaeger.library.StatusBarUtil;
 import com.library.common.IActivity;
@@ -84,7 +85,21 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     @Override
     public void initActivity(Bundle savedInstanceState)
     {
+        setLightStatusBar();
+    }
 
+    private void setLightStatusBar()
+    {
+        if (setIsLightStatusBar())
+        {
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+    }
+
+    public boolean setIsLightStatusBar()
+    {
+        return false;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

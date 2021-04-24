@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">μzk</string>
+    <string name="app_name">μsic</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
 
@@ -14,4 +14,13 @@
     <string name="disk_song">本地歌曲</string>
     <string name="play_record">播放记录</string>
     <string name="favorite_song">我的收藏</string>
+
+    <string name="button_allow">允许</string>
+    <string name="button_deny">拒绝</string>
+    <string name="permission_storage_rationale">STORAGE permission is needed to show the camera preview.</string>
+    <string name="permission_storage_denied">STORAGE permission was denied. Please consider granting it in order to access the camera!</string>
+    <string name="permission_storage_never_ask_again">STORAGE permission was denied with never ask again.</string>
+
+    <string name="cat_album_menu_favorite_title">Favorite</string>
+    <string name="cat_album_menu_share_title">Share</string>
 </resources>

@@ -135,12 +135,6 @@ dependencies {
 
     api rootProject.ext.dependencies["gson"]
 
-    //permissions-dispatcher
-    api(rootProject.ext.dependencies["permissionsdispatcher"])
-    {
-        exclude module: "support-v13"
-    }
-    annotationProcessor rootProject.ext.dependencies["permissionsdispatcher-processor"]
 
     api 'com.kaopiz:kprogresshud:1.2.0'
 

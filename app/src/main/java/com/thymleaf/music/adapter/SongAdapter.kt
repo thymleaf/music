@@ -1,11 +1,14 @@
 package com.thymleaf.music.adapter
 
-import com.chad.library.adapter.base.BaseItemDraggableAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.thymleaf.music.Song
 
-//class SongAdapter: BaseItemDraggableAdapter<Song, BaseViewHolder>()  {
-//    override fun convert(helper: BaseViewHolder?, item: Song?) {
-//        TODO("Not yet implemented")
-//    }
-//}
+
+class SongAdapter(layoutResId: Int) : BaseQuickAdapter<Song, BaseViewHolder>(layoutResId)  {
+
+
+    override fun convert(holder: BaseViewHolder, item: Song) {
+        
+    }
+}

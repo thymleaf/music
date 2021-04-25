@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thymleaf.music.R
+import com.thymleaf.music.Song
+import com.thymleaf.music.adapter.SongAdapter
 import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentMusicAlbumBinding
+import com.thymleaf.music.util.CommonSubscriber
+import io.reactivex.Flowable
 import kotlin.math.abs
 
 private const val ALBUM_ID_KEY = "album_id_key"
@@ -19,6 +24,9 @@ class MusicAlbumFragment : BaseSimpleFragment() {
     private lateinit var binding: FragmentMusicAlbumBinding
 
     private lateinit var container: ViewGroup
+
+    private lateinit var adapter: SongAdapter
+
 
     override fun setViewBinding(): ViewBinding {
         binding = FragmentMusicAlbumBinding.inflate(layoutInflater)
@@ -56,6 +64,10 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         albumTitle.setText("本地歌曲")
         albumArtist.setText("本地歌曲")
 
+        adapter = SongAdapter(R.layout.item_song)
+        songRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        songRecyclerView.adapter = adapter
+
         fab.setOnClickListener {
 //            TransitionManager.beginDelayedTransition(container, musicPlayerEnterTransform)
             fab.visibility = View.GONE
@@ -67,6 +79,13 @@ class MusicAlbumFragment : BaseSimpleFragment() {
             musicPlayerContainer.visibility = View.GONE
             fab.visibility = View.VISIBLE
         }
+
+
+    }
+
+    private fun loadData()
+    {
+
     }
 
     companion object {

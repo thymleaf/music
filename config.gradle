@@ -21,7 +21,7 @@ ext {
             rxcache2             : "1.8.0-2.x",
             jolyglot             : "0.0.3",
             progressmanager      : "1.5.0",
-            brvah                : "2.9.46",
+            brvah                : "3.0.6",
             statusbar            : "1.4.0",
             bottombar            : "2.3.1",
             permissionsdispatcher: "4.8.0",

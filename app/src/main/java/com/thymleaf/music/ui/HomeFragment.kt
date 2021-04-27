@@ -38,7 +38,7 @@ class HomeFragment : BaseSimpleFragment()  {
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_MEDIA_LOCATION)
     fun startDiskPage()
     {
-        startTarget(MusicContainerActivity::class.java)
+        startTarget(MusicContainerActivity::class.java, arguments)
     }
 
     @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)

@@ -28,7 +28,7 @@ class MusicContainerActivity : BaseSimpleActivity() {
         super.initActivity(savedInstanceState)
         supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment_container, MusicAlbumFragment.newInstance(0L))
+                .replace(R.id.fragment_container, MusicAlbumFragment.newInstance(bundle))
                 .commit()
     }
 }

@@ -1,5 +1,6 @@
 package com.thymleaf.music.ui
 
+import android.media.AudioManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -7,8 +8,10 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -18,6 +21,8 @@ import com.thymleaf.music.R
 import com.thymleaf.music.TabFragmentAdapter
 import com.thymleaf.music.base.BaseSimpleActivity
 import com.thymleaf.music.databinding.ActivityMainBinding
+import com.thymleaf.music.uamp.utils.InjectorUtils
+import com.thymleaf.music.uamp.viewmodels.MainActivityViewModel
 
 
 class MainActivity : BaseSimpleActivity() {
@@ -33,6 +38,9 @@ class MainActivity : BaseSimpleActivity() {
 
     private val pageTitle = mutableListOf<String>("我的", "发现", "歌单")
 
+    private val viewModel by viewModels<MainActivityViewModel> {
+        InjectorUtils.provideMainActivityViewModel(this)
+    }
 
     override fun setBindingView(): View {
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -45,6 +53,9 @@ class MainActivity : BaseSimpleActivity() {
 
     override fun initActivity(savedInstanceState: Bundle?) {
         super.initActivity(savedInstanceState)
+
+        volumeControlStream = AudioManager.STREAM_MUSIC
+
         bottomAppBar = binding.bottomAppBar
         fab = binding.fab
 
@@ -65,17 +76,17 @@ class MainActivity : BaseSimpleActivity() {
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
 
-        val fragments = mutableListOf<Fragment>()
-        fragments.add(HomeFragment.newInstance(Bundle()))
-        fragments.add(SightseeingFragment.newInstance(Bundle()))
-        fragments.add(PlayListFragment.newInstance(Bundle()))
-
-        adapter = TabFragmentAdapter(this, fragments)
-        viewPager.adapter = adapter
-
-        TabLayoutMediator(tabLayout, viewPager){tab, position ->
-            tab.text = pageTitle[position]
-        }.attach()
+//        val fragments = mutableListOf<Fragment>()
+//        fragments.add(HomeFragment.newInstance(Bundle()))
+//        fragments.add(SightseeingFragment.newInstance(Bundle()))
+//        fragments.add(PlayListFragment.newInstance(Bundle()))
+//
+//        adapter = TabFragmentAdapter(this, fragments)
+//        viewPager.adapter = adapter
+//
+//        TabLayoutMediator(tabLayout, viewPager){tab, position ->
+//            tab.text = pageTitle[position]
+//        }.attach()
 
         bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -87,6 +98,26 @@ class MainActivity : BaseSimpleActivity() {
                 }
             }
         }
+
+        viewModel.rootMediaId.observe(this,
+                Observer<String> { rootMediaId ->
+                    rootMediaId?.let {
+                        val fragments = mutableListOf<Fragment>()
+                        val bundle = Bundle().apply {
+                            putString("MEDIA_ID", it)
+                        }
+                        fragments.add(HomeFragment.newInstance(bundle))
+                        fragments.add(SightseeingFragment.newInstance(bundle))
+                        fragments.add(PlayListFragment.newInstance(bundle))
+
+                        adapter = TabFragmentAdapter(this, fragments)
+                        viewPager.adapter = adapter
+
+                        TabLayoutMediator(tabLayout, viewPager){tab, position ->
+                            tab.text = pageTitle[position]
+                        }.attach()
+                    }
+                })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

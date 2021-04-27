@@ -4,15 +4,20 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thymleaf.music.R
 import com.thymleaf.music.Song
+import com.thymleaf.music.adapter.MediaItemAdapter
 import com.thymleaf.music.adapter.SongAdapter
 import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentMusicAlbumBinding
+import com.thymleaf.music.uamp.utils.InjectorUtils
+import com.thymleaf.music.uamp.viewmodels.MediaItemFragmentViewModel
 import com.thymleaf.music.util.CommonSubscriber
 import io.reactivex.Flowable
 import kotlin.math.abs
@@ -25,7 +30,14 @@ class MusicAlbumFragment : BaseSimpleFragment() {
 
     private lateinit var container: ViewGroup
 
-    private lateinit var adapter: SongAdapter
+    private lateinit var adapter: MediaItemAdapter
+
+    private lateinit var mediaId: String
+
+
+    private val mediaItemFragmentViewModel by viewModels<MediaItemFragmentViewModel> {
+        InjectorUtils.provideMediaItemFragmentViewModel(requireContext(), mediaId)
+    }
 
 
     override fun setViewBinding(): ViewBinding {
@@ -35,6 +47,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
     }
 
     override fun initFragment(savedInstanceState: Bundle?) {
+        mediaId = arguments?.getString("MEDIA_ID", "") ?: ""
         container = binding.container
         val toolbar: Toolbar = binding.toolbar
         val appBarLayout: AppBarLayout = binding.appBarLayout
@@ -64,7 +77,8 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         albumTitle.setText("本地歌曲")
         albumArtist.setText("本地歌曲")
 
-        adapter = SongAdapter(R.layout.item_song)
+//        adapter = SongAdapter(R.layout.item_song)
+        adapter = MediaItemAdapter()
         songRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         songRecyclerView.adapter = adapter
 
@@ -80,25 +94,17 @@ class MusicAlbumFragment : BaseSimpleFragment() {
             fab.visibility = View.VISIBLE
         }
 
-
-    }
-
-    private fun loadData()
-    {
+        mediaItemFragmentViewModel.mediaItems.observe(viewLifecycleOwner,
+                Observer { list ->
+                    adapter.submitList(list)
+                })
 
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(albumId: Long) =
-                MusicAlbumFragment().apply {
-                    arguments = Bundle().apply {
-                        putLong(ALBUM_ID_KEY, albumId)
-                    }
-
-
-                }
+        fun newInstance(bundle: Bundle): MusicAlbumFragment =
+                MusicAlbumFragment().apply { arguments = bundle }
     }
-
 
 }

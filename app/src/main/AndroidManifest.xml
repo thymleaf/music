@@ -43,6 +43,17 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".uamp.media.MusicService"
+            android:enabled="true"
+            android:exported="true"
+            tools:ignore="ExportedService">
+
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="com.thymleaf.music.GlobalConfiguration"
             android:value="ConfigModule" />

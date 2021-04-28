@@ -11,15 +11,11 @@ import androidx.viewbinding.ViewBinding
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thymleaf.music.R
-import com.thymleaf.music.Song
 import com.thymleaf.music.adapter.MediaItemAdapter
-import com.thymleaf.music.adapter.SongAdapter
 import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentMusicAlbumBinding
 import com.thymleaf.music.uamp.utils.InjectorUtils
 import com.thymleaf.music.uamp.viewmodels.MediaItemFragmentViewModel
-import com.thymleaf.music.util.CommonSubscriber
-import io.reactivex.Flowable
 import kotlin.math.abs
 
 private const val ALBUM_ID_KEY = "album_id_key"
@@ -47,7 +43,8 @@ class MusicAlbumFragment : BaseSimpleFragment() {
     }
 
     override fun initFragment(savedInstanceState: Bundle?) {
-        mediaId = arguments?.getString("MEDIA_ID", "") ?: ""
+//        mediaId = arguments?.getString("MEDIA_ID", "") ?: ""
+        mediaId = "__RECOMMENDED__"
         container = binding.container
         val toolbar: Toolbar = binding.toolbar
         val appBarLayout: AppBarLayout = binding.appBarLayout

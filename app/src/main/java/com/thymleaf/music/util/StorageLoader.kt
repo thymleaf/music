@@ -33,21 +33,21 @@ object StorageLoader {
         } catch (e: Throwable) {
             e.printStackTrace()
         }
-        return results.filter { it.title != "<unknown>" }.toMutableList()
+        return results.filter { it.description.subtitle != "<unknown>" }.toMutableList()
     }
 
     fun MediaMetadataCompat.Builder.from(cursor: Cursor): MediaMetadataCompat.Builder {
-        val  idTmp = cursor.getLong(1)
+        val  idTmp = cursor.getLong(0)
         id = idTmp.toString()
-        title = cursor.getString(2)
-        artist = cursor.getString(3)
-        album = cursor.getString(4)
-        duration = TimeUnit.SECONDS.toMillis(cursor.getLong(5))
+        title = cursor.getString(1)
+        artist = cursor.getString(2)
+        album = cursor.getString(3)
+        duration = TimeUnit.SECONDS.toMillis(cursor.getLong(4))
         flag = MediaBrowserCompat.MediaItem.FLAG_PLAYABLE
-        displayTitle = cursor.getString(2)
-        displaySubtitle = cursor.getString(3)
-        displayDescription = cursor.getString(4)
-        displayIconUri = cursor.getString(4)
+        displayTitle = cursor.getString(1)
+        displaySubtitle = cursor.getString(2)
+        displayDescription = cursor.getString(3)
+        displayIconUri = cursor.getString(3)
         downloadStatus = MediaDescriptionCompat.STATUS_NOT_DOWNLOADED
         flag = MediaBrowserCompat.MediaItem.FLAG_PLAYABLE
         mediaUri = ContentUris.withAppendedId(
@@ -64,7 +64,7 @@ object StorageLoader {
                                selection: String? = null,
                                paramArrayOfString: Array<String>? = null,
                                sortOrder: String? = MediaStore.Audio.Media.DEFAULT_SORT_ORDER): Cursor? {
-        var selectionStatement = "duration>60000 AND is_music=1 AND title != ''"
+        var selectionStatement = "duration>60000 AND is_music=1 AND title != '' AND title NOT Like '%unknown%'"
 
         if (!TextUtils.isEmpty(selection)) {
             selectionStatement = "$selectionStatement AND $selection"

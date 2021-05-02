@@ -14,7 +14,6 @@ import com.thymleaf.music.R
 import com.thymleaf.music.adapter.MediaItemAdapter
 import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentMusicAlbumBinding
-import com.thymleaf.music.uamp.media.library.BROWSER_STORAGE
 import com.thymleaf.music.uamp.utils.InjectorUtils
 import com.thymleaf.music.uamp.viewmodels.MediaItemFragmentViewModel
 import kotlin.math.abs
@@ -76,7 +75,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         albumArtist.setText("本地歌曲")
 
 //        adapter = SongAdapter(R.layout.item_song)
-        adapter = MediaItemAdapter()
+        adapter = MediaItemAdapter(R.layout.item_media)
         songRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         songRecyclerView.adapter = adapter
 
@@ -93,8 +92,8 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         }
 
         mediaItemFragmentViewModel.mediaItems.observe(viewLifecycleOwner,
-                Observer { list ->
-                    adapter.submitList(list)
+                { list ->
+                    adapter.setNewInstance(list)
                 })
 
     }

@@ -47,8 +47,8 @@ class MediaItemFragmentViewModel(
      * Use a backing property so consumers of mediaItems only get a [LiveData] instance so
      * they don't inadvertently modify it.
      */
-    private val _mediaItems = MutableLiveData<List<MediaItemData>>()
-    val mediaItems: LiveData<List<MediaItemData>> = _mediaItems
+    private val _mediaItems = MutableLiveData<MutableList<MediaItem>>()
+    val mediaItems: LiveData<MutableList<MediaItem>> = _mediaItems
 
     /**
      * Pass the status of the [MusicServiceConnection.networkFailure] through.
@@ -57,18 +57,18 @@ class MediaItemFragmentViewModel(
 
     private val subscriptionCallback = object : SubscriptionCallback() {
         override fun onChildrenLoaded(parentId: String, children: List<MediaItem>) {
-            val itemsList = children.map { child ->
-                val subtitle = child.description.subtitle ?: ""
-                MediaItemData(
-                    child.mediaId!!,
-                    child.description.title.toString(),
-                    subtitle.toString(),
-                    child.description.iconUri!!,
-                    child.isBrowsable,
-                    getResourceForMediaId(child.mediaId!!)
-                )
-            }
-            _mediaItems.postValue(itemsList)
+//            val itemsList = children.map { child ->
+//                val subtitle = child.description.subtitle ?: ""
+//                MediaItemData(
+//                    child.mediaId!!,
+//                    child.description.title.toString(),
+//                    subtitle.toString(),
+//                    child.description.iconUri!!,
+//                    child.isBrowsable,
+//                    getResourceForMediaId(child.mediaId!!)
+//                )
+//            }
+            _mediaItems.postValue(children.toMutableList())
         }
     }
 
@@ -154,17 +154,19 @@ class MediaItemFragmentViewModel(
     private fun updateState(
         playbackState: PlaybackStateCompat,
         mediaMetadata: MediaMetadataCompat
-    ): List<MediaItemData> {
+    ): MutableList<MediaItem> {
 
         val newResId = when (playbackState.isPlaying) {
             true -> R.drawable.ic_pause_black_24dp
             else -> R.drawable.ic_play_arrow_black_24dp
         }
 
-        return mediaItems.value?.map {
-            val useResId = if (it.mediaId == mediaMetadata.id) newResId else NO_RES
-            it.copy(playbackRes = useResId)
-        } ?: emptyList()
+//        return mediaItems.value?.map {
+//            val useResId = if (it.mediaId == mediaMetadata.id) newResId else NO_RES
+//            it.copy(playbackRes = useResId)
+//        } ?: emptyList()
+
+        return mutableListOf()
     }
 
     class Factory(

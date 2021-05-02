@@ -27,6 +27,9 @@ interface MusicSource : Iterable<MediaMetadataCompat> {
      */
     suspend fun load()
 
+    fun getMediaItems(): List<MediaMetadataCompat>;
+
+
     /**
      * Method which will perform a given action after this [MusicSource] is ready to be used.
      *

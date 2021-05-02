@@ -10,6 +10,7 @@ import androidx.viewbinding.ViewBinding
 import com.thymleaf.music.R
 import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentHomeBinding
+import com.thymleaf.music.uamp.media.library.BROWSER_STORAGE
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.OnShowRationale
 import permissions.dispatcher.PermissionRequest
@@ -38,27 +39,29 @@ class HomeFragment : BaseSimpleFragment()  {
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_MEDIA_LOCATION)
     fun startDiskPage()
     {
-        startTarget(MusicContainerActivity::class.java, arguments)
+        val arg = Bundle().apply { putString(ROOT_ID, BROWSER_STORAGE) }
+        arguments.let { it?.putString(ROOT_ID, BROWSER_STORAGE) }
+        startTarget(MusicContainerActivity::class.java, arg)
     }
 
     @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)
     fun showRationaleForCamera(request: PermissionRequest) {
-        showRationaleDialog(R.string.permission_storage_rationale, request)
+        showRationaleDialog( request)
     }
 
-    private fun showRationaleDialog(@StringRes messageResId: Int, request: PermissionRequest) {
+    private fun showRationaleDialog(request: PermissionRequest) {
         AlertDialog.Builder(requireContext())
                 .setPositiveButton(R.string.button_allow) { _, _ -> request.proceed() }
                 .setNegativeButton(R.string.button_deny) { _, _ -> request.cancel() }
                 .setCancelable(false)
-                .setMessage(messageResId)
+                .setMessage(R.string.permission_storage_rationale)
                 .show()
     }
 
 
     companion object {
         @JvmStatic
-        fun newInstance(bundle: Bundle) =
+        fun newInstance(bundle: Bundle?) =
                 HomeFragment().apply {
                     arguments = bundle
                 }

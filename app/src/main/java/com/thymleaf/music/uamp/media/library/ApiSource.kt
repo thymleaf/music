@@ -37,13 +37,15 @@ import kotlin.jvm.Throws
  * The definition of the JSON is specified in the docs of [JsonMusic] in this file,
  * which is the object representation of it.
  */
-class JsonSource(private val source: Uri) : AbstractMusicSource() {
+class ApiSource(private val source: Uri) : AbstractMusicSource() {
 
     private var catalog: List<MediaMetadataCompat> = emptyList()
 
     init {
         state = STATE_INITIALIZING
     }
+
+    override fun getMediaItems() = catalog
 
     override fun iterator(): Iterator<MediaMetadataCompat> = catalog.iterator()
 

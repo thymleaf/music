@@ -76,18 +76,6 @@ class MainActivity : BaseSimpleActivity() {
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
 
-//        val fragments = mutableListOf<Fragment>()
-//        fragments.add(HomeFragment.newInstance(Bundle()))
-//        fragments.add(SightseeingFragment.newInstance(Bundle()))
-//        fragments.add(PlayListFragment.newInstance(Bundle()))
-//
-//        adapter = TabFragmentAdapter(this, fragments)
-//        viewPager.adapter = adapter
-//
-//        TabLayoutMediator(tabLayout, viewPager){tab, position ->
-//            tab.text = pageTitle[position]
-//        }.attach()
-
         bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.next -> {
@@ -103,10 +91,10 @@ class MainActivity : BaseSimpleActivity() {
                 Observer<String> { rootMediaId ->
                     rootMediaId?.let {
                         val fragments = mutableListOf<Fragment>()
-                        val bundle = Bundle().apply {
-                            putString("MEDIA_ID", it)
-                        }
-                        fragments.add(HomeFragment.newInstance(bundle))
+//                        val bundle = Bundle().apply {
+//                            putString(ROOT_ID, it)
+//                        }
+                        fragments.add(HomeFragment.newInstance(null))
                         fragments.add(SightseeingFragment.newInstance(bundle))
                         fragments.add(PlayListFragment.newInstance(bundle))
 

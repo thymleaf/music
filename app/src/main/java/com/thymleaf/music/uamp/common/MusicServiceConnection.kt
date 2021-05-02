@@ -51,7 +51,7 @@ import com.thymleaf.music.uamp.media.extensions.id
  *  parameters, rather than private properties. They're only required to build the
  *  [MediaBrowserConnectionCallback] and [MediaBrowserCompat] objects.
  */
-class MusicServiceConnection(context: Context, serviceComponent: ComponentName) {
+class MusicServiceConnection(context: Context, serviceComponent: ComponentName, bundle: Bundle? = null) {
     val isConnected = MutableLiveData<Boolean>()
         .apply { postValue(false) }
     val networkFailure = MutableLiveData<Boolean>()
@@ -71,7 +71,7 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName) 
     private val mediaBrowser = MediaBrowserCompat(
         context,
         serviceComponent,
-        mediaBrowserConnectionCallback, null
+        mediaBrowserConnectionCallback, bundle
     ).apply { connect() }
     private lateinit var mediaController: MediaControllerCompat
 

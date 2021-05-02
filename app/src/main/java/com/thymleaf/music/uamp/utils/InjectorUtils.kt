@@ -19,6 +19,7 @@ package com.thymleaf.music.uamp.utils
 import android.app.Application
 import android.content.ComponentName
 import android.content.Context
+import android.os.Bundle
 import com.thymleaf.music.uamp.common.MusicServiceConnection
 import com.thymleaf.music.uamp.media.MusicService
 import com.thymleaf.music.uamp.viewmodels.MainActivityViewModel
@@ -31,18 +32,18 @@ import com.thymleaf.music.uamp.viewmodels.NowPlayingFragmentViewModel
 object InjectorUtils {
     private fun provideMusicServiceConnection(context: Context): MusicServiceConnection {
         return MusicServiceConnection.getInstance(
-            context,
-            ComponentName(context, MusicService::class.java)
+                context,
+                ComponentName(context, MusicService::class.java)
         )
     }
 
-    fun provideMainActivityViewModel(context: Context): MainActivityViewModel.Factory {
+    fun provideMainActivityViewModel(context: Context, bundle: Bundle? = null): MainActivityViewModel.Factory {
         val applicationContext = context.applicationContext
         val musicServiceConnection = provideMusicServiceConnection(applicationContext)
         return MainActivityViewModel.Factory(musicServiceConnection)
     }
 
-    fun provideMediaItemFragmentViewModel(context: Context, mediaId: String)
+    fun provideMediaItemFragmentViewModel(context: Context, mediaId: String, bundle: Bundle? = null)
             : MediaItemFragmentViewModel.Factory {
         val applicationContext = context.applicationContext
         val musicServiceConnection = provideMusicServiceConnection(applicationContext)
@@ -54,7 +55,7 @@ object InjectorUtils {
         val applicationContext = context.applicationContext
         val musicServiceConnection = provideMusicServiceConnection(applicationContext)
         return NowPlayingFragmentViewModel.Factory(
-            applicationContext as Application, musicServiceConnection
+                applicationContext as Application, musicServiceConnection
         )
     }
 }

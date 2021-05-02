@@ -10,11 +10,6 @@ class MusicContainerActivity : BaseSimpleActivity() {
 
     private lateinit var binding: ActivityMusicContainerBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_music_container)
-    }
-
     override fun setBindingView(): View {
         binding = ActivityMusicContainerBinding.inflate(layoutInflater)
         return binding.root

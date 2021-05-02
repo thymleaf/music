@@ -4,7 +4,6 @@ import android.content.Context
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaBrowserCompat.MediaItem
 import android.support.v4.media.MediaMetadataCompat
-import com.thymleaf.music.uamp.media.library.MusicSource
 import com.thymleaf.music.R
 import com.thymleaf.music.uamp.media.MusicService
 import com.thymleaf.music.uamp.media.extensions.*
@@ -53,10 +52,10 @@ class BrowseTree(
      * TODO: Expand to allow more browsing types.
      */
     init {
-        val rootList = mediaIdToChildren[UAMP_BROWSABLE_ROOT] ?: mutableListOf()
+        val rootList = mediaIdToChildren[BROWSER_ROOT] ?: mutableListOf()
 
         val recommendedMetadata = MediaMetadataCompat.Builder().apply {
-            id = UAMP_RECOMMENDED_ROOT
+            id = BROWSER_RECOMMENDED_ROOT
             title = context.getString(R.string.recommended_title)
             albumArtUri = RESOURCE_ROOT_URI +
                     context.resources.getResourceEntryName(R.drawable.ic_recommended)
@@ -64,7 +63,7 @@ class BrowseTree(
         }.build()
 
         val albumsMetadata = MediaMetadataCompat.Builder().apply {
-            id = UAMP_ALBUMS_ROOT
+            id = BROWSER_ALBUMS_ROOT
             title = context.getString(R.string.albums_title)
             albumArtUri = RESOURCE_ROOT_URI +
                     context.resources.getResourceEntryName(R.drawable.ic_album)
@@ -73,7 +72,7 @@ class BrowseTree(
 
         rootList += recommendedMetadata
         rootList += albumsMetadata
-        mediaIdToChildren[UAMP_BROWSABLE_ROOT] = rootList
+        mediaIdToChildren[BROWSER_ROOT] = rootList
 
         musicSource.forEach { mediaItem ->
             val albumMediaId = mediaItem.album.urlEncoded
@@ -82,15 +81,15 @@ class BrowseTree(
 
             // Add the first track of each album to the 'Recommended' category
             if (mediaItem.trackNumber == 1L) {
-                val recommendedChildren = mediaIdToChildren[UAMP_RECOMMENDED_ROOT]
+                val recommendedChildren = mediaIdToChildren[BROWSER_RECOMMENDED_ROOT]
                         ?: mutableListOf()
                 recommendedChildren += mediaItem
-                mediaIdToChildren[UAMP_RECOMMENDED_ROOT] = recommendedChildren
+                mediaIdToChildren[BROWSER_RECOMMENDED_ROOT] = recommendedChildren
             }
 
             // If this was recently played, add it to the recent root.
             if (mediaItem.id == recentMediaId) {
-                mediaIdToChildren[UAMP_RECENT_ROOT] = mutableListOf(mediaItem)
+                mediaIdToChildren[BROWSER_RECENT_ROOT] = mutableListOf(mediaItem)
             }
         }
     }
@@ -118,9 +117,9 @@ class BrowseTree(
         }.build()
 
         // Adds this album to the 'Albums' category.
-        val rootList = mediaIdToChildren[UAMP_ALBUMS_ROOT] ?: mutableListOf()
+        val rootList = mediaIdToChildren[BROWSER_ALBUMS_ROOT] ?: mutableListOf()
         rootList += albumMetadata
-        mediaIdToChildren[UAMP_ALBUMS_ROOT] = rootList
+        mediaIdToChildren[BROWSER_ALBUMS_ROOT] = rootList
 
         // Insert the album's root with an empty list for its children, and return the list.
         return mutableListOf<MediaMetadataCompat>().also {
@@ -129,11 +128,12 @@ class BrowseTree(
     }
 }
 
-const val UAMP_BROWSABLE_ROOT = "/"
-const val UAMP_EMPTY_ROOT = "@empty@"
-const val UAMP_RECOMMENDED_ROOT = "__RECOMMENDED__"
-const val UAMP_ALBUMS_ROOT = "__ALBUMS__"
-const val UAMP_RECENT_ROOT = "__RECENT__"
+const val BROWSER_ROOT = "/"
+const val BROWSER_STORAGE = "__STORAGE__"
+const val BROWSER_API = "__API__"
+const val BROWSER_RECOMMENDED_ROOT = "__RECOMMENDED__"
+const val BROWSER_ALBUMS_ROOT = "__ALBUMS__"
+const val BROWSER_RECENT_ROOT = "__RECENT__"
 
 const val MEDIA_SEARCH_SUPPORTED = "android.media.browse.SEARCH_SUPPORTED"
 

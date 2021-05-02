@@ -14,11 +14,13 @@ import com.thymleaf.music.R
 import com.thymleaf.music.adapter.MediaItemAdapter
 import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentMusicAlbumBinding
+import com.thymleaf.music.uamp.media.library.BROWSER_STORAGE
 import com.thymleaf.music.uamp.utils.InjectorUtils
 import com.thymleaf.music.uamp.viewmodels.MediaItemFragmentViewModel
 import kotlin.math.abs
 
 private const val ALBUM_ID_KEY = "album_id_key"
+const val ROOT_ID = "ROOT_ID"
 
 class MusicAlbumFragment : BaseSimpleFragment() {
 
@@ -32,7 +34,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
 
 
     private val mediaItemFragmentViewModel by viewModels<MediaItemFragmentViewModel> {
-        InjectorUtils.provideMediaItemFragmentViewModel(requireContext(), mediaId)
+        InjectorUtils.provideMediaItemFragmentViewModel(requireContext(), mediaId, arguments)
     }
 
 
@@ -43,8 +45,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
     }
 
     override fun initFragment(savedInstanceState: Bundle?) {
-//        mediaId = arguments?.getString("MEDIA_ID", "") ?: ""
-        mediaId = "__RECOMMENDED__"
+        mediaId = arguments?.getString(ROOT_ID, "/") ?: "/"
         container = binding.container
         val toolbar: Toolbar = binding.toolbar
         val appBarLayout: AppBarLayout = binding.appBarLayout

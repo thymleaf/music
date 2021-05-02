@@ -16,24 +16,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.media.MediaBrowserServiceCompat
-import androidx.media.MediaBrowserServiceCompat.BrowserRoot.EXTRA_RECENT
-import com.thymleaf.music.uamp.media.PackageValidator
-import com.thymleaf.music.uamp.media.PersistentStorage
-import com.thymleaf.music.uamp.media.UampNotificationManager
 import com.thymleaf.music.uamp.media.extensions.album
 import com.thymleaf.music.uamp.media.extensions.flag
 import com.thymleaf.music.uamp.media.extensions.id
 import com.thymleaf.music.uamp.media.extensions.toMediaQueueItem
 import com.thymleaf.music.uamp.media.extensions.toMediaSource
 import com.thymleaf.music.uamp.media.extensions.trackNumber
-import com.thymleaf.music.uamp.media.library.AbstractMusicSource
-import com.thymleaf.music.uamp.media.library.BrowseTree
-import com.thymleaf.music.uamp.media.library.JsonSource
-import com.thymleaf.music.uamp.media.library.MEDIA_SEARCH_SUPPORTED
-import com.thymleaf.music.uamp.media.library.MusicSource
-import com.thymleaf.music.uamp.media.library.UAMP_BROWSABLE_ROOT
-import com.thymleaf.music.uamp.media.library.UAMP_EMPTY_ROOT
-import com.thymleaf.music.uamp.media.library.UAMP_RECENT_ROOT
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ControlDispatcher
 import com.google.android.exoplayer2.ExoPlaybackException
@@ -51,6 +39,8 @@ import com.google.android.exoplayer2.util.Util
 import com.google.android.gms.cast.MediaQueueItem
 import com.google.android.gms.cast.framework.CastContext
 import com.thymleaf.music.R
+import com.thymleaf.music.uamp.media.library.*
+import com.thymleaf.music.ui.ROOT_ID
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -77,7 +67,6 @@ open class MusicService : MediaBrowserServiceCompat() {
 
     private lateinit var notificationManager: UampNotificationManager
     private lateinit var mediaSource: MusicSource
-    private lateinit var packageValidator: PackageValidator
 
     // The current player will either be an ExoPlayer (for local playback) or a CastPlayer (for
     // remote playback through a Cast device).
@@ -100,6 +89,7 @@ open class MusicService : MediaBrowserServiceCompat() {
     private val browseTree: BrowseTree by lazy {
         BrowseTree(applicationContext, mediaSource)
     }
+
 
     private val dataSourceFactory: DefaultDataSourceFactory by lazy {
         DefaultDataSourceFactory(
@@ -196,10 +186,10 @@ open class MusicService : MediaBrowserServiceCompat() {
 
         // The media library is built from a remote JSON file. We'll create the source here,
         // and then use a suspend function to perform the download off the main thread.
-        mediaSource = JsonSource(source = remoteJsonSource)
-        serviceScope.launch {
-            mediaSource.load()
-        }
+//        mediaSource = ApiSource(source = remoteJsonSource)
+//        serviceScope.launch {
+//            mediaSource.load()
+//        }
 
         // ExoPlayer will manage the MediaSession for us.
         mediaSessionConnector = MediaSessionConnector(mediaSession)
@@ -211,8 +201,6 @@ open class MusicService : MediaBrowserServiceCompat() {
             newPlayer = if (castPlayer?.isCastSessionAvailable == true) castPlayer!! else exoPlayer
         )
         notificationManager.showNotificationForPlayer(currentPlayer)
-
-        packageValidator = PackageValidator(this, R.xml.allowed_media_browser_callers)
 
         storage = PersistentStorage.getInstance(applicationContext)
     }
@@ -261,41 +249,8 @@ open class MusicService : MediaBrowserServiceCompat() {
         rootHints: Bundle?
     ): BrowserRoot? {
 
-        /*
-         * By default, all known clients are permitted to search, but only tell unknown callers
-         * about search if permitted by the [BrowseTree].
-         */
-        val isKnownCaller = packageValidator.isKnownCaller(clientPackageName, clientUid)
-        val rootExtras = Bundle().apply {
-            putBoolean(
-                MEDIA_SEARCH_SUPPORTED,
-                isKnownCaller || browseTree.searchableByUnknownCaller
-            )
-            putBoolean(CONTENT_STYLE_SUPPORTED, true)
-            putInt(CONTENT_STYLE_BROWSABLE_HINT, CONTENT_STYLE_GRID)
-            putInt(CONTENT_STYLE_PLAYABLE_HINT, CONTENT_STYLE_LIST)
-        }
-
-        return if (isKnownCaller) {
-            /**
-             * By default return the browsable root. Treat the EXTRA_RECENT flag as a special case
-             * and return the recent root instead.
-             */
-            val isRecentRequest = rootHints?.getBoolean(EXTRA_RECENT) ?: false
-            val browserRootPath = if (isRecentRequest) UAMP_RECENT_ROOT else UAMP_BROWSABLE_ROOT
-            BrowserRoot(browserRootPath, rootExtras)
-        } else {
-            /**
-             * Unknown caller. There are two main ways to handle this:
-             * 1) Return a root without any content, which still allows the connecting client
-             * to issue commands.
-             * 2) Return `null`, which will cause the system to disconnect the app.
-             *
-             * UAMP takes the first approach for a variety of reasons, but both are valid
-             * options.
-             */
-            BrowserRoot(UAMP_EMPTY_ROOT, rootExtras)
-        }
+        val browserRootPath = rootHints?.getString(ROOT_ID) ?: BROWSER_ROOT
+        return BrowserRoot(browserRootPath, rootHints)
     }
 
     /**
@@ -308,19 +263,40 @@ open class MusicService : MediaBrowserServiceCompat() {
         result: Result<List<MediaItem>>
     ) {
 
+        when (parentMediaId)
+        {
+            BROWSER_ROOT ->{
+
+            }
+            BROWSER_STORAGE ->{
+                mediaSource = StorageSource(applicationContext)
+                serviceScope.launch {
+                    mediaSource.load()
+                }
+            }
+            BROWSER_API ->{
+                mediaSource = ApiSource(source = remoteJsonSource)
+                serviceScope.launch {
+                    mediaSource.load()
+                }
+            }
+            else -> {
+
+            }
+        }
         /**
          * If the caller requests the recent root, return the most recently played song.
          */
-        if (parentMediaId == UAMP_RECENT_ROOT) {
+        if (parentMediaId == BROWSER_RECENT_ROOT) {
             result.sendResult(storage.loadRecentSong()?.let { song -> listOf(song) })
         } else {
             // If the media source is ready, the results will be set synchronously here.
             val resultsSent = mediaSource.whenReady { successfullyInitialized ->
                 if (successfullyInitialized) {
-                    val children = browseTree[parentMediaId]?.map { item ->
-                        MediaItem(item.description, item.flag)
-                    }
-                    result.sendResult(children)
+
+                    val mediaItem = mediaSource.getMediaItems().map { MediaItem(it.description, it.flag) }
+
+                    result.sendResult(mediaItem)
                 } else {
                     mediaSession.sendSessionEvent(NETWORK_FAILURE, null)
                     result.sendResult(null)

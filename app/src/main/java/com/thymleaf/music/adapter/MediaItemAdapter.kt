@@ -1,11 +1,13 @@
 package com.thymleaf.music.adapter
 
 import android.support.v4.media.MediaBrowserCompat
+import android.support.v4.media.session.PlaybackStateCompat.*
 import androidx.annotation.LayoutRes
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.thymleaf.music.R
 import com.thymleaf.music.uamp.viewmodels.KEY_IS_PLAYING
+import com.thymleaf.music.uamp.viewmodels.KEY_PLAY_STATE
 
 class MediaItemAdapter(@LayoutRes private val layoutResId: Int) :
         BaseQuickAdapter<MediaBrowserCompat.MediaItem, BaseViewHolder>(layoutResId) {
@@ -22,6 +24,21 @@ class MediaItemAdapter(@LayoutRes private val layoutResId: Int) :
                     .setVisible(R.id.view_status_top, isPlaying)
                     .setVisible(R.id.view_status_bottom, isPlaying)
                     .setVisible(R.id.view_status_right, isPlaying)
+
+            when (it.getInt(KEY_PLAY_STATE, 0)) {
+                STATE_STOPPED -> {
+                    holder.setBackgroundResource(R.id.img_playing_status, R.drawable.ic_play_arrow_black_24dp)
+                }
+                STATE_PAUSED -> {
+                    holder.setBackgroundResource(R.id.img_playing_status, R.drawable.ic_pause_black_24dp)
+                }
+                STATE_PLAYING -> {
+                    holder.setBackgroundResource(R.id.img_playing_status, R.drawable.outline_equalizer_24)
+                }
+                else -> {
+                    holder.setVisible(R.id.img_playing_status, false)
+                }
+            }
         }
     }
 

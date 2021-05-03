@@ -5,14 +5,9 @@ import android.support.v4.media.MediaBrowserCompat.MediaItem
 import android.support.v4.media.MediaBrowserCompat.SubscriptionCallback
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.PlaybackStateCompat
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.thymleaf.music.uamp.MediaItemData
+import androidx.lifecycle.*
 import com.thymleaf.music.R
+import com.thymleaf.music.uamp.MediaItemData
 import com.thymleaf.music.uamp.common.EMPTY_PLAYBACK_STATE
 import com.thymleaf.music.uamp.common.MusicServiceConnection
 import com.thymleaf.music.uamp.common.NOTHING_PLAYING
@@ -126,12 +121,8 @@ class MediaItemFragmentViewModel(
         mediaMetadata: MediaMetadataCompat
     ): MutableList<MediaItem>? {
 
-        val newResId = when (playbackState.isPlaying) {
-            true -> R.drawable.ic_pause_black_24dp
-            else -> R.drawable.ic_play_arrow_black_24dp
-        }
-
         mediaItems.value?.forEach{ item -> item.description.extras.let {
+            it?.putInt(KEY_PLAY_STATE, playbackState.state)
             it?.putBoolean(KEY_IS_PLAYING, item.mediaId == mediaMetadata.id)
         }}
 
@@ -153,3 +144,4 @@ class MediaItemFragmentViewModel(
 private const val TAG = "MediaItemFragmentVM"
 private const val NO_RES = 0
 const val KEY_IS_PLAYING = "key_is_playing"
+const val KEY_PLAY_STATE = "key_play_state"

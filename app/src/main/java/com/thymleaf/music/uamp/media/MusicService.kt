@@ -211,7 +211,7 @@ open class MusicService : MediaBrowserServiceCompat() {
      * playback to continue and allow users to stop it with the notification.
      */
     override fun onTaskRemoved(rootIntent: Intent) {
-        saveRecentSongToStorage()
+//        saveRecentSongToStorage()
         super.onTaskRemoved(rootIntent)
 
         /**
@@ -574,7 +574,7 @@ open class MusicService : MediaBrowserServiceCompat() {
                         // When playing/paused save the current media item in persistent
                         // storage so that playback can be resumed between device reboots.
                         // Search for "media resumption" for more information.
-                        saveRecentSongToStorage()
+//                        saveRecentSongToStorage()
 
                         if (!playWhenReady) {
                             // If playback is paused we remove the foreground state which allows the

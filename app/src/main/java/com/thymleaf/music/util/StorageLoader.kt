@@ -37,7 +37,7 @@ object StorageLoader {
     }
 
     fun MediaMetadataCompat.Builder.from(cursor: Cursor): MediaMetadataCompat.Builder {
-        val  idTmp = cursor.getLong(0)
+        val idTmp = cursor.getLong(0)
         id = idTmp.toString()
         title = cursor.getString(1)
         artist = cursor.getString(2)
@@ -50,10 +50,8 @@ object StorageLoader {
         displayIconUri = cursor.getString(3)
         downloadStatus = MediaDescriptionCompat.STATUS_NOT_DOWNLOADED
         flag = MediaBrowserCompat.MediaItem.FLAG_PLAYABLE
-        mediaUri = ContentUris.withAppendedId(
-                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                idTmp
-        ).toString()
+        mediaUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, idTmp)
+                .toString()
         return this
     }
 

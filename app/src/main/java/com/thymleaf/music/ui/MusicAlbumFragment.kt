@@ -1,13 +1,17 @@
 package com.thymleaf.music.ui
 
 import android.os.Bundle
+import android.support.v4.media.MediaBrowserCompat
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thymleaf.music.R
@@ -15,7 +19,9 @@ import com.thymleaf.music.adapter.MediaItemAdapter
 import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentMusicAlbumBinding
 import com.thymleaf.music.uamp.utils.InjectorUtils
+import com.thymleaf.music.uamp.viewmodels.MainActivityViewModel
 import com.thymleaf.music.uamp.viewmodels.MediaItemFragmentViewModel
+import com.thymleaf.music.util.RecyclerViewUtil.setItemDividerDuration
 import kotlin.math.abs
 
 private const val ALBUM_ID_KEY = "album_id_key"
@@ -34,6 +40,10 @@ class MusicAlbumFragment : BaseSimpleFragment() {
 
     private val mediaItemFragmentViewModel by viewModels<MediaItemFragmentViewModel> {
         InjectorUtils.provideMediaItemFragmentViewModel(requireContext(), mediaId, arguments)
+    }
+
+    private val viewModel by viewModels<MainActivityViewModel> {
+        InjectorUtils.provideMainActivityViewModel(requireContext())
     }
 
 
@@ -74,9 +84,15 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         albumTitle.setText("本地歌曲")
         albumArtist.setText("本地歌曲")
 
-//        adapter = SongAdapter(R.layout.item_song)
-        adapter = MediaItemAdapter(R.layout.item_media)
+
         songRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        setItemDividerDuration(requireContext(), songRecyclerView, R.drawable.inset_recycler_divider)
+        adapter = MediaItemAdapter(R.layout.item_media)
+        adapter.setOnItemClickListener{ adapter, _, position ->
+            run {
+                viewModel.playMediaId((adapter.getItem(position) as MediaBrowserCompat.MediaItem).mediaId!!)
+            }
+        }
         songRecyclerView.adapter = adapter
 
         fab.setOnClickListener {

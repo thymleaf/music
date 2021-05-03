@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
@@ -88,22 +89,26 @@ class UampNotificationManager(
                 player: Player,
                 callback: PlayerNotificationManager.BitmapCallback
         ): Bitmap? {
-            val iconUri = controller.metadata.description.iconUri
-            return if (currentIconUri != iconUri || currentBitmap == null) {
 
-                // Cache the bitmap for the current song so that successive calls to
-                // `getCurrentLargeIcon` don't cause the bitmap to be recreated.
-                currentIconUri = iconUri
-                serviceScope.launch {
-                    currentBitmap = iconUri?.let {
-                        resolveUriAsBitmap(it)
-                    }
-                    currentBitmap?.let { callback.onBitmap(it) }
-                }
-                null
-            } else {
-                currentBitmap
-            }
+
+            return BitmapFactory.decodeResource(context.resources, R.drawable.album_emile_seguin_unsplash)
+
+//            val iconUri = controller.metadata.description.iconUri
+//            return if (currentIconUri != iconUri || currentBitmap == null) {
+//
+//                // Cache the bitmap for the current song so that successive calls to
+//                // `getCurrentLargeIcon` don't cause the bitmap to be recreated.
+//                currentIconUri = iconUri
+//                serviceScope.launch {
+//                    currentBitmap = iconUri?.let {
+//                        resolveUriAsBitmap(it)
+//                    }
+//                    currentBitmap?.let { callback.onBitmap(it) }
+//                }
+//                null
+//            } else {
+//                currentBitmap
+//            }
         }
 
         private suspend fun resolveUriAsBitmap(uri: Uri): Bitmap? {

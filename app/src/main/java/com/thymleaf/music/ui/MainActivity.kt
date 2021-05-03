@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.thymleaf.music.R
-import com.thymleaf.music.TabFragmentAdapter
+import com.thymleaf.music.adapter.TabFragmentAdapter
 import com.thymleaf.music.base.BaseSimpleActivity
 import com.thymleaf.music.databinding.ActivityMainBinding
 import com.thymleaf.music.uamp.utils.InjectorUtils

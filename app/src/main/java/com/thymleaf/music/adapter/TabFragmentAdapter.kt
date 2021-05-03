@@ -1,10 +1,11 @@
-package com.thymleaf.music
+package com.thymleaf.music.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-public class TabFragmentAdapter(activity: FragmentActivity, private val fragments: List<Fragment>) : FragmentStateAdapter(activity) {
+class TabFragmentAdapter(activity: FragmentActivity, private val fragments: List<Fragment>)
+    : FragmentStateAdapter(activity) {
 
 
     override fun getItemCount(): Int {

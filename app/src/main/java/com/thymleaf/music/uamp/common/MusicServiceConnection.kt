@@ -73,7 +73,7 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName, 
         serviceComponent,
         mediaBrowserConnectionCallback, bundle
     ).apply { connect() }
-    private lateinit var mediaController: MediaControllerCompat
+    lateinit var mediaController: MediaControllerCompat
 
     fun subscribe(parentId: String, callback: MediaBrowserCompat.SubscriptionCallback) {
         mediaBrowser.subscribe(parentId, callback)

@@ -9,7 +9,6 @@
         android:id="@+id/view_playing_status"
         android:layout_width="4dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         android:background="@color/colorAccent"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,13 +33,12 @@
         android:id="@+id/tv_subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginBottom="12dp"
         android:lines="1"
         android:textAppearance="?textAppearanceCaption"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tv_title"
-        app:layout_constraintStart_toEndOf="@+id/view_playing_status"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
         tools:text="李宗盛" />
 
     <ImageView
@@ -68,7 +66,6 @@
         android:id="@+id/view_status_right"
         android:layout_width="1px"
         android:layout_height="0dp"
-        android:layout_marginEnd="4dp"
         android:background="@color/colorAccent"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"

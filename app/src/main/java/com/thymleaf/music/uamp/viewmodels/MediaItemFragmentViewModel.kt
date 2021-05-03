@@ -1,19 +1,3 @@
-/*
- * Copyright 2018 Google Inc. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.thymleaf.music.uamp.viewmodels
 
 import android.support.v4.media.MediaBrowserCompat
@@ -35,9 +19,6 @@ import com.thymleaf.music.uamp.common.NOTHING_PLAYING
 import com.thymleaf.music.uamp.media.extensions.id
 import com.thymleaf.music.uamp.media.extensions.isPlaying
 
-/**
- * [ViewModel] for [MediaItemFragment].
- */
 class MediaItemFragmentViewModel(
     private val mediaId: String,
     musicServiceConnection: MusicServiceConnection
@@ -57,17 +38,6 @@ class MediaItemFragmentViewModel(
 
     private val subscriptionCallback = object : SubscriptionCallback() {
         override fun onChildrenLoaded(parentId: String, children: List<MediaItem>) {
-//            val itemsList = children.map { child ->
-//                val subtitle = child.description.subtitle ?: ""
-//                MediaItemData(
-//                    child.mediaId!!,
-//                    child.description.title.toString(),
-//                    subtitle.toString(),
-//                    child.description.iconUri!!,
-//                    child.isBrowsable,
-//                    getResourceForMediaId(child.mediaId!!)
-//                )
-//            }
             _mediaItems.postValue(children.toMutableList())
         }
     }
@@ -154,19 +124,18 @@ class MediaItemFragmentViewModel(
     private fun updateState(
         playbackState: PlaybackStateCompat,
         mediaMetadata: MediaMetadataCompat
-    ): MutableList<MediaItem> {
+    ): MutableList<MediaItem>? {
 
         val newResId = when (playbackState.isPlaying) {
             true -> R.drawable.ic_pause_black_24dp
             else -> R.drawable.ic_play_arrow_black_24dp
         }
 
-//        return mediaItems.value?.map {
-//            val useResId = if (it.mediaId == mediaMetadata.id) newResId else NO_RES
-//            it.copy(playbackRes = useResId)
-//        } ?: emptyList()
+        mediaItems.value?.forEach{ item -> item.description.extras.let {
+            it?.putBoolean(KEY_IS_PLAYING, item.mediaId == mediaMetadata.id)
+        }}
 
-        return mutableListOf()
+        return mediaItems.value
     }
 
     class Factory(
@@ -183,3 +152,4 @@ class MediaItemFragmentViewModel(
 
 private const val TAG = "MediaItemFragmentVM"
 private const val NO_RES = 0
+const val KEY_IS_PLAYING = "key_is_playing"

@@ -1,5 +1,6 @@
 package com.thymleaf.music.ui
 
+import android.media.AudioManager
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -28,6 +29,8 @@ class MusicContainerActivity : BaseSimpleActivity() {
 
     override fun initActivity(savedInstanceState: Bundle?) {
         super.initActivity(savedInstanceState)
+
+        volumeControlStream = AudioManager.STREAM_MUSIC
 
         viewModel.rootMediaId.observe(this,
                 { rootMediaId ->

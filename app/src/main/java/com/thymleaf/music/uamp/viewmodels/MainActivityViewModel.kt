@@ -94,9 +94,10 @@ class MainActivityViewModel(
      * - If the item *is* the active item, check whether "pause" is a permitted command. If it is,
      *   then pause playback, otherwise send "play" to resume playback.
      */
-    fun playMedia(mediaItem: MediaItemData, pauseAllowed: Boolean = true) {
+    fun playMedia(mediaItem: MediaBrowserCompat.MediaItem, pauseAllowed: Boolean = true) {
         val nowPlaying = musicServiceConnection.nowPlaying.value
         val transportControls = musicServiceConnection.transportControls
+        val mediaController = musicServiceConnection.mediaController
 
         val isPrepared = musicServiceConnection.playbackState.value?.isPrepared ?: false
         if (isPrepared && mediaItem.mediaId == nowPlaying?.id) {
@@ -115,10 +116,11 @@ class MainActivityViewModel(
             }
         } else {
             transportControls.playFromMediaId(mediaItem.mediaId, null)
+//            mediaController.addQueueItem(mediaItem.description)
         }
     }
 
-    fun playMediaId(mediaId: String) {
+    private fun playMediaId(mediaId: String) {
         val nowPlaying = musicServiceConnection.nowPlaying.value
         val transportControls = musicServiceConnection.transportControls
 

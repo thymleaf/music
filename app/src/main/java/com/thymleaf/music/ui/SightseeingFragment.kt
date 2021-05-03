@@ -23,7 +23,7 @@ class SightseeingFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(bundle: Bundle) =
+        fun newInstance(bundle: Bundle?) =
                 SightseeingFragment().apply {
                     arguments = bundle
                 }

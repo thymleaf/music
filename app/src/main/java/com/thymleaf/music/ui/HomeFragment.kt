@@ -6,11 +6,14 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
 import com.thymleaf.music.R
 import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentHomeBinding
 import com.thymleaf.music.uamp.media.library.BROWSER_STORAGE
+import com.thymleaf.music.uamp.utils.InjectorUtils
+import com.thymleaf.music.uamp.viewmodels.MainActivityViewModel
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.OnShowRationale
 import permissions.dispatcher.PermissionRequest
@@ -20,6 +23,10 @@ import permissions.dispatcher.RuntimePermissions
 class HomeFragment : BaseSimpleFragment()  {
 
     private lateinit var binding: FragmentHomeBinding
+
+    private val mainActivityViewModel by activityViewModels<MainActivityViewModel> {
+        InjectorUtils.provideMainActivityViewModel(requireContext())
+    }
 
     override fun setViewBinding(): ViewBinding {
         binding = FragmentHomeBinding.inflate(layoutInflater)
@@ -40,8 +47,10 @@ class HomeFragment : BaseSimpleFragment()  {
     fun startDiskPage()
     {
         val arg = Bundle().apply { putString(ROOT_ID, BROWSER_STORAGE) }
-        arguments.let { it?.putString(ROOT_ID, BROWSER_STORAGE) }
-        startTarget(MusicContainerActivity::class.java, arg)
+//        arguments.let { it?.putString(ROOT_ID, BROWSER_STORAGE) }
+//        startTarget(MusicContainerActivity::class.java, arg)
+
+        mainActivityViewModel.showFragment(MusicAlbumFragment.newInstance(arg), tag= TAG)
     }
 
     @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -72,3 +81,5 @@ class HomeFragment : BaseSimpleFragment()  {
         onRequestPermissionsResult(requestCode, grantResults)
     }
 }
+
+private const val TAG = "HomeFragment"

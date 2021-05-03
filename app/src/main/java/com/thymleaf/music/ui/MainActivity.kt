@@ -36,7 +36,7 @@ class MainActivity : BaseSimpleActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: TabFragmentAdapter
 
-    private val pageTitle = mutableListOf<String>("我的", "发现", "歌单")
+    private val pageTitle = mutableListOf("我的", "发现", "歌单")
 
     private val viewModel by viewModels<MainActivityViewModel> {
         InjectorUtils.provideMainActivityViewModel(this)

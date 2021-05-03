@@ -162,4 +162,4 @@ data class FragmentNavigationRequest(
     val tag: String? = null
 )
 
-private const val TAG = "MainActivitytVM"
+private const val TAG = "MainActivityVM"

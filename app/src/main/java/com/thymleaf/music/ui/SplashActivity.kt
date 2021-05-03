@@ -20,7 +20,7 @@ class SplashActivity : BaseSimpleActivity() {
         binding.tvSplash.text = "闪屏页"
         handle = Handler(Looper.myLooper()!!)
         handle.postDelayed({
-            startTarget(MainActivity::class.java)
+            startTarget(MusicContainerActivity::class.java)
             finish()
         }, 500)
     }

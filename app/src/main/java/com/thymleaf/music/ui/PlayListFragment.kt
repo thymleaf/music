@@ -16,9 +16,8 @@ class PlayListFragment : Fragment() {
     }
 
     companion object {
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(bundle: Bundle) =
+        fun newInstance(bundle: Bundle?) =
                 PlayListFragment().apply {
                     arguments = bundle
                 }

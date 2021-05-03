@@ -17,6 +17,8 @@ class MediaItemAdapter(@LayoutRes private val layoutResId: Int) :
         holder.setText(R.id.tv_title, item.description.title)
                 .setText(R.id.tv_subtitle, item.description.subtitle)
 
+        addChildClickViewIds(R.id.item_container)
+
         item.description.extras?.let {
             val isPlaying = it.getBoolean(KEY_IS_PLAYING, false)
             holder.setVisible(R.id.img_playing_status, isPlaying)

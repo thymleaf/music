@@ -84,11 +84,18 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         songRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         setItemDividerDuration(requireContext(), songRecyclerView, R.drawable.inset_recycler_divider)
         adapter = MediaItemAdapter(R.layout.item_media_containter)
-        adapter.setOnItemClickListener{ adapter, _, position ->
-            run {
-                viewModel.playMedia((adapter.getItem(position) as MediaBrowserCompat.MediaItem))
+        adapter.setOnItemChildClickListener{adapter, view, position ->
+            when (view.id){
+                R.id.item_container ->{
+                    viewModel.playMedia((adapter.getItem(position) as MediaBrowserCompat.MediaItem))
+                }
             }
         }
+//        adapter.setOnItemClickListener{ adapter, _, position ->
+//            run {
+//                viewModel.playMedia((adapter.getItem(position) as MediaBrowserCompat.MediaItem))
+//            }
+//        }
         songRecyclerView.adapter = adapter
 
         fab.setOnClickListener {
@@ -108,12 +115,6 @@ class MusicAlbumFragment : BaseSimpleFragment() {
                     adapter.setNewInstance(list)
                     adapter.notifyDataSetChanged()
                 })
-
-        mediaItemFragmentViewModel.mediaItems.observe(viewLifecycleOwner, Observer {
-
-        })
-
-
     }
 
     companion object {

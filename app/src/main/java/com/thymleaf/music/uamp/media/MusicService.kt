@@ -92,22 +92,18 @@ open class MusicService : MediaBrowserServiceCompat() {
 
 
     private val dataSourceFactory: DefaultDataSourceFactory by lazy {
-        DefaultDataSourceFactory(
-            /* context= */ this,
-            Util.getUserAgent(/* context= */ this, UAMP_USER_AGENT), /* listener= */
-            null
-        )
+        DefaultDataSourceFactory(this, Util.getUserAgent(this, UAMP_USER_AGENT), null)
     }
 
     private var isForegroundService = false
 
     private val remoteJsonSource: Uri =
-        Uri.parse("https://storage.googleapis.com/uamp/catalog.json")
+            Uri.parse("https://storage.googleapis.com/uamp/catalog.json")
 
     private val uAmpAudioAttributes = AudioAttributes.Builder()
-        .setContentType(C.CONTENT_TYPE_MUSIC)
-        .setUsage(C.USAGE_MEDIA)
-        .build()
+            .setContentType(C.CONTENT_TYPE_MUSIC)
+            .setUsage(C.USAGE_MEDIA)
+            .build()
 
     private val playerListener = PlayerEventListener()
 
@@ -133,7 +129,7 @@ open class MusicService : MediaBrowserServiceCompat() {
                 setSessionAvailabilityListener(UampCastSessionAvailabilityListener())
                 addListener(playerListener)
             }
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             // We wouldn't normally catch the generic `Exception` however
             // calling `CastContext.getSharedInstance` can throw various exceptions, all of which
             // indicate that Cast is unavailable.
@@ -150,16 +146,16 @@ open class MusicService : MediaBrowserServiceCompat() {
 
         // Build a PendingIntent that can be used to launch the UI.
         val sessionActivityPendingIntent =
-            packageManager?.getLaunchIntentForPackage(packageName)?.let { sessionIntent ->
-                PendingIntent.getActivity(this, 0, sessionIntent, 0)
-            }
+                packageManager?.getLaunchIntentForPackage(packageName)?.let { sessionIntent ->
+                    PendingIntent.getActivity(this, 0, sessionIntent, 0)
+                }
 
         // Create a new MediaSession.
         mediaSession = MediaSessionCompat(this, "MusicService")
-            .apply {
-                setSessionActivity(sessionActivityPendingIntent)
-                isActive = true
-            }
+                .apply {
+                    setSessionActivity(sessionActivityPendingIntent)
+                    isActive = true
+                }
 
         /**
          * In order for [MediaBrowserCompat.ConnectionCallback.onConnected] to be called,
@@ -179,9 +175,9 @@ open class MusicService : MediaBrowserServiceCompat() {
          * the main UI is not visible).
          */
         notificationManager = UampNotificationManager(
-            this,
-            mediaSession.sessionToken,
-            PlayerNotificationListener()
+                this,
+                mediaSession.sessionToken,
+                PlayerNotificationListener()
         )
 
         // The media library is built from a remote JSON file. We'll create the source here,
@@ -197,8 +193,8 @@ open class MusicService : MediaBrowserServiceCompat() {
         mediaSessionConnector.setQueueNavigator(UampQueueNavigator(mediaSession))
 
         switchToPlayer(
-            previousPlayer = null,
-            newPlayer = if (castPlayer?.isCastSessionAvailable == true) castPlayer!! else exoPlayer
+                previousPlayer = null,
+                newPlayer = if (castPlayer?.isCastSessionAvailable == true) castPlayer!! else exoPlayer
         )
         notificationManager.showNotificationForPlayer(currentPlayer)
 
@@ -244,9 +240,9 @@ open class MusicService : MediaBrowserServiceCompat() {
      * [MediaItem]s to browse/play.
      */
     override fun onGetRoot(
-        clientPackageName: String,
-        clientUid: Int,
-        rootHints: Bundle?
+            clientPackageName: String,
+            clientUid: Int,
+            rootHints: Bundle?
     ): BrowserRoot? {
 
         val browserRootPath = rootHints?.getString(ROOT_ID) ?: BROWSER_ROOT
@@ -259,22 +255,21 @@ open class MusicService : MediaBrowserServiceCompat() {
      * how this is build/more details about the relationships.
      */
     override fun onLoadChildren(
-        parentMediaId: String,
-        result: Result<List<MediaItem>>
+            parentMediaId: String,
+            result: Result<List<MediaItem>>
     ) {
 
-        when (parentMediaId)
-        {
-            BROWSER_ROOT ->{
+        when (parentMediaId) {
+            BROWSER_ROOT -> {
 
             }
-            BROWSER_STORAGE ->{
+            BROWSER_STORAGE -> {
                 mediaSource = StorageSource(applicationContext)
                 serviceScope.launch {
                     mediaSource.load()
                 }
             }
-            BROWSER_API ->{
+            BROWSER_API -> {
                 mediaSource = ApiSource(source = remoteJsonSource)
                 serviceScope.launch {
                     mediaSource.load()
@@ -319,17 +314,17 @@ open class MusicService : MediaBrowserServiceCompat() {
      * Returns a list of [MediaItem]s that match the given search query
      */
     override fun onSearch(
-        query: String,
-        extras: Bundle?,
-        result: Result<List<MediaItem>>
+            query: String,
+            extras: Bundle?,
+            result: Result<List<MediaItem>>
     ) {
 
         val resultsSent = mediaSource.whenReady { successfullyInitialized ->
             if (successfullyInitialized) {
                 val resultsList = mediaSource.search(query, extras ?: Bundle.EMPTY)
-                    .map { mediaMetadata ->
-                        MediaItem(mediaMetadata.description, mediaMetadata.flag)
-                    }
+                        .map { mediaMetadata ->
+                            MediaItem(mediaMetadata.description, mediaMetadata.flag)
+                        }
                 result.sendResult(resultsList)
             }
         }
@@ -343,10 +338,10 @@ open class MusicService : MediaBrowserServiceCompat() {
      * Load the supplied list of songs and the song to play into the current player.
      */
     private fun preparePlaylist(
-        metadataList: List<MediaMetadataCompat>,
-        itemToPlay: MediaMetadataCompat?,
-        playWhenReady: Boolean,
-        playbackStartPositionMs: Long
+            metadataList: List<MediaMetadataCompat>,
+            itemToPlay: MediaMetadataCompat?,
+            playWhenReady: Boolean,
+            playbackStartPositionMs: Long
     ) {
         // Since the playlist was probably based on some ordering (such as tracks
         // on an album), find which window index to play first so that the song the
@@ -355,20 +350,20 @@ open class MusicService : MediaBrowserServiceCompat() {
         currentPlaylistItems = metadataList
 
         currentPlayer.playWhenReady = playWhenReady
-        currentPlayer.stop(/* reset= */ true)
+        currentPlayer.stop(true)
         if (currentPlayer == exoPlayer) {
             val mediaSource = metadataList.toMediaSource(dataSourceFactory)
             exoPlayer.prepare(mediaSource)
             exoPlayer.seekTo(initialWindowIndex, playbackStartPositionMs)
-        } else /* currentPlayer == castPlayer */ {
+        } else  {
             val items: Array<MediaQueueItem> = metadataList.map {
                 it.toMediaQueueItem()
             }.toTypedArray()
             castPlayer!!.loadItems(
-                items,
-                initialWindowIndex,
-                playbackStartPositionMs,
-                Player.REPEAT_MODE_OFF
+                    items,
+                    initialWindowIndex,
+                    playbackStartPositionMs,
+                    Player.REPEAT_MODE_OFF
             )
         }
     }
@@ -386,10 +381,10 @@ open class MusicService : MediaBrowserServiceCompat() {
                 currentPlayer.stop(/* reset= */true)
             } else if (playbackState != Player.STATE_IDLE && playbackState != Player.STATE_ENDED) {
                 preparePlaylist(
-                    metadataList = currentPlaylistItems,
-                    itemToPlay = currentPlaylistItems[previousPlayer.currentWindowIndex],
-                    playWhenReady = previousPlayer.playWhenReady,
-                    playbackStartPositionMs = previousPlayer.currentPosition
+                        metadataList = currentPlaylistItems,
+                        itemToPlay = currentPlaylistItems[previousPlayer.currentWindowIndex],
+                        playWhenReady = previousPlayer.playWhenReady,
+                        playbackStartPositionMs = previousPlayer.currentPosition
                 )
             }
         }
@@ -406,8 +401,8 @@ open class MusicService : MediaBrowserServiceCompat() {
 
         serviceScope.launch {
             storage.saveRecentSong(
-                description,
-                position
+                    description,
+                    position
             )
         }
     }
@@ -431,10 +426,10 @@ open class MusicService : MediaBrowserServiceCompat() {
     }
 
     private inner class UampQueueNavigator(
-        mediaSession: MediaSessionCompat
+            mediaSession: MediaSessionCompat
     ) : TimelineQueueNavigator(mediaSession) {
         override fun getMediaDescription(player: Player, windowIndex: Int): MediaDescriptionCompat =
-            currentPlaylistItems[windowIndex].description
+                currentPlaylistItems[windowIndex].description
     }
 
     private inner class UampPlaybackPreparer : MediaSessionConnector.PlaybackPreparer {
@@ -446,24 +441,24 @@ open class MusicService : MediaBrowserServiceCompat() {
          * TODO: Add support for ACTION_PREPARE and ACTION_PLAY, which mean "prepare/play something".
          */
         override fun getSupportedPrepareActions(): Long =
-            PlaybackStateCompat.ACTION_PREPARE_FROM_MEDIA_ID or
-                    PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID or
-                    PlaybackStateCompat.ACTION_PREPARE_FROM_SEARCH or
-                    PlaybackStateCompat.ACTION_PLAY_FROM_SEARCH
+                PlaybackStateCompat.ACTION_PREPARE_FROM_MEDIA_ID or
+                        PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID or
+                        PlaybackStateCompat.ACTION_PREPARE_FROM_SEARCH or
+                        PlaybackStateCompat.ACTION_PLAY_FROM_SEARCH
 
         override fun onPrepare(playWhenReady: Boolean) {
             val recentSong = storage.loadRecentSong() ?: return
             onPrepareFromMediaId(
-                recentSong.mediaId!!,
-                playWhenReady,
-                recentSong.description.extras
+                    recentSong.mediaId!!,
+                    playWhenReady,
+                    recentSong.description.extras
             )
         }
 
         override fun onPrepareFromMediaId(
-            mediaId: String,
-            playWhenReady: Boolean,
-            extras: Bundle?
+                mediaId: String,
+                playWhenReady: Boolean,
+                extras: Bundle?
         ) {
             mediaSource.whenReady {
                 val itemToPlay: MediaMetadataCompat? = mediaSource.find { item ->
@@ -475,14 +470,14 @@ open class MusicService : MediaBrowserServiceCompat() {
                 } else {
 
                     val playbackStartPositionMs =
-                        extras?.getLong(MEDIA_DESCRIPTION_EXTRAS_START_PLAYBACK_POSITION_MS, C.TIME_UNSET)
-                            ?: C.TIME_UNSET
+                            extras?.getLong(MEDIA_DESCRIPTION_EXTRAS_START_PLAYBACK_POSITION_MS, C.TIME_UNSET)
+                                    ?: C.TIME_UNSET
 
                     preparePlaylist(
-                        buildPlaylist(itemToPlay),
-                        itemToPlay,
-                        playWhenReady,
-                        playbackStartPositionMs
+                            buildPlaylist(itemToPlay),
+                            itemToPlay,
+                            playWhenReady,
+                            playbackStartPositionMs
                     )
                 }
             }
@@ -501,10 +496,10 @@ open class MusicService : MediaBrowserServiceCompat() {
                 val metadataList = mediaSource.search(query, extras ?: Bundle.EMPTY)
                 if (metadataList.isNotEmpty()) {
                     preparePlaylist(
-                        metadataList,
-                        metadataList[0],
-                        playWhenReady,
-                        playbackStartPositionMs = C.TIME_UNSET
+                            metadataList,
+                            metadataList[0],
+                            playWhenReady,
+                            playbackStartPositionMs = C.TIME_UNSET
                     )
                 }
             }
@@ -513,11 +508,11 @@ open class MusicService : MediaBrowserServiceCompat() {
         override fun onPrepareFromUri(uri: Uri, playWhenReady: Boolean, extras: Bundle?) = Unit
 
         override fun onCommand(
-            player: Player,
-            controlDispatcher: ControlDispatcher,
-            command: String,
-            extras: Bundle?,
-            cb: ResultReceiver?
+                player: Player,
+                controlDispatcher: ControlDispatcher,
+                command: String,
+                extras: Bundle?,
+                cb: ResultReceiver?
         ) = false
 
         /**
@@ -528,24 +523,24 @@ open class MusicService : MediaBrowserServiceCompat() {
          * @param item Item to base the playlist on.
          * @return a [List] of [MediaMetadataCompat] objects representing a playlist.
          */
-        private fun buildPlaylist(item: MediaMetadataCompat): List<MediaMetadataCompat> =
-            mediaSource.filter { it.album == item.album }.sortedBy { it.trackNumber }
+        private fun buildPlaylist(item: MediaMetadataCompat): List<MediaMetadataCompat> = mediaSource.getMediaItems()
+//                mediaSource.filter { it.album == item.album }.sortedBy { it.trackNumber }
     }
 
     /**
      * Listen for notification events.
      */
     private inner class PlayerNotificationListener :
-        PlayerNotificationManager.NotificationListener {
+            PlayerNotificationManager.NotificationListener {
         override fun onNotificationPosted(
-            notificationId: Int,
-            notification: Notification,
-            ongoing: Boolean
+                notificationId: Int,
+                notification: Notification,
+                ongoing: Boolean
         ) {
             if (ongoing && !isForegroundService) {
                 ContextCompat.startForegroundService(
-                    applicationContext,
-                    Intent(applicationContext, this@MusicService.javaClass)
+                        applicationContext,
+                        Intent(applicationContext, this@MusicService.javaClass)
                 )
 
                 startForeground(notificationId, notification)
@@ -620,9 +615,9 @@ open class MusicService : MediaBrowserServiceCompat() {
                 }
             }
             Toast.makeText(
-                applicationContext,
-                message,
-                Toast.LENGTH_LONG
+                    applicationContext,
+                    message,
+                    Toast.LENGTH_LONG
             ).show()
         }
     }

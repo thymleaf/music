@@ -15,8 +15,8 @@ import com.thymleaf.music.uamp.media.extensions.id
 import com.thymleaf.music.uamp.media.extensions.isPlaying
 
 class MediaItemFragmentViewModel(
-    private val mediaId: String,
-    musicServiceConnection: MusicServiceConnection
+        private val mediaId: String,
+        musicServiceConnection: MusicServiceConnection
 ) : ViewModel() {
 
     /**
@@ -26,6 +26,10 @@ class MediaItemFragmentViewModel(
     private val _mediaItems = MutableLiveData<MutableList<MediaItem>>()
     val mediaItems: LiveData<MutableList<MediaItem>> = _mediaItems
 
+
+    private val _playbackState = MutableLiveData<PlaybackStateCompat>()
+    private val _mediaMetadata = MutableLiveData<MediaMetadataCompat>()
+
     /**
      * Pass the status of the [MusicServiceConnection.networkFailure] through.
      */
@@ -33,7 +37,10 @@ class MediaItemFragmentViewModel(
 
     private val subscriptionCallback = object : SubscriptionCallback() {
         override fun onChildrenLoaded(parentId: String, children: List<MediaItem>) {
-            _mediaItems.postValue(children.toMutableList())
+
+//            _mediaItems.postValue(children.toMutableList())
+            _mediaItems.postValue(updateState(_playbackState.value,
+                    _mediaMetadata.value, children.toMutableList()))
         }
     }
 
@@ -44,7 +51,9 @@ class MediaItemFragmentViewModel(
      */
     private val playbackStateObserver = Observer<PlaybackStateCompat> {
         val playbackState = it ?: EMPTY_PLAYBACK_STATE
+        _playbackState.postValue(playbackState)
         val metadata = musicServiceConnection.nowPlaying.value ?: NOTHING_PLAYING
+        _mediaMetadata.postValue(metadata)
         if (metadata.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID) != null) {
             _mediaItems.postValue(updateState(playbackState, metadata))
         }
@@ -58,7 +67,9 @@ class MediaItemFragmentViewModel(
      */
     private val mediaMetadataObserver = Observer<MediaMetadataCompat> {
         val playbackState = musicServiceConnection.playbackState.value ?: EMPTY_PLAYBACK_STATE
+        _playbackState.postValue(playbackState)
         val metadata = it ?: NOTHING_PLAYING
+        _mediaMetadata.postValue(metadata)
         if (metadata.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID) != null) {
             _mediaItems.postValue(updateState(playbackState, metadata))
         }
@@ -117,21 +128,25 @@ class MediaItemFragmentViewModel(
     }
 
     private fun updateState(
-        playbackState: PlaybackStateCompat,
-        mediaMetadata: MediaMetadataCompat
+            playbackState: PlaybackStateCompat?,
+            mediaMetadata: MediaMetadataCompat?,
+            curMediaItems: MutableList<MediaItem>? = mediaItems.value
     ): MutableList<MediaItem>? {
 
-        mediaItems.value?.forEach{ item -> item.description.extras.let {
-            it?.putInt(KEY_PLAY_STATE, playbackState.state)
-            it?.putBoolean(KEY_IS_PLAYING, item.mediaId == mediaMetadata.id)
-        }}
+        curMediaItems?.forEach { item ->
+            val isPlaying = item.mediaId == musicServiceConnection.nowPlaying.value?.id
+            item.description.extras.let {
+                playbackState?.let { it1 -> it?.putInt(KEY_PLAY_STATE, it1.state) }
+                it?.putBoolean(KEY_IS_PLAYING, isPlaying)
+            }
+        }
 
-        return mediaItems.value
+        return curMediaItems
     }
 
     class Factory(
-        private val mediaId: String,
-        private val musicServiceConnection: MusicServiceConnection
+            private val mediaId: String,
+            private val musicServiceConnection: MusicServiceConnection
     ) : ViewModelProvider.NewInstanceFactory() {
 
         @Suppress("unchecked_cast")

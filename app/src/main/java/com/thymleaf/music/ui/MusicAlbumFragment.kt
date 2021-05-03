@@ -4,14 +4,10 @@ import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import androidx.activity.viewModels
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thymleaf.music.R
@@ -24,7 +20,7 @@ import com.thymleaf.music.uamp.viewmodels.MediaItemFragmentViewModel
 import com.thymleaf.music.util.RecyclerViewUtil.setItemDividerDuration
 import kotlin.math.abs
 
-private const val ALBUM_ID_KEY = "album_id_key"
+//private const val ALBUM_ID_KEY = "album_id_key"
 const val ROOT_ID = "ROOT_ID"
 
 class MusicAlbumFragment : BaseSimpleFragment() {
@@ -56,7 +52,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
     override fun initFragment(savedInstanceState: Bundle?) {
         mediaId = arguments?.getString(ROOT_ID, "/") ?: "/"
         container = binding.container
-        val toolbar: Toolbar = binding.toolbar
+//        val toolbar: Toolbar = binding.toolbar
         val appBarLayout: AppBarLayout = binding.appBarLayout
         val fab: FloatingActionButton = binding.fab
         val albumImage = binding.albumImage
@@ -64,7 +60,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         val albumArtist = binding.albumArtist
         val songRecyclerView = binding.songRecyclerView
         val musicPlayerContainer = binding.musicPlayerContainer
-        val albumId = arguments?.getLong(ALBUM_ID_KEY, 0L)
+//        val albumId = arguments?.getLong(ALBUM_ID_KEY, 0L)
 
 
         appBarLayout.addOnOffsetChangedListener(
@@ -112,6 +108,10 @@ class MusicAlbumFragment : BaseSimpleFragment() {
                     adapter.setNewInstance(list)
                     adapter.notifyDataSetChanged()
                 })
+
+        mediaItemFragmentViewModel.mediaItems.observe(viewLifecycleOwner, Observer {
+
+        })
 
 
     }

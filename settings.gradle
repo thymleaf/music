@@ -1,2 +1,2 @@
 include ':app',':library'
-rootProject.name='Jmusic'
+rootProject.name='μsic'

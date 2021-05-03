@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
-import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
@@ -16,10 +15,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.thymleaf.music.R
 import com.thymleaf.music.TabFragmentAdapter
 import com.thymleaf.music.base.BaseSimpleFragment
-import com.thymleaf.music.databinding.ActivityMainBinding
 import com.thymleaf.music.databinding.FragmentMainBinding
-import com.thymleaf.music.uamp.utils.InjectorUtils
-import com.thymleaf.music.uamp.viewmodels.MainActivityViewModel
 
 /**
  * main fragment
@@ -27,7 +23,7 @@ import com.thymleaf.music.uamp.viewmodels.MainActivityViewModel
 class MainFragment : BaseSimpleFragment() {
 
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: FragmentMainBinding
     private lateinit var bottomAppBar: BottomAppBar
     private lateinit var fab: FloatingActionButton
     private lateinit var toolbar: Toolbar
@@ -52,7 +48,7 @@ class MainFragment : BaseSimpleFragment() {
 
     override fun setViewBinding(): ViewBinding {
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = FragmentMainBinding.inflate(layoutInflater)
         return binding
     }
 

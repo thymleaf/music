@@ -50,8 +50,6 @@ class MusicContainerActivity : BaseSimpleActivity() {
         var fragment: MainFragment? = getMainFragment(mediaId)
         if (fragment == null) {
             fragment = MainFragment.newInstance(null)
-            // If this is not the top level media (root), we add it to the fragment
-            // back stack, so that actionbar toggle and Back will work appropriately:
             viewModel.showFragment(fragment, !isRootId(mediaId), mediaId)
         }
     }

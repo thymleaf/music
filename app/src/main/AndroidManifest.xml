@@ -31,8 +31,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".ui.MusicContainerActivity"></activity>
-        <activity android:name=".ui.MainActivity"></activity>
+        <activity android:name=".ui.MusicContainerActivity" />
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/AppTheme.Splash">

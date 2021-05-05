@@ -5,19 +5,16 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="?android:colorBackground"
-    tools:ignore="Overdraw">
+    android:background="@color/bg_white">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/song_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:listitem="@layout/item_media"
+        android:layout_marginBottom="80dp"
         android:overScrollMode="never"
-        android:paddingTop="8dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/item_media" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -99,7 +96,6 @@
                         android:layout_width="@dimen/music_player_button_size"
                         android:layout_height="@dimen/music_player_button_size"
                         android:layout_marginEnd="@dimen/music_player_control_button_margin"
-                        android:layout_marginRight="@dimen/music_player_control_button_margin"
                         android:contentDescription="@null"
                         app:icon="@drawable/ic_fast_forward_white_24dp"
                         app:layout_constraintBottom_toTopOf="@id/volume_slider"
@@ -112,7 +108,6 @@
                         android:layout_width="@dimen/music_player_button_size"
                         android:layout_height="@dimen/music_player_button_size"
                         android:layout_marginStart="@dimen/music_player_volume_button_margin"
-                        android:layout_marginLeft="@dimen/music_player_volume_button_margin"
                         android:contentDescription="@null"
                         app:icon="@drawable/ic_volume_down_white_24dp"
                         app:layout_constraintBottom_toBottomOf="@id/volume_slider"

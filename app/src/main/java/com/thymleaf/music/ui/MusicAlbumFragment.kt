@@ -1,9 +1,12 @@
 package com.thymleaf.music.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,10 +52,11 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         return binding
     }
 
+    @SuppressLint("InflateParams")
     override fun initFragment(savedInstanceState: Bundle?) {
         mediaId = arguments?.getString(ROOT_ID, "/") ?: "/"
         container = binding.container
-//        val toolbar: Toolbar = binding.toolbar
+        val toolbar: Toolbar = binding.toolbar
         val appBarLayout: AppBarLayout = binding.appBarLayout
         val fab: FloatingActionButton = binding.fab
         val albumImage = binding.albumImage
@@ -84,6 +88,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         songRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         setItemDividerDuration(requireContext(), songRecyclerView, R.drawable.inset_recycler_divider)
         adapter = MediaItemAdapter(R.layout.item_media_containter)
+//        adapter.addFooterView(LayoutInflater.from(requireContext()).inflate(R.layout.footer_recycler_view, null, false))
         adapter.setOnItemChildClickListener{adapter, view, position ->
             when (view.id){
                 R.id.item_container ->{
@@ -98,23 +103,33 @@ class MusicAlbumFragment : BaseSimpleFragment() {
 //        }
         songRecyclerView.adapter = adapter
 
-        fab.setOnClickListener {
-//            TransitionManager.beginDelayedTransition(container, musicPlayerEnterTransform)
-            fab.visibility = View.GONE
-            musicPlayerContainer.visibility = View.VISIBLE
-        }
-
-        musicPlayerContainer.setOnClickListener {
-//            TransitionManager.beginDelayedTransition(container, musicPlayerExitTransform)
-            musicPlayerContainer.visibility = View.GONE
-            fab.visibility = View.VISIBLE
-        }
+//        fab.setOnClickListener {
+////            TransitionManager.beginDelayedTransition(container, musicPlayerEnterTransform)
+//            fab.visibility = View.GONE
+//            musicPlayerContainer.visibility = View.VISIBLE
+//        }
+//
+//        musicPlayerContainer.setOnClickListener {
+////            TransitionManager.beginDelayedTransition(container, musicPlayerExitTransform)
+//            musicPlayerContainer.visibility = View.GONE
+//            fab.visibility = View.VISIBLE
+//        }
 
         mediaItemFragmentViewModel.mediaItems.observe(viewLifecycleOwner,
                 { list ->
                     adapter.setNewInstance(list)
                     adapter.notifyDataSetChanged()
+
+                    if (adapter.footerLayoutCount == 0)
+                    {
+                        adapter.setFooterView(LayoutInflater.from(requireContext()).inflate(R.layout.footer_recycler_view, null, false))
+                    }
                 })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MusicContainerActivity).hideToolBar(true)
     }
 
     companion object {

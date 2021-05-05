@@ -24,9 +24,9 @@ class MainFragment : BaseSimpleFragment() {
 
 
     private lateinit var binding: FragmentMainBinding
-    private lateinit var bottomAppBar: BottomAppBar
-    private lateinit var fab: FloatingActionButton
-    private lateinit var toolbar: Toolbar
+//    private lateinit var bottomAppBar: BottomAppBar
+//    private lateinit var fab: FloatingActionButton
+//    private lateinit var toolbar: Toolbar
 
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
@@ -54,37 +54,37 @@ class MainFragment : BaseSimpleFragment() {
 
     override fun initFragment(savedInstanceState: Bundle?) {
 
-        bottomAppBar = binding.bottomAppBar
-        fab = binding.fab
-
-        toolbar = binding.toolbar
-        activity?.setSupportActionBar(toolbar)
-        activity?.supportActionBar?.setDisplayShowTitleEnabled(false)
-        // set fab animation
-        val operatingAnim: Animation = AnimationUtils
-                .loadAnimation(requireContext(), R.anim.mtrl_extended_fab_state_list_animator)
-        val lin = LinearInterpolator()
-        operatingAnim.interpolator = lin
-        fab.startAnimation(operatingAnim)
-
-
-        bottomAppBar.setNavigationOnClickListener {
-
-        }
+//        bottomAppBar = binding.bottomAppBar
+//        fab = binding.fab
+//
+//        toolbar = binding.toolbar
+//        activity?.setSupportActionBar(toolbar)
+//        activity?.supportActionBar?.setDisplayShowTitleEnabled(false)
+//        // set fab animation
+//        val operatingAnim: Animation = AnimationUtils
+//                .loadAnimation(requireContext(), R.anim.mtrl_extended_fab_state_list_animator)
+//        val lin = LinearInterpolator()
+//        operatingAnim.interpolator = lin
+//        fab.startAnimation(operatingAnim)
+//
+//
+//        bottomAppBar.setNavigationOnClickListener {
+//
+//        }
 
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
 
-        bottomAppBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.next -> {
-                    true
-                }
-                else -> {
-                    false
-                }
-            }
-        }
+//        bottomAppBar.setOnMenuItemClickListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.next -> {
+//                    true
+//                }
+//                else -> {
+//                    false
+//                }
+//            }
+//        }
 
 
         val fragments = mutableListOf<Fragment>()
@@ -99,5 +99,10 @@ class MainFragment : BaseSimpleFragment() {
             tab.text = pageTitle[position]
         }.attach()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MusicContainerActivity).hideToolBar(false)
     }
 }

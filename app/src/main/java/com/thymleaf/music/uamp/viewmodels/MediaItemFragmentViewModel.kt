@@ -25,6 +25,8 @@ class MediaItemFragmentViewModel(
      */
     private val _mediaItems = MutableLiveData<MutableList<MediaItem>>()
     val mediaItems: LiveData<MutableList<MediaItem>> = _mediaItems
+    private val _nowPlayingMediaId = MutableLiveData<Int>()
+    val nowPlayingMediaId: LiveData<Int> = _nowPlayingMediaId
 
 
     private val _playbackState = MutableLiveData<PlaybackStateCompat>()
@@ -133,8 +135,12 @@ class MediaItemFragmentViewModel(
             curMediaItems: MutableList<MediaItem>? = mediaItems.value
     ): MutableList<MediaItem>? {
 
-        curMediaItems?.forEach { item ->
+        curMediaItems?.forEachIndexed() { index, item ->
             val isPlaying = item.mediaId == musicServiceConnection.nowPlaying.value?.id
+            if (isPlaying)
+            {
+                _nowPlayingMediaId.postValue(index)
+            }
             item.description.extras.let {
                 playbackState?.let { it1 -> it?.putInt(KEY_PLAY_STATE, it1.state) }
                 it?.putBoolean(KEY_IS_PLAYING, isPlaying)

@@ -1,18 +1,11 @@
 package com.thymleaf.music.ui
 
 import android.os.Bundle
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.LinearInterpolator
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.thymleaf.music.R
 import com.thymleaf.music.adapter.TabFragmentAdapter
 import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentMainBinding
@@ -90,7 +83,7 @@ class MainFragment : BaseSimpleFragment() {
         val fragments = mutableListOf<Fragment>()
         fragments.add(HomeFragment.newInstance(null))
         fragments.add(SightseeingFragment.newInstance(null))
-        fragments.add(PlayListFragment.newInstance(null))
+        fragments.add(AlbumListFragment.newInstance(null))
 
         adapter = TabFragmentAdapter(activity, fragments)
         viewPager.adapter = adapter

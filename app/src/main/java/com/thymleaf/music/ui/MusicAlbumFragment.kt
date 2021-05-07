@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.appbar.AppBarLayout
@@ -23,7 +22,6 @@ import com.thymleaf.music.uamp.viewmodels.MediaItemFragmentViewModel
 import com.thymleaf.music.util.RecyclerViewUtil.setItemDividerDuration
 import kotlin.math.abs
 
-//private const val ALBUM_ID_KEY = "album_id_key"
 const val ROOT_ID = "ROOT_ID"
 
 class MusicAlbumFragment : BaseSimpleFragment() {
@@ -35,6 +33,10 @@ class MusicAlbumFragment : BaseSimpleFragment() {
     private lateinit var adapter: MediaItemAdapter
 
     private lateinit var mediaId: String
+
+    private lateinit var layoutManager: LinearLayoutManager
+
+    private lateinit var nowPlayingMediaId: String
 
 
     private val mediaItemFragmentViewModel by viewModels<MediaItemFragmentViewModel> {
@@ -85,10 +87,10 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         albumArtist.setText("本地歌曲")
 
 
-        songRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        layoutManager = LinearLayoutManager(requireContext())
+        songRecyclerView.layoutManager = layoutManager
         setItemDividerDuration(requireContext(), songRecyclerView, R.drawable.inset_recycler_divider)
         adapter = MediaItemAdapter(R.layout.item_media_containter)
-//        adapter.addFooterView(LayoutInflater.from(requireContext()).inflate(R.layout.footer_recycler_view, null, false))
         adapter.setOnItemChildClickListener{adapter, view, position ->
             when (view.id){
                 R.id.item_container ->{
@@ -96,11 +98,6 @@ class MusicAlbumFragment : BaseSimpleFragment() {
                 }
             }
         }
-//        adapter.setOnItemClickListener{ adapter, _, position ->
-//            run {
-//                viewModel.playMedia((adapter.getItem(position) as MediaBrowserCompat.MediaItem))
-//            }
-//        }
         songRecyclerView.adapter = adapter
 
 //        fab.setOnClickListener {
@@ -117,14 +114,23 @@ class MusicAlbumFragment : BaseSimpleFragment() {
 
         mediaItemFragmentViewModel.mediaItems.observe(viewLifecycleOwner,
                 { list ->
-                    adapter.setNewInstance(list)
+                    adapter.setList(list)
                     adapter.notifyDataSetChanged()
+
 
                     if (adapter.footerLayoutCount == 0)
                     {
                         adapter.setFooterView(LayoutInflater.from(requireContext()).inflate(R.layout.footer_recycler_view, null, false))
                     }
                 })
+
+    }
+
+    fun scrollToIndex(index: Int)
+    {
+        layoutManager.let {
+            layoutManager.scrollToPosition(index)
+        }
     }
 
     override fun onResume() {

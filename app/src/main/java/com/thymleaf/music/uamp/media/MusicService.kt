@@ -16,18 +16,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.media.MediaBrowserServiceCompat
-import com.thymleaf.music.uamp.media.extensions.album
-import com.thymleaf.music.uamp.media.extensions.flag
-import com.thymleaf.music.uamp.media.extensions.id
-import com.thymleaf.music.uamp.media.extensions.toMediaQueueItem
-import com.thymleaf.music.uamp.media.extensions.toMediaSource
-import com.thymleaf.music.uamp.media.extensions.trackNumber
-import com.google.android.exoplayer2.C
-import com.google.android.exoplayer2.ControlDispatcher
-import com.google.android.exoplayer2.ExoPlaybackException
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.ext.cast.CastPlayer
 import com.google.android.exoplayer2.ext.cast.SessionAvailabilityListener
@@ -39,13 +28,13 @@ import com.google.android.exoplayer2.util.Util
 import com.google.android.gms.cast.MediaQueueItem
 import com.google.android.gms.cast.framework.CastContext
 import com.thymleaf.music.R
+import com.thymleaf.music.uamp.media.extensions.flag
+import com.thymleaf.music.uamp.media.extensions.id
+import com.thymleaf.music.uamp.media.extensions.toMediaQueueItem
+import com.thymleaf.music.uamp.media.extensions.toMediaSource
 import com.thymleaf.music.uamp.media.library.*
 import com.thymleaf.music.ui.ROOT_ID
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 /**
  * This class is the entry point for browsing and playback commands from the APP's UI
@@ -427,7 +416,7 @@ open class MusicService : MediaBrowserServiceCompat() {
 
     private inner class UampQueueNavigator(
             mediaSession: MediaSessionCompat
-    ) : TimelineQueueNavigator(mediaSession) {
+    ) : TimelineQueueNavigator(mediaSession, 100) {
         override fun getMediaDescription(player: Player, windowIndex: Int): MediaDescriptionCompat =
                 currentPlaylistItems[windowIndex].description
     }

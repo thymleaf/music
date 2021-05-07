@@ -30,7 +30,7 @@ import com.thymleaf.music.uamp.viewmodels.NowPlayingFragmentViewModel
  * Static methods used to inject classes needed for various Activities and Fragments.
  */
 object InjectorUtils {
-    private fun provideMusicServiceConnection(context: Context): MusicServiceConnection {
+    fun provideMusicServiceConnection(context: Context): MusicServiceConnection {
         return MusicServiceConnection.getInstance(
                 context,
                 ComponentName(context, MusicService::class.java)

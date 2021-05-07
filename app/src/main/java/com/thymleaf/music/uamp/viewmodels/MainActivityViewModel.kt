@@ -117,6 +117,7 @@ class MainActivityViewModel(
         } else {
             transportControls.playFromMediaId(mediaItem.mediaId, null)
 //            mediaController.addQueueItem(mediaItem.description)
+//            transportControls.playFromUri()
         }
     }
 

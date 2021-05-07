@@ -64,7 +64,7 @@ class MusicContainerActivity : BaseSimpleActivity() {
 
 
         bottomAppBar.setNavigationOnClickListener {
-
+            viewModel.showFragment(PlayListFragment.newInstance(Bundle()), tag = PLAY_LIST_FRAGMENT_TAG)
         }
 
 

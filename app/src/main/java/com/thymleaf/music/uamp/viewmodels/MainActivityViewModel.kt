@@ -1,5 +1,6 @@
 package com.thymleaf.music.uamp.viewmodels
 
+import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -115,7 +116,7 @@ class MainActivityViewModel(
                 }
             }
         } else {
-            transportControls.playFromMediaId(mediaItem.mediaId, null)
+            transportControls.playFromMediaId(mediaItem.mediaId, Bundle().apply {  })
 //            mediaController.addQueueItem(mediaItem.description)
 //            transportControls.playFromUri()
         }

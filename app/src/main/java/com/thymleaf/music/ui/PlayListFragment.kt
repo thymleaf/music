@@ -1,10 +1,7 @@
 package com.thymleaf.music.ui
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.ResultReceiver
 import android.support.v4.media.MediaBrowserCompat
-import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,7 +53,6 @@ class PlayListFragment : BaseSimpleFragment() {
 
         queue?.let {
             adapter.setList(queue)
-            Log.e("AAAAAAAAA", queue.size.toString())
         }
 
 //        connection.mediaController.sendCommand("command", null, object : ResultReceiver(Handler()) {

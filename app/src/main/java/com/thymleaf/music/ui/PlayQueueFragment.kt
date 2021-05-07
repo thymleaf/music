@@ -10,15 +10,15 @@ import androidx.viewbinding.ViewBinding
 import com.thymleaf.music.R
 import com.thymleaf.music.adapter.MediaItemAdapter
 import com.thymleaf.music.base.BaseSimpleFragment
-import com.thymleaf.music.databinding.FragmentPlayListBinding
+import com.thymleaf.music.databinding.FragmentPlayQueueBinding
 import com.thymleaf.music.uamp.common.MusicServiceConnection
 import com.thymleaf.music.uamp.utils.InjectorUtils
 import com.thymleaf.music.uamp.viewmodels.MainActivityViewModel
 import com.thymleaf.music.uamp.viewmodels.NowPlayingFragmentViewModel
 
-class PlayListFragment : BaseSimpleFragment() {
+class PlayQueueFragment : BaseSimpleFragment() {
 
-    private lateinit var binding: FragmentPlayListBinding
+    private lateinit var binding: FragmentPlayQueueBinding
     private lateinit var  connection: MusicServiceConnection
     private lateinit var recyclerView: RecyclerView
 
@@ -32,7 +32,7 @@ class PlayListFragment : BaseSimpleFragment() {
 
 
     override fun setViewBinding(): ViewBinding {
-        binding = FragmentPlayListBinding.inflate(layoutInflater)
+        binding = FragmentPlayQueueBinding.inflate(layoutInflater)
         return binding
     }
 
@@ -65,7 +65,7 @@ class PlayListFragment : BaseSimpleFragment() {
     companion object {
         @JvmStatic
         fun newInstance(bundle: Bundle?) =
-                PlayListFragment().apply {
+                PlayQueueFragment().apply {
                     arguments = bundle
                 }
     }

@@ -1,9 +1,12 @@
 
-package com.thymleaf.music.uamp.media.library
+package com.thymleaf.music.model
 
 import android.content.Context
 import android.support.v4.media.MediaMetadataCompat
-import com.thymleaf.music.util.StorageLoader.getStorageMedia
+import com.thymleaf.music.uamp.media.library.AbstractMusicSource
+import com.thymleaf.music.uamp.media.library.STATE_INITIALIZED
+import com.thymleaf.music.uamp.media.library.STATE_INITIALIZING
+import com.thymleaf.music.util.StorageMediaResolver.getStorageMedia
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

@@ -24,6 +24,7 @@ import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.thymleaf.music.R
+import com.thymleaf.music.model.StorageSource
 import com.thymleaf.music.uamp.media.extensions.flag
 import com.thymleaf.music.uamp.media.extensions.id
 import com.thymleaf.music.uamp.media.extensions.toMediaSource
@@ -70,9 +71,9 @@ open class MusicService : MediaBrowserServiceCompat() {
      * See [MusicService.onLoadChildren] to see where it's accessed (and first
      * constructed).
      */
-    private val browseTree: BrowseTree by lazy {
-        BrowseTree(applicationContext, mediaSource)
-    }
+//    private val browseTree: BrowseTree by lazy {
+//        BrowseTree(applicationContext, mediaSource)
+//    }
 
 
     private val dataSourceFactory: DefaultDataSourceFactory by lazy {

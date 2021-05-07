@@ -20,7 +20,7 @@ import com.thymleaf.music.uamp.media.extensions.*
 import java.util.concurrent.TimeUnit
 
 
-object StorageLoader {
+object StorageMediaResolver {
 
     fun getStorageMedia(context: Context): MutableList<MediaMetadataCompat> {
         val results = mutableListOf<MediaMetadataCompat>()

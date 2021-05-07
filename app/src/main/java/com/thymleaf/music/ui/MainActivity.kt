@@ -96,7 +96,7 @@ class MainActivity : BaseSimpleActivity() {
 //                        }
                         fragments.add(HomeFragment.newInstance(null))
                         fragments.add(SightseeingFragment.newInstance(bundle))
-                        fragments.add(PlayListFragment.newInstance(bundle))
+                        fragments.add(PlayQueueFragment.newInstance(bundle))
 
                         adapter = TabFragmentAdapter(this, fragments)
                         viewPager.adapter = adapter

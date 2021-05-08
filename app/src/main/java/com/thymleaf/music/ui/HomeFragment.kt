@@ -47,8 +47,6 @@ class HomeFragment : BaseSimpleFragment()  {
     fun startDiskPage()
     {
         val arg = Bundle().apply { putString(ROOT_ID, BROWSER_STORAGE) }
-//        arguments.let { it?.putString(ROOT_ID, BROWSER_STORAGE) }
-//        startTarget(MusicContainerActivity::class.java, arg)
 
         mainActivityViewModel.showFragment(MusicAlbumFragment.newInstance(arg), tag= TAG)
     }

@@ -31,8 +31,8 @@ import com.thymleaf.music.uamp.media.extensions.title
  * resources.
  */
 class NowPlayingFragmentViewModel(
-    private val app: Application,
-    musicServiceConnection: MusicServiceConnection
+        private val app: Application,
+        musicServiceConnection: MusicServiceConnection
 ) : AndroidViewModel(app) {
 
     /**
@@ -40,11 +40,13 @@ class NowPlayingFragmentViewModel(
      * media item currently being played.
      */
     data class NowPlayingMetadata(
-        val id: String,
-        val albumArtUri: Uri,
-        val title: String?,
-        val subtitle: String?,
-        val duration: String
+            val id: String,
+            val albumArtUri: Uri,
+            val title: String?,
+            val subtitle: String?,
+            val duration: String,
+            val isPlaying: Boolean,
+            val playState: Int
     ) {
 
         companion object {
@@ -61,7 +63,7 @@ class NowPlayingFragmentViewModel(
         }
     }
 
-    private var playbackState: PlaybackStateCompat = EMPTY_PLAYBACK_STATE
+    var playbackState: PlaybackStateCompat = EMPTY_PLAYBACK_STATE
     val mediaMetadata = MutableLiveData<NowPlayingMetadata>()
     val mediaPosition = MutableLiveData<Long>().apply {
         postValue(0L)
@@ -146,34 +148,36 @@ class NowPlayingFragmentViewModel(
     }
 
     private fun updateState(
-        playbackState: PlaybackStateCompat,
-        mediaMetadata: MediaMetadataCompat
+            playbackState: PlaybackStateCompat,
+            mediaMetadata: MediaMetadataCompat
     ) {
 
         // Only update media item once we have duration available
         if (mediaMetadata.duration != 0L && mediaMetadata.id != null) {
             val nowPlayingMetadata = NowPlayingMetadata(
-                mediaMetadata.id!!,
-                mediaMetadata.albumArtUri,
-                mediaMetadata.title?.trim(),
-                mediaMetadata.displaySubtitle?.trim(),
-                NowPlayingMetadata.timestampToMSS(app, mediaMetadata.duration)
-            )
+                    mediaMetadata.id!!,
+                    mediaMetadata.albumArtUri,
+                    mediaMetadata.title?.trim(),
+                    mediaMetadata.displaySubtitle?.trim(),
+                    NowPlayingMetadata.timestampToMSS(app, mediaMetadata.duration),
+                    isPlaying = playbackState.isPlaying,
+                    playState = playbackState.state
+                    )
             this.mediaMetadata.postValue(nowPlayingMetadata)
         }
 
         // Update the media button resource ID
         mediaButtonRes.postValue(
-            when (playbackState.isPlaying) {
-                true -> R.drawable.ic_pause_black_24dp
-                else -> R.drawable.ic_play_arrow_black_24dp
-            }
+                when (playbackState.isPlaying) {
+                    true -> R.drawable.ic_pause_black_24dp
+                    else -> R.drawable.ic_play_arrow_black_24dp
+                }
         )
     }
 
     class Factory(
-        private val app: Application,
-        private val musicServiceConnection: MusicServiceConnection
+            private val app: Application,
+            private val musicServiceConnection: MusicServiceConnection
     ) : ViewModelProvider.NewInstanceFactory() {
 
         @Suppress("unchecked_cast")

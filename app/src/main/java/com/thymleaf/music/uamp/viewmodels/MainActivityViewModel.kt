@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.thymleaf.music.uamp.MediaItemData
 import com.thymleaf.music.uamp.common.MusicServiceConnection
+import com.thymleaf.music.uamp.media.KEY_PLAY_MEDIA_ITEM
 import com.thymleaf.music.uamp.media.extensions.id
 import com.thymleaf.music.uamp.media.extensions.isPlayEnabled
 import com.thymleaf.music.uamp.media.extensions.isPlaying
@@ -116,7 +117,9 @@ class MainActivityViewModel(
                 }
             }
         } else {
-            transportControls.playFromMediaId(mediaItem.mediaId, Bundle().apply {  })
+            transportControls.playFromMediaId(mediaItem.mediaId, Bundle().apply {
+                putParcelable(KEY_PLAY_MEDIA_ITEM, mediaItem)
+            })
 //            mediaController.addQueueItem(mediaItem.description)
 //            transportControls.playFromUri()
         }

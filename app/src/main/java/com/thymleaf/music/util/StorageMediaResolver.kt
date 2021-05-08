@@ -8,7 +8,9 @@ import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.text.TextUtils
+import android.util.Log
 import com.thymleaf.music.uamp.media.extensions.*
+import com.thymleaf.music.util.StorageMediaResolver.from
 //import com.cyl.musiclake.bean.Album
 //import com.cyl.musiclake.bean.Artist
 //import com.cyl.musiclake.bean.Music
@@ -52,6 +54,26 @@ object StorageMediaResolver {
         flag = MediaBrowserCompat.MediaItem.FLAG_PLAYABLE
         mediaUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, idTmp)
                 .toString()
+        return this
+    }
+
+    fun MediaMetadataCompat.Builder.from(mediaItem: MediaBrowserCompat.MediaItem?): MediaMetadataCompat.Builder {
+        id = mediaItem?.mediaId!!
+        title = mediaItem.description.title?.toString()
+        artist = mediaItem.description.subtitle as String?
+//        album = mediaItem.description.
+//        duration = TimeUnit.SECONDS.toMillis(cursor.getLong(4))
+//        flag = MediaBrowserCompat.MediaItem.FLAG_PLAYABLE
+//        displayTitle = cursor.getString(1)
+//        displaySubtitle = cursor.getString(2)
+//        displayDescription = cursor.getString(3)
+//        displayIconUri = cursor.getString(3)
+//        downloadStatus = MediaDescriptionCompat.STATUS_NOT_DOWNLOADED
+//        flag = MediaBrowserCompat.MediaItem.FLAG_PLAYABLE
+//        mediaUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, idTmp)
+//                .toString()
+        mediaUri = mediaItem.description.mediaUri.toString()
+
         return this
     }
 

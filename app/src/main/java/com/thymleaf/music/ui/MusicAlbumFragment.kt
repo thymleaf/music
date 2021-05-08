@@ -1,7 +1,9 @@
 package com.thymleaf.music.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,11 +53,9 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         InjectorUtils.provideMainActivityViewModel(requireContext())
     }
 
-
     private val nowPlayingViewModel by viewModels<NowPlayingFragmentViewModel> {
         InjectorUtils.provideNowPlayingFragmentViewModel(requireContext())
     }
-
 
     override fun setViewBinding(): ViewBinding {
         binding = FragmentMusicAlbumBinding.inflate(layoutInflater)
@@ -63,6 +63,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         return binding
     }
 
+    @SuppressLint("InflateParams")
     override fun initFragment(savedInstanceState: Bundle?) {
         mediaId = arguments?.getString(ROOT_ID, "/") ?: "/"
         container = binding.container
@@ -71,12 +72,12 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         val songRecyclerView = binding.songRecyclerView
 
         appBarLayout.addOnOffsetChangedListener(
-                AppBarLayout.OnOffsetChangedListener { appBarLayout1: AppBarLayout, verticalOffset: Int ->
+                AppBarLayout.OnOffsetChangedListener { appBarLayout1, verticalOffset->
                     val verticalOffsetPercentage = abs(verticalOffset).toFloat() / appBarLayout1.totalScrollRange.toFloat()
-                    if (verticalOffsetPercentage > 0.5f) {
-                        albumImage.alpha = 0f
-                    } else if (verticalOffsetPercentage <= 0.2f) {
+                    if (verticalOffsetPercentage < 1f) {
                         albumImage.alpha = 1f
+                    } else {
+                        albumImage.alpha = 0f
                     }
                 })
 
@@ -87,6 +88,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         songRecyclerView.layoutManager = layoutManager
         setItemDividerDuration(requireContext(), songRecyclerView, R.drawable.inset_recycler_divider)
         adapter = MediaItemAdapter(R.layout.item_media_containter)
+        adapter.addFooterView(LayoutInflater.from(requireContext()).inflate(R.layout.footer_recycler_view, null, false))
         adapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.item_container -> {
@@ -97,7 +99,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         songRecyclerView.adapter = adapter
 
         nowPlayingViewModel.mediaMetadata.observe(viewLifecycleOwner, {
-            adapter.data.forEach{ item ->
+            adapter.data.forEach { item ->
                 val isPlaying = it.id == item.mediaId
                 item.description.extras?.apply {
                     putBoolean(KEY_IS_PLAYING, isPlaying)

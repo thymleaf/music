@@ -20,16 +20,24 @@ import android.app.Application
 import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
+import com.thymleaf.music.model.AppDatabase
+import com.thymleaf.music.model.repository.MediaRepository
 import com.thymleaf.music.uamp.common.MusicServiceConnection
 import com.thymleaf.music.uamp.media.MusicService
 import com.thymleaf.music.uamp.viewmodels.MainActivityViewModel
 import com.thymleaf.music.uamp.viewmodels.MediaItemFragmentViewModel
 import com.thymleaf.music.uamp.viewmodels.NowPlayingFragmentViewModel
+import com.thymleaf.music.viewmodel.MediaDataViewModel
 
 /**
  * Static methods used to inject classes needed for various Activities and Fragments.
  */
 object InjectorUtils {
+
+    fun providerMediaDataViewModel(context: Context): MediaDataViewModel.Factory {
+        return MediaDataViewModel.Factory(MediaRepository.getInstance(AppDatabase.getInstance(context).mediaDao()))
+    }
+
     fun provideMusicServiceConnection(context: Context): MusicServiceConnection {
         return MusicServiceConnection.getInstance(
                 context,

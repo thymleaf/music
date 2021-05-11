@@ -16,6 +16,7 @@
     <string name="favorite_song">我的收藏</string>
     <string name="play_list">播放列表</string>
 
+
     <string name="button_allow">允许</string>
     <string name="button_deny">拒绝</string>
     <string name="permission_storage_rationale">STORAGE permission is needed to show the camera preview.</string>

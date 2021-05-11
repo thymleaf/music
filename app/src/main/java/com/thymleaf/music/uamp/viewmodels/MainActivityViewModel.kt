@@ -12,7 +12,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.thymleaf.music.uamp.MediaItemData
 import com.thymleaf.music.uamp.common.MusicServiceConnection
-import com.thymleaf.music.uamp.media.KEY_PLAY_MEDIA_ITEM
+import com.thymleaf.music.uamp.media.KEY_PLAY_MEDIA_POSITION
+import com.thymleaf.music.uamp.media.KEY_PLAY_MEDIA_QUEUE
 import com.thymleaf.music.uamp.media.extensions.id
 import com.thymleaf.music.uamp.media.extensions.isPlayEnabled
 import com.thymleaf.music.uamp.media.extensions.isPlaying
@@ -52,23 +53,6 @@ class MainActivityViewModel(
     val navigateToFragment: LiveData<Event<FragmentNavigationRequest>> get() = _navigateToFragment
     private val _navigateToFragment = MutableLiveData<Event<FragmentNavigationRequest>>()
 
-    /**
-     * This method takes a [MediaItemData] and routes it depending on whether it's
-     * browsable (i.e.: it's the parent media item of a set of other media items,
-     * such as an album), or not.
-     *
-     * If the item is browsable, handle it by sending an event to the Activity to
-     * browse to it, otherwise play it.
-     */
-//    fun mediaItemClicked(clickedItem: MediaItemData) {
-//        if (clickedItem.browsable) {
-//            browseToItem(clickedItem)
-//        } else {
-//            playMedia(clickedItem, pauseAllowed = false)
-//            showFragment(NowPlayingFragment.newInstance())
-//        }
-//    }
-
 
     /**
      * Convenience method used to swap the fragment shown in the main activity
@@ -81,25 +65,18 @@ class MainActivityViewModel(
         _navigateToFragment.value = Event(FragmentNavigationRequest(fragment, backStack, tag))
     }
 
-
-    /**
-     * This posts a browse [Event] that will be handled by the
-     * observer in [MainActivity].
-     */
-    private fun browseToItem(mediaItem: MediaItemData) {
-        _navigateToMediaItem.value = Event(mediaItem.mediaId)
-    }
-
     /**
      * This method takes a [MediaItemData] and does one of the following:
      * - If the item is *not* the active item, then play it directly.
      * - If the item *is* the active item, check whether "pause" is a permitted command. If it is,
      *   then pause playback, otherwise send "play" to resume playback.
      */
-    fun playMedia(mediaItem: MediaBrowserCompat.MediaItem, pauseAllowed: Boolean = true) {
+    fun playMedia(position: Int, pauseAllowed: Boolean = true,
+                  queue: MutableList<MediaBrowserCompat.MediaItem> = mutableListOf()) {
+
+        val mediaItem: MediaBrowserCompat.MediaItem = queue[position]
         val nowPlaying = musicServiceConnection.nowPlaying.value
         val transportControls = musicServiceConnection.transportControls
-        val mediaController = musicServiceConnection.mediaController
 
         val isPrepared = musicServiceConnection.playbackState.value?.isPrepared ?: false
         if (isPrepared && mediaItem.mediaId == nowPlaying?.id) {
@@ -118,10 +95,9 @@ class MainActivityViewModel(
             }
         } else {
             transportControls.playFromMediaId(mediaItem.mediaId, Bundle().apply {
-                putParcelable(KEY_PLAY_MEDIA_ITEM, mediaItem)
+                putInt(KEY_PLAY_MEDIA_POSITION, position)
+                putParcelableArrayList(KEY_PLAY_MEDIA_QUEUE, queue.toCollection(arrayListOf()))
             })
-//            mediaController.addQueueItem(mediaItem.description)
-//            transportControls.playFromUri()
         }
     }
 

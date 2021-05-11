@@ -23,12 +23,10 @@
             android:background="@color/colorPrimary"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
-            app:title="@string/play_list"
+            app:title="@string/play_record"
             app:layout_scrollFlags="noScroll"
             app:titleTextColor="@color/colorAccent">
-
         </androidx.appcompat.widget.Toolbar>
-
 
     </com.google.android.material.appbar.AppBarLayout>
 

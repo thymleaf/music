@@ -35,7 +35,9 @@ class HomeFragment : BaseSimpleFragment()  {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun initFragment(savedInstanceState: Bundle?) {
-        binding.tvPlayRecord.setOnClickListener{ }
+        binding.tvPlayRecord.setOnClickListener{
+            mainActivityViewModel.showFragment(RecentFragment.newInstance(null))
+        }
         binding.tvFavoriteSong.setOnClickListener{ }
         binding.tvDiskSong.setOnClickListener{
             startDiskPageWithPermissionCheck()

@@ -14,16 +14,19 @@ import com.thymleaf.music.adapter.MediaItemAdapter
 import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentMusicAlbumBinding
 import com.thymleaf.music.model.StorageSource
+import com.thymleaf.music.model.entity.MediaData
 import com.thymleaf.music.uamp.media.extensions.flag
 import com.thymleaf.music.uamp.media.library.BROWSER_STORAGE
 import com.thymleaf.music.uamp.media.library.MusicSource
 import com.thymleaf.music.uamp.utils.InjectorUtils
 import com.thymleaf.music.uamp.viewmodels.*
 import com.thymleaf.music.util.RecyclerViewUtil.setItemDividerDuration
+import com.thymleaf.music.viewmodel.MediaDataViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import java.util.*
 import kotlin.math.abs
 
 const val ROOT_ID = "ROOT_ID"
@@ -41,6 +44,12 @@ class MusicAlbumFragment : BaseSimpleFragment() {
     private lateinit var layoutManager: LinearLayoutManager
 
     private lateinit var mediaSource: MusicSource
+
+    private lateinit var mediaItems: MutableList<MediaBrowserCompat.MediaItem>
+
+    private val mediaDataDataViewModel  by viewModels<MediaDataViewModel>{
+        InjectorUtils.providerMediaDataViewModel(requireContext())
+    }
 
     private val serviceJob = SupervisorJob()
     private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
@@ -72,7 +81,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         val songRecyclerView = binding.songRecyclerView
 
         appBarLayout.addOnOffsetChangedListener(
-                AppBarLayout.OnOffsetChangedListener { appBarLayout1, verticalOffset->
+                AppBarLayout.OnOffsetChangedListener { appBarLayout1, verticalOffset ->
                     val verticalOffsetPercentage = abs(verticalOffset).toFloat() / appBarLayout1.totalScrollRange.toFloat()
                     if (verticalOffsetPercentage < 1f) {
                         albumImage.alpha = 1f
@@ -92,7 +101,19 @@ class MusicAlbumFragment : BaseSimpleFragment() {
         adapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.item_container -> {
-                    viewModel.playMedia((adapter.getItem(position) as MediaBrowserCompat.MediaItem))
+                    viewModel.playMedia(position, queue = mediaItems)
+
+                    val mediaItems: MediaBrowserCompat.MediaItem = adapter.data.get(position) as MediaBrowserCompat.MediaItem
+                    mediaDataDataViewModel.addRecent(MediaData(
+                            UUID.randomUUID().toString(),
+                            mediaItems.mediaId!!,
+                            mediaItems.description.title.toString(),
+                            mediaItems.description.subtitle.toString(),
+                            playUri = mediaItems.description.mediaUri.toString(),
+                            albumUri = mediaItems.description.iconUri.toString(),
+                            duration = null,
+                            isRecent = 1
+                    ))
                 }
             }
         }
@@ -109,9 +130,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
             adapter.notifyDataSetChanged()
         })
 
-        nowPlayingViewModel.playbackState
 
-        mediaItemFragmentViewModel.mediaItems
         when (mediaId) {
             BROWSER_STORAGE -> {
                 mediaSource = StorageSource(requireContext())
@@ -122,7 +141,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
                 mediaSource.whenReady { successfullyInitialized ->
                     if (successfullyInitialized) {
 
-                        val mediaItems = mediaSource.getMediaItems()
+                        mediaItems = mediaSource.getMediaItems()
                                 .map { MediaBrowserCompat.MediaItem(it.description, it.flag) }
                                 .toMutableList()
 

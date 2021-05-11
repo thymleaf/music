@@ -49,7 +49,6 @@ import kotlinx.coroutines.*
 open class MusicService : MediaBrowserServiceCompat() {
 
     private lateinit var notificationManager: UampNotificationManager
-//    private lateinit var mediaSource: MusicSource
 
     // The current player will either be an ExoPlayer (for local playback) or a CastPlayer (for
     // remote playback through a Cast device).
@@ -64,24 +63,12 @@ open class MusicService : MediaBrowserServiceCompat() {
 
     private lateinit var storage: PersistentStorage
 
-    /**
-     * This must be `by lazy` because the source won't initially be ready.
-     * See [MusicService.onLoadChildren] to see where it's accessed (and first
-     * constructed).
-     */
-//    private val browseTree: BrowseTree by lazy {
-//        BrowseTree(applicationContext, mediaSource)
-//    }
-
-
     private val dataSourceFactory: DefaultDataSourceFactory by lazy {
         DefaultDataSourceFactory(this, Util.getUserAgent(this, UAMP_USER_AGENT), null)
     }
 
     private var isForegroundService = false
 
-    private val remoteJsonSource: Uri =
-            Uri.parse("https://storage.googleapis.com/uamp/catalog.json")
 
     private val uAmpAudioAttributes = AudioAttributes.Builder()
             .setContentType(C.CONTENT_TYPE_MUSIC)
@@ -225,20 +212,7 @@ open class MusicService : MediaBrowserServiceCompat() {
             extras: Bundle?,
             result: Result<List<MediaItem>>
     ) {
-
-//        val resultsSent = mediaSource.whenReady { successfullyInitialized ->
-//            if (successfullyInitialized) {
-//                val resultsList = mediaSource.search(query, extras ?: Bundle.EMPTY)
-//                        .map { mediaMetadata ->
-//                            MediaItem(mediaMetadata.description, mediaMetadata.flag)
-//                        }
-//                result.sendResult(resultsList)
-//            }
-//        }
-//
-//        if (!resultsSent) {
-//            result.detach()
-//        }
+        result.detach()
     }
 
     /**
@@ -246,24 +220,16 @@ open class MusicService : MediaBrowserServiceCompat() {
      */
     private fun preparePlaylist(
             metadataList: List<MediaMetadataCompat>,
-            itemToPlay: MediaMetadataCompat?,
+            position: Int,
             playWhenReady: Boolean,
             playbackStartPositionMs: Long
     ) {
-//        Log.e("MediaUrl", itemToPlay.mediaUri)
-        // Since the playlist was probably based on some ordering (such as tracks
-        // on an album), find which window index to play first so that the song the
-        // user actually wants to hear plays first.
-        val initialWindowIndex = if (itemToPlay == null) 0 else metadataList.indexOf(itemToPlay)
         currentPlaylistItems = metadataList
-
         currentPlayer.playWhenReady = playWhenReady
-//        currentPlayer.stop(true)
-
 
         val mediaSource = metadataList.toMediaSource(dataSourceFactory)
         exoPlayer.prepare(mediaSource)
-        exoPlayer.seekTo(0, playbackStartPositionMs)
+        exoPlayer.seekTo(position, playbackStartPositionMs)
     }
 
 
@@ -323,38 +289,19 @@ open class MusicService : MediaBrowserServiceCompat() {
                     extras?.getLong(MEDIA_DESCRIPTION_EXTRAS_START_PLAYBACK_POSITION_MS, C.TIME_UNSET)
                             ?: C.TIME_UNSET
 
-            val itemToPlay: MediaBrowserCompat.MediaItem? = extras?.getParcelable(KEY_PLAY_MEDIA_ITEM)
+            val position: Int = extras?.getInt(KEY_PLAY_MEDIA_POSITION) ?: 0
+            val mediaItems: ArrayList<MediaItem>? = (extras?.getParcelableArrayList(KEY_PLAY_MEDIA_QUEUE))
+
+            val playList = mediaItems?.map {
+                MediaMetadataCompat.Builder().from(it).build()
+            }?.toList() ?: emptyList()
 
             preparePlaylist(
-                    buildPlaylist(MediaMetadataCompat.Builder().from(itemToPlay).build()),
-                    MediaMetadataCompat.Builder().from(itemToPlay).build(),
+                    playList,
+                    position,
                     playWhenReady,
                     playbackStartPositionMs
             )
-
-
-
-//            mediaSource.whenReady {
-//                val itemToPlay: MediaMetadataCompat? = mediaSource.find { item ->
-//                    item.id == mediaId
-//                }
-//                if (itemToPlay == null) {
-//                    Log.w(TAG, "Content not found: MediaID=$mediaId")
-//                    // TODO: Notify caller of the error.
-//                } else {
-//
-//                    val playbackStartPositionMs =
-//                            extras?.getLong(MEDIA_DESCRIPTION_EXTRAS_START_PLAYBACK_POSITION_MS, C.TIME_UNSET)
-//                                    ?: C.TIME_UNSET
-//
-//                    preparePlaylist(
-//                            buildPlaylist(itemToPlay),
-//                            itemToPlay,
-//                            playWhenReady,
-//                            playbackStartPositionMs
-//                    )
-//                }
-//            }
         }
 
         /**
@@ -366,17 +313,7 @@ open class MusicService : MediaBrowserServiceCompat() {
          * For details on how search is handled, see [AbstractMusicSource.search].
          */
         override fun onPrepareFromSearch(query: String, playWhenReady: Boolean, extras: Bundle?) {
-//            mediaSource.whenReady {
-//                val metadataList = mediaSource.search(query, extras ?: Bundle.EMPTY)
-//                if (metadataList.isNotEmpty()) {
-//                    preparePlaylist(
-//                            metadataList,
-//                            metadataList[0],
-//                            playWhenReady,
-//                            playbackStartPositionMs = C.TIME_UNSET
-//                    )
-//                }
-//            }
+
         }
 
         override fun onPrepareFromUri(uri: Uri, playWhenReady: Boolean, extras: Bundle?) = Unit
@@ -519,4 +456,5 @@ val MEDIA_DESCRIPTION_EXTRAS_START_PLAYBACK_POSITION_MS = "playback_start_positi
 
 private const val TAG = "MusicService"
 
-const val KEY_PLAY_MEDIA_ITEM = "key_play_media_item"
+const val KEY_PLAY_MEDIA_POSITION = "key_play_media_position"
+const val KEY_PLAY_MEDIA_QUEUE = "key_play_media_queue"

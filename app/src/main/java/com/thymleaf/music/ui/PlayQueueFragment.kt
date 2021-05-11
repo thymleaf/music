@@ -55,11 +55,6 @@ class PlayQueueFragment : BaseSimpleFragment() {
             adapter.setList(queue)
         }
 
-//        connection.mediaController.sendCommand("command", null, object : ResultReceiver(Handler()) {
-//                    override fun onReceiveResult(resultCode: Int, resultData: Bundle?) {
-//                        resultCallback(resultCode, resultData)
-//                    }
-//                })
     }
 
     companion object {

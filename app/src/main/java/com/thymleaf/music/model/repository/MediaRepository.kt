@@ -1,6 +1,5 @@
 package com.thymleaf.music.model.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.thymleaf.music.model.dao.MediaDao
 import com.thymleaf.music.model.entity.MediaData
@@ -12,9 +11,7 @@ class MediaRepository(private val mediaDao: MediaDao) {
     fun getFavorite(): LiveData<List<MediaData>> = mediaDao.getFavoriteMedia()
 
     suspend fun insert(mediaData: MediaData) {
-        val i = mediaDao.insert(mediaData)
-        Log.e("---BBB---", mediaData.toString())
-        Log.e("---AAA---", i.toString())
+        mediaDao.insert(mediaData)
     }
 
     fun getRecent(): LiveData<List<MediaData>> = mediaDao.getRecent()

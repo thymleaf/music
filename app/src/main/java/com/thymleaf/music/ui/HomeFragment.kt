@@ -33,7 +33,6 @@ class HomeFragment : BaseSimpleFragment()  {
         return binding
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun initFragment(savedInstanceState: Bundle?) {
         binding.tvPlayRecord.setOnClickListener{
             mainActivityViewModel.showFragment(RecentFragment.newInstance(null))

@@ -15,6 +15,7 @@ import com.thymleaf.music.uamp.common.MusicServiceConnection
 import com.thymleaf.music.uamp.utils.InjectorUtils
 import com.thymleaf.music.uamp.viewmodels.MainActivityViewModel
 import com.thymleaf.music.uamp.viewmodels.NowPlayingFragmentViewModel
+import com.thymleaf.music.util.RecyclerViewUtil
 
 class PlayQueueFragment : BaseSimpleFragment() {
 
@@ -37,14 +38,11 @@ class PlayQueueFragment : BaseSimpleFragment() {
     }
 
     override fun initFragment(savedInstanceState: Bundle?) {
-//        val toolbar: Toolbar = binding.toolbar
-//        (activity as AppCompatActivity).setSupportActionBar(toolbar)
         connection = InjectorUtils.provideMusicServiceConnection(requireContext())
         connection.transportControls.setCaptioningEnabled(true)
-
         recyclerView = binding.recyclerView
-
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        RecyclerViewUtil.setItemDividerDuration(requireContext(), recyclerView)
         val adapter = MediaItemAdapter(R.layout.item_media_containter)
         recyclerView.adapter = adapter
         val queue = connection.mediaController.queue?.toMutableList()?.map {

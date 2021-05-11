@@ -7,14 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.PlayQueueFragment">
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -23,10 +22,10 @@
             android:background="@color/colorPrimary"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
+            app:menu="@menu/album_menu"
+            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
             app:title="@string/play_record"
-            app:layout_scrollFlags="noScroll"
-            app:titleTextColor="@color/colorAccent">
-        </androidx.appcompat.widget.Toolbar>
+            app:titleTextColor="@color/colorAccent" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -36,6 +35,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:overScrollMode="never"
+        tools:listitem="@layout/item_media"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

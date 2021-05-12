@@ -103,7 +103,7 @@ class MusicAlbumFragment : BaseSimpleFragment() {
                 R.id.item_container -> {
                     viewModel.playMedia(position, queue = mediaItems)
 
-                    val mediaItems: MediaBrowserCompat.MediaItem = adapter.data.get(position) as MediaBrowserCompat.MediaItem
+                    val mediaItems: MediaBrowserCompat.MediaItem = adapter.data[position] as MediaBrowserCompat.MediaItem
                     mediaDataDataViewModel.addRecent(MediaData(
                             UUID.randomUUID().toString(),
                             mediaItems.mediaId!!,

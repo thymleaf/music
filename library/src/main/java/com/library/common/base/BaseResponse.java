@@ -1,6 +1,8 @@
 package com.library.common.base;
 
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Description: 服务器返回数据格式 <br>
  * <p>
@@ -8,6 +10,7 @@ package com.library.common.base;
  * Date: 2017/8/7 15:28 <br>
  */
 public class BaseResponse<T>  {
+    @SerializedName(value = "data",alternate = {"artists", "songs"})
     private T data;
     private int code;
     private String msg;
@@ -44,7 +47,7 @@ public class BaseResponse<T>  {
      * @return
      */
     public boolean isSuccess() {
-        return code == 0;
+        return code == 200;
     }
 
     public boolean isUnauthorized() {

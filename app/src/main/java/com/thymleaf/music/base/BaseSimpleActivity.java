@@ -117,9 +117,4 @@ public abstract class BaseSimpleActivity extends BaseActivity implements IView
         return getIntent().getExtras();
     }
 
-
-    public interface OnSubscriberListener<T>
-    {
-        void onSubscribe(T t);
-    }
 }

@@ -23,10 +23,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:lines="2"
         android:textAppearance="?textAppearanceListItemSecondary"
-        app:layout_constraintEnd_toStartOf="@+id/img_headset"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/track_pic"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="爱的代价" />
@@ -35,11 +35,12 @@
         android:id="@+id/tv_subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp"
         android:lines="1"
         android:textAppearance="?textAppearanceCaption"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tv_title"
+        app:layout_constraintEnd_toStartOf="@+id/img_headset"
         app:layout_constraintStart_toStartOf="@+id/tv_title"
         tools:text="李宗盛" />
 
@@ -48,10 +49,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAppearance="?textAppearanceCaption"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_subtitle"
         tools:text="19亿" />
 
     <ImageView
@@ -59,10 +60,10 @@
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:layout_marginEnd="8dp"
+        android:contentDescription="@null"
         android:src="@drawable/outline_headset_24"
         app:layout_constraintBottom_toBottomOf="@+id/play_count"
         app:layout_constraintEnd_toStartOf="@+id/play_count"
-        app:layout_constraintTop_toTopOf="@+id/play_count"
-        android:contentDescription="@null" />
+        app:layout_constraintTop_toTopOf="@+id/play_count" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

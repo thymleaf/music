@@ -19,13 +19,13 @@ import com.thymleaf.music.uamp.media.extensions.flag
 import com.thymleaf.music.uamp.media.library.BROWSER_STORAGE
 import com.thymleaf.music.uamp.media.library.MusicSource
 import com.thymleaf.music.uamp.utils.InjectorUtils
-import com.thymleaf.music.uamp.viewmodels.*
+import com.thymleaf.music.uamp.viewmodels.KEY_IS_PLAYING
+import com.thymleaf.music.uamp.viewmodels.KEY_PLAY_STATE
+import com.thymleaf.music.uamp.viewmodels.MainActivityViewModel
+import com.thymleaf.music.uamp.viewmodels.NowPlayingFragmentViewModel
 import com.thymleaf.music.util.RecyclerViewUtil.setItemDividerDuration
 import com.thymleaf.music.viewmodel.MediaDataViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.util.*
 import kotlin.math.abs
 
@@ -54,9 +54,9 @@ class MusicAlbumFragment : BaseSimpleFragment() {
     private val serviceJob = SupervisorJob()
     private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
 
-    private val mediaItemFragmentViewModel by viewModels<MediaItemFragmentViewModel> {
-        InjectorUtils.provideMediaItemFragmentViewModel(requireContext(), mediaId, arguments)
-    }
+//    private val mediaItemFragmentViewModel by viewModels<MediaItemFragmentViewModel> {
+//        InjectorUtils.provideMediaItemFragmentViewModel(requireContext(), mediaId, arguments)
+//    }
 
     private val viewModel by viewModels<MainActivityViewModel> {
         InjectorUtils.provideMainActivityViewModel(requireContext())
@@ -162,6 +162,11 @@ class MusicAlbumFragment : BaseSimpleFragment() {
     override fun onResume() {
         super.onResume()
         (activity as MusicContainerActivity).hideToolBar(true)
+    }
+
+    override fun onDestroy() {
+        serviceScope.cancel()
+        super.onDestroy()
     }
 
     companion object {

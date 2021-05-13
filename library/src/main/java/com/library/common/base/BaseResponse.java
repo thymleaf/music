@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Date: 2017/8/7 15:28 <br>
  */
 public class BaseResponse<T>  {
-    @SerializedName(value = "data",alternate = {"artists", "songs"})
+    @SerializedName(value = "data",alternate = {"artists", "songs", "playlists","result"})
     private T data;
     private int code;
     private String msg;

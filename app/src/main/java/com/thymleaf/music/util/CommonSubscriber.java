@@ -60,6 +60,10 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T>
     @Override
     public void onError(Throwable e)
     {
+        if (isShowProgress() && progressHUD != null && progressHUD.isShowing())
+        {
+            progressHUD.dismiss();
+        }
         if (e instanceof ApiException)
         {
             if (((ApiException) e).isUnauthorized())
@@ -118,11 +122,6 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T>
             }
             mView.showError("未知错误");
             onUnknownError(TextUtils.isEmpty(e.getMessage()) ? "未知错误" : e.getMessage());
-        }
-
-        if (isShowProgress() && progressHUD != null && progressHUD.isShowing())
-        {
-            progressHUD.dismiss();
         }
     }
 

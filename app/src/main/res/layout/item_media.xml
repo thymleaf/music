@@ -6,7 +6,7 @@
     android:layout_height="64dp">
 
     <View
-        android:id="@+id/view_playing_status"
+        android:id="@+id/track_pic"
         android:layout_width="4dp"
         android:layout_height="0dp"
         android:background="@color/colorAccent"
@@ -24,8 +24,8 @@
         android:layout_marginEnd="16dp"
         android:lines="1"
         android:textAppearance="?textAppearanceListItemSecondary"
-        app:layout_constraintEnd_toStartOf="@+id/img_playing_status"
-        app:layout_constraintStart_toEndOf="@+id/view_playing_status"
+        app:layout_constraintEnd_toStartOf="@+id/play_count"
+        app:layout_constraintStart_toEndOf="@+id/track_pic"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="爱的代价" />
 
@@ -42,7 +42,7 @@
         tools:text="李宗盛" />
 
     <ImageView
-        android:id="@+id/img_playing_status"
+        android:id="@+id/play_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -58,7 +58,7 @@
         android:background="@color/colorAccent"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@id/view_status_right"
-        app:layout_constraintStart_toStartOf="@+id/view_playing_status"
+        app:layout_constraintStart_toStartOf="@+id/track_pic"
         app:layout_constraintTop_toTopOf="@+id/view_status_right" />
 
     <View
@@ -79,5 +79,5 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/view_status_right"
-        app:layout_constraintStart_toStartOf="@id/view_playing_status" />
+        app:layout_constraintStart_toStartOf="@id/track_pic" />
 </androidx.constraintlayout.widget.ConstraintLayout>

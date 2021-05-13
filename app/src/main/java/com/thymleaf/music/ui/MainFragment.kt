@@ -50,7 +50,7 @@ class MainFragment : BaseSimpleFragment() {
         val fragments = mutableListOf<Fragment>()
         fragments.add(HomeFragment.newInstance(null))
         fragments.add(SightseeingFragment.newInstance(null))
-        fragments.add(AlbumListFragment.newInstance(null))
+        fragments.add(TrackListFragment.newInstance(null))
 
         adapter = TabFragmentAdapter(activity, fragments)
         viewPager.adapter = adapter

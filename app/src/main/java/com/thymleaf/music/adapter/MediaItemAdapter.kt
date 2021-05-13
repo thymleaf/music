@@ -21,24 +21,24 @@ class MediaItemAdapter(@LayoutRes private val layoutResId: Int) :
 
         item.description.extras?.let {
             val isPlaying = it.getBoolean(KEY_IS_PLAYING, false)
-            holder.setVisible(R.id.img_playing_status, isPlaying)
-                    .setVisible(R.id.view_playing_status, isPlaying)
+            holder.setVisible(R.id.play_count, isPlaying)
+                    .setVisible(R.id.track_pic, isPlaying)
                     .setVisible(R.id.view_status_top, isPlaying)
                     .setVisible(R.id.view_status_bottom, isPlaying)
                     .setVisible(R.id.view_status_right, isPlaying)
 
             when (it.getInt(KEY_PLAY_STATE, 0)) {
                 STATE_STOPPED -> {
-                    holder.setBackgroundResource(R.id.img_playing_status, R.drawable.ic_play_arrow_black_24dp)
+                    holder.setBackgroundResource(R.id.play_count, R.drawable.ic_play_arrow_black_24dp)
                 }
                 STATE_PAUSED -> {
-                    holder.setBackgroundResource(R.id.img_playing_status, R.drawable.ic_pause_black_24dp)
+                    holder.setBackgroundResource(R.id.play_count, R.drawable.ic_pause_black_24dp)
                 }
                 STATE_PLAYING -> {
-                    holder.setBackgroundResource(R.id.img_playing_status, R.drawable.outline_equalizer_24)
+                    holder.setBackgroundResource(R.id.play_count, R.drawable.outline_equalizer_24)
                 }
                 else -> {
-                    holder.setVisible(R.id.img_playing_status, false)
+                    holder.setVisible(R.id.play_count, false)
                 }
             }
         }

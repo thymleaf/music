@@ -39,8 +39,7 @@ class MusicContainerActivity : BaseSimpleActivity() {
         return true
     }
 
-    fun hideToolBar(isHide: Boolean)
-    {
+    fun hideToolBar(isHide: Boolean) {
         toolbar.visibility = if (isHide) View.GONE else View.VISIBLE
     }
 
@@ -130,8 +129,7 @@ class MusicContainerActivity : BaseSimpleActivity() {
 
     override fun onBackPressed() {
 
-        if (supportFragmentManager.fragments.isNotEmpty())
-        {
+        if (supportFragmentManager.fragments.isNotEmpty()) {
             supportFragmentManager.popBackStack()
             return
         }

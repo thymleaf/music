@@ -1,6 +1,7 @@
 package com.thymleaf.music.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -28,12 +29,14 @@ class TrackListFragment : BaseSimpleFragment() {
     override fun initFragment(savedInstanceState: Bundle?) {
         recyclerView = binding.recyclerView
         adapter = TrackAdapter(requireContext(), R.layout.item_track_container)
+//        adapter.addFooterView(LayoutInflater.from(requireContext()).inflate(R.layout.footer_recycler_view, null, false))
         adapter.setOnItemChildClickListener{ adapter, view, positon ->
 
         }
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
         RecyclerViewUtil.setItemDividerDuration(requireContext(), recyclerView)
+
 
         loadData()
     }

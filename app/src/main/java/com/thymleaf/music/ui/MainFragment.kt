@@ -22,7 +22,7 @@ class MainFragment : BaseSimpleFragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: TabFragmentAdapter
 
-    private val pageTitle = mutableListOf("我的", "发现", "歌单")
+    private val pageTitle = mutableListOf("歌单", "发现", "我的")
 
 
     companion object {
@@ -48,14 +48,14 @@ class MainFragment : BaseSimpleFragment() {
         viewPager = binding.viewPager
 
         val fragments = mutableListOf<Fragment>()
-        fragments.add(HomeFragment.newInstance(null))
-        fragments.add(SightseeingFragment.newInstance(null))
         fragments.add(TrackListFragment.newInstance(null))
+        fragments.add(SightseeingFragment.newInstance(null))
+        fragments.add(HomeFragment.newInstance(null))
 
         adapter = TabFragmentAdapter(activity, fragments)
         viewPager.adapter = adapter
 
-        TabLayoutMediator(tabLayout, viewPager){tab, position ->
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = pageTitle[position]
         }.attach()
 

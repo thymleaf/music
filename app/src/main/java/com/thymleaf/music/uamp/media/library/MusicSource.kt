@@ -27,7 +27,7 @@ interface MusicSource : Iterable<MediaMetadataCompat> {
      */
     suspend fun load()
 
-    fun getMediaItems(): List<MediaMetadataCompat>;
+    fun getMediaItems(): List<MediaMetadataCompat>
 
 
     /**
@@ -43,10 +43,10 @@ interface MusicSource : Iterable<MediaMetadataCompat> {
 }
 
 @IntDef(
-    STATE_CREATED,
-    STATE_INITIALIZING,
-    STATE_INITIALIZED,
-    STATE_ERROR
+        STATE_CREATED,
+        STATE_INITIALIZING,
+        STATE_INITIALIZED,
+        STATE_ERROR
 )
 @Retention(AnnotationRetention.SOURCE)
 annotation class State
@@ -99,16 +99,16 @@ abstract class AbstractMusicSource : MusicSource {
      * on a single thread.
      */
     override fun whenReady(performAction: (Boolean) -> Unit): Boolean =
-        when (state) {
-            STATE_CREATED, STATE_INITIALIZING -> {
-                onReadyListeners += performAction
-                false
+            when (state) {
+                STATE_CREATED, STATE_INITIALIZING -> {
+                    onReadyListeners += performAction
+                    false
+                }
+                else -> {
+                    performAction(state != STATE_ERROR)
+                    true
+                }
             }
-            else -> {
-                performAction(state != STATE_ERROR)
-                true
-            }
-        }
 
     /**
      * Handles searching a [MusicSource] from a focused voice search, often coming
@@ -119,7 +119,7 @@ abstract class AbstractMusicSource : MusicSource {
         val focusSearchResult = when (extras[MediaStore.EXTRA_MEDIA_FOCUS]) {
             MediaStore.Audio.Genres.ENTRY_CONTENT_TYPE -> {
                 // For a Genre focused search, only genre is set.
-                val genre = extras[EXTRA_MEDIA_GENRE]
+                val genre = extras[mediaGenre]
                 Log.d(TAG, "Focused genre search: '$genre'")
                 filter { song ->
                     song.genre == genre
@@ -187,7 +187,7 @@ abstract class AbstractMusicSource : MusicSource {
      * [MediaStore.EXTRA_MEDIA_GENRE] is missing on API 19. Hide this fact by using our
      * own version of it.
      */
-    private val EXTRA_MEDIA_GENRE
+    private val mediaGenre
         get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             MediaStore.EXTRA_MEDIA_GENRE
         } else {

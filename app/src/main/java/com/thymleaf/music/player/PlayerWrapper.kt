@@ -28,7 +28,7 @@ class PlayerWrapper {
         @Volatile
         private var instance: ExoPlayer? = null
 
-        fun getPlayInstance(context: Context, playerEventListener: Player.EventListener) =
+        fun getPlayerInstance(context: Context, playerEventListener: Player.EventListener) =
                 instance ?: synchronized(this) {
                     instance ?: getPlayer(context, playerEventListener)
                 }

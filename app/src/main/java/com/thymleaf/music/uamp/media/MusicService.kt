@@ -38,8 +38,6 @@ open class MusicService : MediaBrowserServiceCompat() {
     private lateinit var mediaSession: MediaSessionCompat
     private lateinit var mediaSessionConnector: MediaSessionConnector
 
-    private lateinit var storage: PersistentStorage
-
     private var isForegroundService = false
 
     private val playerListener = PlayerEventListener()
@@ -84,7 +82,7 @@ open class MusicService : MediaBrowserServiceCompat() {
                 PlayerNotificationListener()
         )
 
-        player = PlayerWrapper.getPlayInstance(this, playerListener)
+        player = PlayerWrapper.getPlayerInstance(this, playerListener)
         // ExoPlayer will manage the MediaSession for us.
         mediaSessionConnector = MediaSessionConnector(mediaSession)
         val preparer = ExoPlaybackPreparer(this, player)
@@ -94,8 +92,6 @@ open class MusicService : MediaBrowserServiceCompat() {
         mediaSessionConnector.setPlayer(player)
 
         notificationManager.showNotificationForPlayer(player)
-
-        storage = PersistentStorage.getInstance(applicationContext)
     }
 
     /**
@@ -123,9 +119,6 @@ open class MusicService : MediaBrowserServiceCompat() {
             release()
         }
 
-        // Cancel coroutines when the service is going away.
-        // serviceJob.cancel()
-
         // Free ExoPlayer resources.
         player.removeListener(playerListener)
         player.release()
@@ -147,8 +140,7 @@ open class MusicService : MediaBrowserServiceCompat() {
 
     /**
      * Returns (via the [result] parameter) a list of [MediaItem]s that are child
-     * items of the provided [parentMediaId]. See [BrowseTree] for more details on
-     * how this is build/more details about the relationships.
+     * items of the provided [parentMediaId]
      */
     override fun onLoadChildren(
             parentMediaId: String,
@@ -272,7 +264,9 @@ const val NETWORK_FAILURE = "com.thymleaf.music.uamp.media.session.NETWORK_FAILU
 
 const val MEDIA_DESCRIPTION_EXTRAS_START_PLAYBACK_POSITION_MS = "playback_start_position_ms"
 
-private const val TAG = "MusicService"
+private const val BROWSER_ROOT = "/"
+const val BROWSER_STORAGE = "__STORAGE__"
 
+private const val TAG = "MusicService"
 const val KEY_PLAY_MEDIA_POSITION = "key_play_media_position"
 const val KEY_PLAY_MEDIA_QUEUE = "key_play_media_queue"

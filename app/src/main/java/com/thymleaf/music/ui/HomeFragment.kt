@@ -4,14 +4,13 @@ import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
 import com.thymleaf.music.R
 import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentHomeBinding
-import com.thymleaf.music.uamp.media.library.BROWSER_STORAGE
+import com.thymleaf.music.uamp.media.BROWSER_STORAGE
 import com.thymleaf.music.uamp.utils.InjectorUtils
 import com.thymleaf.music.uamp.viewmodels.MainActivityViewModel
 import permissions.dispatcher.NeedsPermission

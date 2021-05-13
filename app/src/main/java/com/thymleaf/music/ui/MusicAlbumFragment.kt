@@ -15,8 +15,8 @@ import com.thymleaf.music.base.BaseSimpleFragment
 import com.thymleaf.music.databinding.FragmentMusicAlbumBinding
 import com.thymleaf.music.model.StorageSource
 import com.thymleaf.music.model.entity.MediaData
+import com.thymleaf.music.uamp.media.BROWSER_STORAGE
 import com.thymleaf.music.uamp.media.extensions.flag
-import com.thymleaf.music.uamp.media.library.BROWSER_STORAGE
 import com.thymleaf.music.uamp.media.library.MusicSource
 import com.thymleaf.music.uamp.utils.InjectorUtils
 import com.thymleaf.music.uamp.viewmodels.KEY_IS_PLAYING
@@ -129,7 +129,6 @@ class MusicAlbumFragment : BaseSimpleFragment() {
             }
             adapter.notifyDataSetChanged()
         })
-
 
         when (mediaId) {
             BROWSER_STORAGE -> {

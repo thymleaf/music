@@ -65,7 +65,6 @@ class HomeFragment : BaseSimpleFragment()  {
                 .show()
     }
 
-
     companion object {
         @JvmStatic
         fun newInstance(bundle: Bundle?) =

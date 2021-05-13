@@ -59,7 +59,7 @@
         android:id="@+id/img_headset"
         android:layout_width="12dp"
         android:layout_height="12dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         android:contentDescription="@null"
         android:src="@drawable/outline_headset_24"
         app:layout_constraintBottom_toBottomOf="@+id/play_count"

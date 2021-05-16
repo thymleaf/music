@@ -20,6 +20,7 @@
     <string name="button_allow">允许</string>
     <string name="button_deny">拒绝</string>
     <string name="permission_storage_rationale">STORAGE permission is needed to show the camera preview.</string>
+    <string name="permission_record_audio">Record Audio permission is needed to audio visualizer.</string>
     <string name="permission_storage_denied">STORAGE permission was denied. Please consider granting it in order to access the camera!</string>
     <string name="permission_storage_never_ask_again">STORAGE permission was denied with never ask again.</string>
 

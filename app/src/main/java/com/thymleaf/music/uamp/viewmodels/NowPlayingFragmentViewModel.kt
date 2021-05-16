@@ -63,7 +63,8 @@ class NowPlayingFragmentViewModel(
         }
     }
 
-    var playbackState: PlaybackStateCompat = EMPTY_PLAYBACK_STATE
+    private var _playbackState: PlaybackStateCompat = EMPTY_PLAYBACK_STATE
+    val playState = MutableLiveData<PlaybackStateCompat>()
     val mediaMetadata = MutableLiveData<NowPlayingMetadata>()
     val mediaPosition = MutableLiveData<Long>().apply {
         postValue(0L)
@@ -81,9 +82,10 @@ class NowPlayingFragmentViewModel(
      * (i.e.: play/pause button or blank)
      */
     private val playbackStateObserver = Observer<PlaybackStateCompat> {
-        playbackState = it ?: EMPTY_PLAYBACK_STATE
+        _playbackState = it ?: EMPTY_PLAYBACK_STATE
+        playState.postValue(_playbackState)
         val metadata = musicServiceConnection.nowPlaying.value ?: NOTHING_PLAYING
-        updateState(playbackState, metadata)
+        updateState(_playbackState, metadata)
     }
 
     /**
@@ -93,7 +95,7 @@ class NowPlayingFragmentViewModel(
      * changed. (i.e.: play/pause button or blank)
      */
     private val mediaMetadataObserver = Observer<MediaMetadataCompat> {
-        updateState(playbackState, it)
+        updateState(_playbackState, it)
     }
 
     /**
@@ -122,7 +124,7 @@ class NowPlayingFragmentViewModel(
      * has changed.
      */
     private fun checkPlaybackPosition(): Boolean = handler.postDelayed({
-        val currPosition = playbackState.currentPlayBackPosition
+        val currPosition = _playbackState.currentPlayBackPosition
         if (mediaPosition.value != currPosition)
             mediaPosition.postValue(currPosition)
         if (updatePosition)

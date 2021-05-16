@@ -82,7 +82,8 @@ open class MusicService : MediaBrowserServiceCompat() {
                 PlayerNotificationListener()
         )
 
-        player = PlayerWrapper.getPlayerInstance(this, playerListener)
+        player = PlayerWrapper.getPlayerInstance(this)
+        player.addListener(playerListener)
         // ExoPlayer will manage the MediaSession for us.
         mediaSessionConnector = MediaSessionConnector(mediaSession)
         val preparer = ExoPlaybackPreparer(this, player)

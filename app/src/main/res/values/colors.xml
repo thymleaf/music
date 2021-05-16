@@ -7,4 +7,7 @@
     <color name="music_secondary">@android:color/black</color>
     <color name="music_on_secondary">@android:color/white</color>
     <color name="music_player_primary">@android:color/white</color>
+
+    <color name="colorCardStart">#25242b</color>
+    <color name="colorCardEnd">#bb25242b</color>
 </resources>

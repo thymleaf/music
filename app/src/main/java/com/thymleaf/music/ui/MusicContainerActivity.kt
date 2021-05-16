@@ -60,6 +60,9 @@ class MusicContainerActivity : BaseSimpleActivity() {
         val lin = LinearInterpolator()
         operatingAnim.interpolator = lin
         fab.startAnimation(operatingAnim)
+        fab.setOnClickListener {
+            startPlayerPage()
+        }
 
 
         bottomAppBar.setNavigationOnClickListener {
@@ -96,6 +99,10 @@ class MusicContainerActivity : BaseSimpleActivity() {
         })
     }
 
+    fun startPlayerPage() {
+        viewModel.showFragment(PlayerFragment.newInstance(null), tag = PLAYER_FRAGMENT_TAG)
+    }
+
     private fun navigateToMediaItem(mediaId: String) {
         var fragment: MainFragment? = getMainFragment(mediaId)
         if (fragment == null) {
@@ -126,6 +133,18 @@ class MusicContainerActivity : BaseSimpleActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    fun hideBottom(isHide: Boolean) {
+        if (isHide) {
+            fab.hide()
+        }
+    }
+
+//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        onRequestPermissionsResult(requestCode, grantResults)
+//    }
+
 
     override fun onBackPressed() {
 

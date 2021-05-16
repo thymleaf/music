@@ -52,7 +52,7 @@ class HomeFragment : BaseSimpleFragment()  {
     }
 
     @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)
-    fun showRationaleForCamera(request: PermissionRequest) {
+    fun showRationale(request: PermissionRequest) {
         showRationaleDialog( request)
     }
 

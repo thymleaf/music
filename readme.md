@@ -13,10 +13,29 @@
 
 ![苹果第一代iPod](screenshot/ipod-first-gen-5gb.jpg))
 
+## 使用到的技术
+[retrofit](https://github.com/square/retrofit/)
+
+[dagger2](https://github.com/google/dagger)
+
+[rxjava2](https://github.com/ReactiveX/RxJava/)
+
+[room](https://developer.android.google.cn/topic/libraries/architecture/room)
+
+[viewmodel](https://developer.android.google.cn/topic/libraries/architecture/viewmodel)
+
+[brvah](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
+
+[permissionsdispatcher](https://github.com/hotchemi/PermissionsDispatcher)
+
+[glide](https://github.com/bumptech/glide)
+
+[...]()
+
 
 ## App截图
 
-![首页](screenshot/home.png)
+![首页](screenshot/home.png )
 
 ![发现](screenshot/device-2021-05-26-205540.png)
 

@@ -30,6 +30,10 @@
 
 [glide](https://github.com/bumptech/glide)
 
+[ExoPlayer](https://github.com/google/ExoPlayer)
+
+[uamp](https://github.com/android/uamp)
+
 [...]()
 
 

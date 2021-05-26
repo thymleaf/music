@@ -3,24 +3,18 @@ package com.thymleaf.music.ui
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PixelFormat
-import android.media.AudioFormat
-import android.media.AudioRecord
-import android.media.MediaRecorder
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
-import android.support.v4.media.session.PlaybackStateCompat.*
+import android.support.v4.media.session.PlaybackStateCompat.STATE_PLAYING
 import android.view.SurfaceView
 import android.view.animation.LinearInterpolator
 import androidx.fragment.app.viewModels
 import androidx.viewbinding.ViewBinding
 import com.thymleaf.music.base.BaseSimpleFragment
-import com.thymleaf.music.converter.AbsAudioDataConverter
-import com.thymleaf.music.converter.AudioDataConverterFactory
 import com.thymleaf.music.databinding.FragmentPlayerBinding
 import com.thymleaf.music.player.PlayerWrapper
 import com.thymleaf.music.uamp.utils.InjectorUtils
 import com.thymleaf.music.uamp.viewmodels.NowPlayingFragmentViewModel
-import com.thymleaf.music.util.ToastUtil
 import me.bogerchan.niervisualizer.NierVisualizerManager
 import me.bogerchan.niervisualizer.renderer.IRenderer
 import me.bogerchan.niervisualizer.renderer.circle.CircleBarRenderer
@@ -61,9 +55,12 @@ class PlayerFragment : BaseSimpleFragment() {
 
         nowPlayingViewModel.playState.observe(viewLifecycleOwner, {
             createNewVisualizerManager(it)
-            when(it.state){
-                STATE_PLAYING ->{
-                    useStyle(9)
+            when (it.state) {
+                STATE_PLAYING -> {
+                    useStyle()
+                }
+                else -> {
+
                 }
             }
 
@@ -77,11 +74,14 @@ class PlayerFragment : BaseSimpleFragment() {
                 STATE_PLAYING -> {
                     PlayerWrapper.getPlayerInstance(requireContext()).audioComponent?.audioSessionId?.let { init(it) }
                 }
+                else -> {
+
+                }
             }
         }
     }
 
-    private fun useStyle(idx: Int) {
+    private fun useStyle(idx: Int = 9) {
         mVisualizerManager?.start(svWave, mRenderers[idx % mRenderers.size])
     }
 
@@ -185,6 +185,15 @@ class PlayerFragment : BaseSimpleFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val activity = activity as MusicContainerActivity
+        arguments?.let {
+            activity.hideBottom(it.getBoolean(KEY_IS_HIDE_BOTTOM, false))
+            activity.hideToolBar(it.getBoolean(KEY_IS_HIDE_TOOLBAR, false))
+        }
+    }
+
     override fun onStop() {
         super.onStop()
         mVisualizerManager?.pause()
@@ -194,16 +203,10 @@ class PlayerFragment : BaseSimpleFragment() {
         super.onDestroy()
         mVisualizerManager?.release()
         mVisualizerManager = null
-//        mPlayer.release()
-//        mAudioRecord.release()
     }
 
 
     companion object {
-        const val SAMPLING_RATE = 44100
-        const val AUDIO_RECORD_CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO
-        const val AUDIO_RECORD_FORMAT = AudioFormat.ENCODING_PCM_16BIT
-
         @JvmStatic
         fun newInstance(bundle: Bundle?) =
                 PlayerFragment().apply {

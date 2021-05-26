@@ -39,9 +39,7 @@ class MusicContainerActivity : BaseSimpleActivity() {
         return true
     }
 
-    fun hideToolBar(isHide: Boolean) {
-        toolbar.visibility = if (isHide) View.GONE else View.VISIBLE
-    }
+
 
     override fun initActivity(savedInstanceState: Bundle?) {
         super.initActivity(savedInstanceState)
@@ -99,8 +97,12 @@ class MusicContainerActivity : BaseSimpleActivity() {
         })
     }
 
-    fun startPlayerPage() {
-        viewModel.showFragment(PlayerFragment.newInstance(null), tag = PLAYER_FRAGMENT_TAG)
+    private fun startPlayerPage() {
+        val bundle: Bundle = Bundle().apply {
+            putBoolean(KEY_IS_HIDE_TOOLBAR, true)
+            putBoolean(KEY_IS_HIDE_BOTTOM, true)
+        }
+        viewModel.showFragment(PlayerFragment.newInstance(bundle), tag = PLAYER_FRAGMENT_TAG)
     }
 
     private fun navigateToMediaItem(mediaId: String) {
@@ -140,11 +142,9 @@ class MusicContainerActivity : BaseSimpleActivity() {
         }
     }
 
-//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        onRequestPermissionsResult(requestCode, grantResults)
-//    }
-
+    fun hideToolBar(isHide: Boolean) {
+        toolbar.visibility = if (isHide) View.GONE else View.VISIBLE
+    }
 
     override fun onBackPressed() {
 
@@ -157,3 +157,6 @@ class MusicContainerActivity : BaseSimpleActivity() {
     }
 
 }
+
+const val KEY_IS_HIDE_TOOLBAR = "key_is_hide_toolbar"
+const val KEY_IS_HIDE_BOTTOM = "key_is_hide_bottom"

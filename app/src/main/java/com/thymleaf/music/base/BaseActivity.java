@@ -9,7 +9,11 @@ import android.transition.Slide;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.jaeger.library.StatusBarUtil;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 import com.library.common.IActivity;
 import com.library.common.IPresenter;
 import com.library.common.R;
@@ -18,13 +22,6 @@ import com.library.common.utils.KeyboardUtil;
 import com.library.common.widget.swipebacklayout.SwipeBackHelper;
 
 import javax.inject.Inject;
-
-import androidx.annotation.ColorInt;
-import androidx.annotation.IntRange;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 /**
  * Description: BaseActivity <br>
@@ -206,35 +203,6 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         }
         mSwipeBackHelper.backward();
         KeyboardUtil.closeKeyboard(this);
-    }
-
-    /**
-     * 设置状态栏颜色
-     *
-     * @param color
-     */
-    protected void setStatusBarColor(@ColorInt int color)
-    {
-        setStatusBarColor(color, StatusBarUtil.DEFAULT_STATUS_BAR_ALPHA);
-    }
-
-    /**
-     * 设置状态栏颜色
-     *
-     * @param color
-     * @param statusBarAlpha 透明度
-     */
-    public void setStatusBarColor(@ColorInt int color, @IntRange(from = 0, to = 255) int statusBarAlpha)
-    {
-        StatusBarUtil.setColor(this, color, statusBarAlpha);
-    }
-
-    /**
-     * 沉浸状态栏（4.4以上系统有效）
-     */
-    protected void setTransparentBar()
-    {
-        StatusBarUtil.setTransparent(this);
     }
 
     @Override

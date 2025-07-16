@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -50,24 +49,6 @@ public final class AppManager
     }
 
 
-    /**
-     * 使用snackbar显示内容
-     *
-     * @param message
-     * @param isLong
-     */
-    public void showSnackbar(String message, boolean isLong)
-    {
-        if (getCurrentActivity() == null)
-        {
-            Timber.tag(TAG).w("mCurrentActivity == null when showSnackbar(String,boolean)");
-            return;
-        }
-        View view = getCurrentActivity().getWindow()
-                                        .getDecorView()
-                                        .findViewById(android.R.id.content);
-        Snackbar.make(view, message, isLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT).show();
-    }
 
 
     /**

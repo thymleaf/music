@@ -3,7 +3,8 @@ package com.thymleaf.music.util;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.kaopiz.kprogresshud.KProgressHUD;
+//import com.kaopiz.kprogresshud.KProgressHUD;
+import com.blankj.utilcode.util.ToastUtils;
 import com.library.common.IView;
 import com.library.common.utils.ApiException;
 
@@ -26,44 +27,45 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T>
 {
     private Context context;
     private IView mView;
-    private KProgressHUD progressHUD;
+//    private KProgressHUD progressHUD;
 
     public CommonSubscriber(IView view)
     {
         this.mView = view;
         this.context = view.getHostContext();
-        progressHUD = KProgressHUD.create(context)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("加载中")
-                .setAnimationSpeed(2);
+//        progressHUD = KProgressHUD.create(context)
+//                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+//                .setLabel("加载中")
+//                .setAnimationSpeed(2);
+        ToastUtils.showShort("加载中...");
     }
 
     @Override
     protected void onStart()
     {
         super.onStart();
-        if (isShowProgress() && progressHUD != null && !progressHUD.isShowing())
-        {
-            progressHUD.show();
-        }
+//        if (isShowProgress() && progressHUD != null && !progressHUD.isShowing())
+//        {
+//            progressHUD.show();
+//        }
     }
 
     @Override
     public void onComplete()
     {
-        if (isShowProgress() && progressHUD != null && progressHUD.isShowing())
-        {
-            progressHUD.dismiss();
-        }
+//        if (isShowProgress() && progressHUD != null && progressHUD.isShowing())
+//        {
+//            progressHUD.dismiss();
+//        }
     }
 
     @Override
     public void onError(Throwable e)
     {
-        if (isShowProgress() && progressHUD != null && progressHUD.isShowing())
-        {
-            progressHUD.dismiss();
-        }
+//        if (isShowProgress() && progressHUD != null && progressHUD.isShowing())
+//        {
+//            progressHUD.dismiss();
+//        }
         if (e instanceof ApiException)
         {
             if (((ApiException) e).isUnauthorized())

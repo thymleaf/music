@@ -5,8 +5,8 @@ android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
 
     compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_17
     }
 
     defaultConfig {
@@ -43,7 +43,7 @@ buildscript {
     repositories {
         google()
         maven {
-            url "https://jcenter.bintray.com"
+            url "https://jcenter.bintray.com/"
         }
     }
 
@@ -109,7 +109,7 @@ dependencies {
 
     //tools
     api rootProject.ext.dependencies["multidex"]
-    compileOnly rootProject.ext.dependencies["javax.annotation"]
+    compileOnly rootProject.ext.dependencies["javax-annotation"]
     api rootProject.ext.dependencies["dagger2"]
     api rootProject.ext.dependencies["dagger-android"]
     api(rootProject.ext.dependencies["dagger-android-support"])

@@ -18,5 +18,5 @@ interface MediaDao {
     fun getRecent(): LiveData<List<MediaData>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(mediaData: MediaData): Long
+    fun insert(mediaData: MediaData): Long
 }

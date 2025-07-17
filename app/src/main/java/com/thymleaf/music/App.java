@@ -3,9 +3,9 @@ package com.thymleaf.music;
 import android.content.Context;
 
 import com.library.common.base.BaseApplication;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smart.refresh.footer.ClassicsFooter;
+import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
 public class App extends BaseApplication {
     private static App instance;

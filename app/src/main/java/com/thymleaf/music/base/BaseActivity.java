@@ -203,6 +203,7 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         }
         mSwipeBackHelper.backward();
         KeyboardUtil.closeKeyboard(this);
+        super.onBackPressed();
     }
 
     @Override

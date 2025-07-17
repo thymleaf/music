@@ -1,5 +1,6 @@
 package com.thymleaf.music.uamp.media
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.PendingIntent
 import android.content.Intent
@@ -49,7 +50,7 @@ open class MusicService : MediaBrowserServiceCompat() {
         // Build a PendingIntent that can be used to launch the UI.
         val sessionActivityPendingIntent =
                 packageManager?.getLaunchIntentForPackage(packageName)?.let { sessionIntent ->
-                    PendingIntent.getActivity(this, 0, sessionIntent, 0)
+                    PendingIntent.getActivity(this, 0, sessionIntent, PendingIntent.FLAG_IMMUTABLE)
                 }
 
         // Create a new MediaSession.
@@ -167,6 +168,7 @@ open class MusicService : MediaBrowserServiceCompat() {
      */
     private inner class PlayerNotificationListener :
             PlayerNotificationManager.NotificationListener {
+        @SuppressLint("ForegroundServiceType")
         override fun onNotificationPosted(
                 notificationId: Int,
                 notification: Notification,
@@ -241,9 +243,9 @@ open class MusicService : MediaBrowserServiceCompat() {
                     Log.e(TAG, "TYPE_UNEXPECTED: " + error.unexpectedException.message)
                 }
                 // Occurs when there is a OutOfMemory error.
-                ExoPlaybackException.TYPE_OUT_OF_MEMORY -> {
-                    Log.e(TAG, "TYPE_OUT_OF_MEMORY: " + error.outOfMemoryError.message)
-                }
+//                ExoPlaybackException.TYPE_OUT_OF_MEMORY -> {
+//                    Log.e(TAG, "TYPE_OUT_OF_MEMORY: " + error.outOfMemoryError.message)
+//                }
                 // If the error occurs in a remote component, Exoplayer raises a type_remote error.
                 ExoPlaybackException.TYPE_REMOTE -> {
                     Log.e(TAG, "TYPE_REMOTE: " + error.message)

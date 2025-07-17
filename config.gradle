@@ -64,7 +64,7 @@ ext {
             "dagger-android"                 : "com.google.dagger:dagger-android:${version["dagger2"]}",
             "dagger-android-support"         : "com.google.dagger:dagger-android-support:${version["dagger2"]}",
             "dagger-android-processor"       : "com.google.dagger:dagger-android-processor:${version["dagger2"]}",
-            "javax.annotation"               : "javax.annotation:jsr250-api:1.0",
+            "javax-annotation"               : "javax.annotation:jsr250-api:1.0",
             "multidex"                       : 'androidx.multidex:multidex:2.0.0',
 
             // other

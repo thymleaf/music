@@ -31,8 +31,12 @@ class MediaDataViewModel(private val repository: MediaRepository) : ViewModel() 
             private val repository: MediaRepository
     ) : ViewModelProvider.NewInstanceFactory() {
 
-        @Suppress("unchecked_cast")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//        @Suppress("unchecked_cast")
+//        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//            return MediaDataViewModel(repository) as T
+//        }
+
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MediaDataViewModel(repository) as T
         }
     }

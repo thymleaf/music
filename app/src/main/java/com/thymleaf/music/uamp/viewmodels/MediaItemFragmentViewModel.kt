@@ -35,7 +35,8 @@ class MediaItemFragmentViewModel(
     /**
      * Pass the status of the [MusicServiceConnection.networkFailure] through.
      */
-    val networkError = Transformations.map(musicServiceConnection.networkFailure) { it }
+//    val networkError = Transformations.map(musicServiceConnection.networkFailure) { it }
+
 
     private val subscriptionCallback = object : SubscriptionCallback() {
         override fun onChildrenLoaded(parentId: String, children: List<MediaItem>) {
@@ -155,10 +156,14 @@ class MediaItemFragmentViewModel(
             private val musicServiceConnection: MusicServiceConnection
     ) : ViewModelProvider.NewInstanceFactory() {
 
-        @Suppress("unchecked_cast")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MediaItemFragmentViewModel(mediaId, musicServiceConnection) as T
         }
+
+//        @Suppress("unchecked_cast")
+//        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//            return MediaItemFragmentViewModel(mediaId, musicServiceConnection) as T
+//        }
     }
 }
 
